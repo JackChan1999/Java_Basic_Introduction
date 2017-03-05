@@ -1,0 +1,344 @@
+##**一、基本类型包装类概述**
+为了方便操作基本数据类型值，将其封装成了对象，在对象中定义了属性和行为丰富了该数据的操作。
+
+ 用于描述该对象的类就称为基本数据类型对象包装类。
+ 
+- 将基本数据类型封装成对象的好处在于可以在对象中定义更多的功能方法操作该数据。
+- 常用的操作之一：用于基本数据类型与字符串之间的转换。
+- 基本类型和包装类的对应：Byte，Short，Integer，Long，Float，Double，Character，Boolean
+
+|基本数据类型|包装数据类型|
+|---|---|
+|byte|Byte|
+|short|Short|
+|int|Integer|
+|long|Long|
+|float|Float|
+|double|Double|
+|char|Character|
+|boolean|Boolean|
+
+##**二、基本数据类型包装类应用**
+ 该包装对象主要用于基本类型和字符串之间的转换
+
+ **1、基本类型 -> 字符串**
+ 
+ - 基本类型数值+""
+ - 用String类中的静态方法valueOf(基本类型数值);
+
+**2、字符串 -> 基本类型**
+
+ 使用包装类中的静态方法xxx parseXxx("xxx");
+ 
+ - int parseInt(String str);
+ - long parseLong(String str);
+ - boolean parseBoolean(String str);
+ - 只有Character没有parse方法。
+
+如果字符串被Integer进行对象的封装，可使用另一个非静态的方法，intValue。
+
+将一个Integer对象转成基本数据类型值。
+
+用Integer的静态方法valueOf(String s);
+
+##**三、Integer类**
+###**1、Integer类概述**
+Integer 类在对象中包装了一个基本类型 int 的值
+该类提供了多个方法，能在 int 类型和 String 类型之间互相转换，还提供了处理 int 类型时非常有用的其他一些常量和方法
+
+###**2、构造方法**
+public Integer(int value)
+public Integer(String s)
+
+PS：这个字符串必须是由数字字符组成
+
+##**3、int类型和String类型的相互转换**
+|方法|说明|
+|----|----|
+|int intValue()|以 int 类型返回该 Integer 的值|
+|static int parseInt(String s)|将字符串参数作为有符号的十进制整数进行解析|
+|static String toString(int i)|返回一个表示指定整数的 String 对象|
+|static Integer valueOf(int i)|返回一个表示指定的 int 值的 Integer 实例|
+|static Integer valueOf(String s)|返回保存指定的 String 的值的 Integer 对象|
+<br>
+代码示例：
+```java
+package cn.itcast_03;  
+  
+/* 
+ * int类型和String类型的相互转换 
+ *  
+ * int -- String 
+ *      String.valueOf(number) 
+ *  
+ * String -- int 
+ *      Integer.parseInt(s) 
+ */  
+public class IntegerDemo {  
+    public static void main(String[] args) {  
+        // int -- String  
+        int number = 100;  
+        // 方式1  
+        String s1 = "" + number;  
+        System.out.println("s1:" + s1);  
+        // 方式2  
+        String s2 = String.valueOf(number);  
+        System.out.println("s2:" + s2);  
+        // 方式3  
+        // int -- Integer -- String  
+        Integer i = new Integer(number);  
+        String s3 = i.toString();  
+        System.out.println("s3:" + s3);  
+        // 方式4  
+        // public static String toString(int i)  
+        String s4 = Integer.toString(number);  
+        System.out.println("s4:" + s4);  
+        System.out.println("-----------------");  
+  
+        // String -- int  
+        String s = "100";  
+        // 方式1  
+        // String -- Integer -- int  
+        Integer ii = new Integer(s);  
+        // public int intValue()  
+        int x = ii.intValue();  
+        System.out.println("x:" + x);  
+        //方式2  
+        //public static int parseInt(String s)  
+        int y = Integer.parseInt(s);  
+        System.out.println("y:"+y);  
+    }  
+}  
+```
+
+运行结果：
+
+![这里写图片描述](http://img.blog.csdn.net/20150829005403871)
+
+###**4、常用的基本进制转换**
+|方法|说明|
+|----|----|
+|String toBinaryString(int i)|以二进制（基数 2）无符号整数形式返回一个整数参数的字符串表示形式|
+|String toOctalString(int i)|以八进制（基数 8）无符号整数形式返回一个整数参数的字符串表示形式|
+|String toHexString(int i)|以十六进制（基数 16）无符号整数形式返回一个整数参数的字符串表示形式|
+
+###**5、十进制到其他进制**
+public static String toString(int i,int radix)
+###**6、其他进制到十进制**
+public static int parseInt(String s,int radix)
+
+代码示例：
+
+```java
+package cn.itcast_04;  
+  
+/* 
+ * 常用的基本进制转换 
+ * public static String toBinaryString(int i) 
+ * public static String toOctalString(int i) 
+ * public static String toHexString(int i) 
+ *  
+ * 十进制到其他进制 
+ * public static String toString(int i,int radix) 
+ * 由这个我们也看到了进制的范围：2-36 
+ * 为什么呢?0,...9,a...z 
+ *  
+ * 其他进制到十进制 
+ * public static int parseInt(String s,int radix) 
+ */  
+public class IntegerDemo {  
+    public static void main(String[] args) {  
+        // 十进制到二进制，八进制，十六进制  
+        System.out.println(Integer.toBinaryString(100));  
+        System.out.println(Integer.toOctalString(100));  
+        System.out.println(Integer.toHexString(100));  
+        System.out.println("-------------------------");  
+  
+        // 十进制到其他进制  
+        System.out.println(Integer.toString(100, 10));  
+        System.out.println(Integer.toString(100, 2));  
+        System.out.println(Integer.toString(100, 8));  
+        System.out.println(Integer.toString(100, 16));  
+        System.out.println(Integer.toString(100, 5));  
+        System.out.println(Integer.toString(100, 7));  
+        System.out.println(Integer.toString(100, -7));  
+        System.out.println(Integer.toString(100, 70));  
+        System.out.println(Integer.toString(100, 1));  
+        System.out.println(Integer.toString(100, 17));  
+        System.out.println(Integer.toString(100, 32));  
+        System.out.println(Integer.toString(100, 37));  
+        System.out.println(Integer.toString(100, 36));  
+        System.out.println("-------------------------");  
+          
+        //其他进制到十进制  
+        System.out.println(Integer.parseInt("100", 10));  
+        System.out.println(Integer.parseInt("100", 2));  
+        System.out.println(Integer.parseInt("100", 8));  
+        System.out.println(Integer.parseInt("100", 16));  
+        System.out.println(Integer.parseInt("100", 23));  
+        //NumberFormatException  
+        //System.out.println(Integer.parseInt("123", 2));  
+    }  
+}  
+```
+
+运行结果：
+
+![这里写图片描述](http://img.blog.csdn.net/20150829005703287)
+
+###**7、自动拆装箱**
+
+```java
+package cn.itcast_05;  
+  
+/* 
+ * JDK5的新特性 
+ * 自动装箱：把基本类型转换为包装类类型 
+ * 自动拆箱：把包装类类型转换为基本类型 
+ *  
+ * 注意一个小问题： 
+ *      在使用时，Integer  x = null;代码就会出现NullPointerException。 
+ *      建议先判断是否为null，然后再使用。 
+ */  
+public class IntegerDemo {  
+    public static void main(String[] args) {  
+        // 定义了一个int类型的包装类类型变量i  
+        // Integer i = new Integer(100);  
+        Integer ii = 100;  
+        ii += 200;  
+        System.out.println("ii:" + ii);  
+  
+        // 通过反编译后的代码  
+        // Integer ii = Integer.valueOf(100); //自动装箱  
+        // ii = Integer.valueOf(ii.intValue() + 200); //自动拆箱，再自动装箱  
+        // System.out.println((new StringBuilder("ii:")).append(ii).toString());  
+  
+        Integer iii = null;  
+        // NullPointerException  
+        if (iii != null) {  
+            iii += 1000;  
+            System.out.println(iii);  
+        }  
+    }  
+}  
+```
+
+##**四、Character类**
+###**1、Character类概述**
+Character 类在对象中包装一个基本类型 char 的值
+此外，该类提供了几种方法，以确定字符的类别（小写字母，数字，等等），并将字符从大写转换成小写，反之亦然
+###**2、构造方法**
+public Character(char value)
+###**3、常用方法**
+|方法|说明|
+|----|----|
+|isUpperCase(char ch)|判断是否是大写|
+|isLowerCase(char ch)|判断是否是小写|
+|isDigit(char ch)|判断是否是数字|
+|char toUpperCase(char ch)|转换成大写|
+|char toLowerCase(char ch)|转换成小写|
+<br>
+代码示例：
+
+```java
+package cn.itcast_02;  
+  
+/* 
+ * public static boolean isUpperCase(char ch):判断给定的字符是否是大写字符 
+ * public static boolean isLowerCase(char ch):判断给定的字符是否是小写字符 
+ * public static boolean isDigit(char ch):判断给定的字符是否是数字字符 
+ * public static char toUpperCase(char ch):把给定的字符转换为大写字符 
+ * public static char toLowerCase(char ch):把给定的字符转换为小写字符 
+ */  
+public class CharacterDemo {  
+    public static void main(String[] args) {  
+        // public static boolean isUpperCase(char ch):判断给定的字符是否是大写字符  
+        System.out.println("isUpperCase:" + Character.isUpperCase('A'));  
+        System.out.println("isUpperCase:" + Character.isUpperCase('a'));  
+        System.out.println("isUpperCase:" + Character.isUpperCase('0'));  
+        System.out.println("-----------------------------------------");  
+        // public static boolean isLowerCase(char ch):判断给定的字符是否是小写字符  
+        System.out.println("isLowerCase:" + Character.isLowerCase('A'));  
+        System.out.println("isLowerCase:" + Character.isLowerCase('a'));  
+        System.out.println("isLowerCase:" + Character.isLowerCase('0'));  
+        System.out.println("-----------------------------------------");  
+        // public static boolean isDigit(char ch):判断给定的字符是否是数字字符  
+        System.out.println("isDigit:" + Character.isDigit('A'));  
+        System.out.println("isDigit:" + Character.isDigit('a'));  
+        System.out.println("isDigit:" + Character.isDigit('0'));  
+        System.out.println("-----------------------------------------");  
+        // public static char toUpperCase(char ch):把给定的字符转换为大写字符  
+        System.out.println("toUpperCase:" + Character.toUpperCase('A'));  
+        System.out.println("toUpperCase:" + Character.toUpperCase('a'));  
+        System.out.println("-----------------------------------------");  
+        // public static char toLowerCase(char ch):把给定的字符转换为小写字符  
+        System.out.println("toLowerCase:" + Character.toLowerCase('A'));  
+        System.out.println("toLowerCase:" + Character.toLowerCase('a'));  
+    }  
+} 
+```
+###**4、练习**
+代码示例：统计一个字符串中大写字母字符，小写字母字符，数字字符出现的次数。(不考虑其他字符)
+
+```java
+package cn.itcast_03;  
+  
+import java.util.Scanner;  
+  
+/* 
+ * 统计一个字符串中大写字母字符，小写字母字符，数字字符出现的次数。(不考虑其他字符) 
+ *  
+ * 分析： 
+ *      A:定义三个统计变量。 
+ *          int bigCont=0; 
+ *          int smalCount=0; 
+ *          int numberCount=0; 
+ *      B:键盘录入一个字符串。 
+ *      C:把字符串转换为字符数组。 
+ *      D:遍历字符数组获取到每一个字符 
+ *      E:判断该字符是 
+ *          大写  bigCount++; 
+ *          小写  smalCount++; 
+ *          数字  numberCount++; 
+ *      F:输出结果即可 
+ */  
+public class CharacterTest {  
+    public static void main(String[] args) {  
+        // 定义三个统计变量。  
+        int bigCount = 0;  
+        int smallCount = 0;  
+        int numberCount = 0;  
+  
+        // 键盘录入一个字符串。  
+        Scanner sc = new Scanner(System.in);  
+        System.out.println("请输入一个字符串：");  
+        String line = sc.nextLine();  
+  
+        // 把字符串转换为字符数组。  
+        char[] chs = line.toCharArray();  
+  
+        // 历字符数组获取到每一个字符  
+        for (int x = 0; x < chs.length; x++) {  
+            char ch = chs[x];  
+  
+            // 判断该字符  
+            if (Character.isUpperCase(ch)) {  
+                bigCount++;  
+            } else if (Character.isLowerCase(ch)) {  
+                smallCount++;  
+            } else if (Character.isDigit(ch)) {  
+                numberCount++;  
+            }  
+        }  
+  
+        // 输出结果即可  
+        System.out.println("大写字母：" + bigCount + "个");  
+        System.out.println("小写字母：" + smallCount + "个");  
+        System.out.println("数字字符：" + numberCount + "个");  
+    }  
+}  
+```
+
+运行结果：
+
+![这里写图片描述](http://img.blog.csdn.net/20150829010223059)
