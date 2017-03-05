@@ -4,6 +4,15 @@
 
 《Java基础入门》既可作为高等院校本、专科计算机相关专业的程序设计课程教材，也可作为Java技术基础的培训教材，是一本适合广大计算机编程初学者的入门级教材。
 
+# GitHub托管主页
+
+https://github.com/JackChen1999/Java-basic-introduction
+请读者点击Star进行关注并支持！
+
+# 在线阅读
+
+https://alleniverson.gitbooks.io/java/content/
+
 # 课程结构
 
 * [Java基础： Java概述](Java基础： Java概述.md)
