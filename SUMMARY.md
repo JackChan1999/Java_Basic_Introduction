@@ -11,6 +11,7 @@
 * [Java基础：IO流之字节流和字符流](Java基础：IO流之字节流和字符流.md)
 * [Java基础：多线程](Java基础：多线程.md)
 	* [Java并发编程：volatile关键字解析](thread/Java并发编程：volatile关键字解析.md)
+	* [Java 程序死锁问题原理及解决方案](thread/Java 程序死锁问题原理及解决方案.md)
 * [Java基础：反射](Java基础：反射.md)
 * [Java基础：注解](Java基础：注解.md)
 * [Java基础：动态代理](Java基础：动态代理.md)
