@@ -1,6 +1,6 @@
 # Summary
 
-* [Java基础： Java概述](Java基础： Java概述.md)
+* [Java基础：Java概述](Java基础：Java概述.md)
 * [阿里巴巴Java开发手册](阿里巴巴Java开发手册.md)
 * [Java基础：面向对象](Java基础：面向对象.md)
 * [Java基础：基本数据类型包装类](Java基础：基本数据类型包装类.md)
