@@ -30,9 +30,9 @@
 
 PS：
 
-一个进程中可以有多个执行路径，称之为多线程。
-一个进程中至少要有一个线程。
-开启多个线程是为了同时运行多部分代码，每一个线程都有自己运行的内容，这个内容可以称为线程要执行的任务。
+- 一个进程中可以有多个执行路径，称之为多线程。
+- 一个进程中至少要有一个线程。
+- 开启多个线程是为了同时运行多部分代码，每一个线程都有自己运行的内容，这个内容可以称为线程要执行的任务。
 
 ## 3.Java程序运行原理
 
@@ -112,8 +112,8 @@ Thread类用于描述线程，线程是需要任务的。所以Thread类也有�
 
 ### run()和start()方法的区别：
 
-run()：仅仅是封装了被线程执行的代码，直接调用就是普通方法。
-start()：首先是启动了线程，然后再由jvm去调用了该线程的run()方法
+- run()：仅仅是封装了被线程执行的代码，直接调用就是普通方法。
+- start()：首先是启动了线程，然后再由jvm去调用了该线程的run()方法
 
 ### Thread类的基本获取和设置方法
 
@@ -183,11 +183,11 @@ public static ExecutorService newFixedThreadPool(int nThreads)
 ```
 
 - 这种线程池的线程可以执行：
-    可以执行Runnable对象或者Callable对象代表的线程。
+      可以执行Runnable对象或者Callable对象代表的线程。
 - 调用如下方法即可
     - Future<?> submit(Runnable task)：
       提交一个 Runnable 任务用于执行，并返回一个表示该任务的 Future。
-    - <T> Future<T> submit(Callable<T> task)：    
+    - <T> Future<T> submit(Callable<T> task) 
       提交一个返回值的任务用于执行，返回一个表示任务的未决结果的 Future
 - 结束线程：shutdown()：关闭线程
 
@@ -421,7 +421,10 @@ PS：
 ### 线程安全与非线程安全的类
 
 某些线程安全的类：StringBuffer、Vector、HashTable，虽然线程安全，但是效率较低，我们一般不用，而用Collections工具类解决线程安全的问题。
-List<String> list = Colletions.syncrinizedList(new ArrayList<String>())：获取线程安全的List集合
+
+```java
+List<String> list = Colletions.syncrinizedList(new ArrayList<String>()); // 获取线程安全的List集合
+```
 
 ### JDK5中Lock锁的使用
 虽然我们可以理解同步代码块和同步方法的锁对象问题，但是我们并没有直接看到在哪里加上了锁，在哪里释放了锁，为了更清晰的表达如何加锁和释放锁，JDK5以后提供了一个新的锁对象Lock
@@ -586,6 +589,8 @@ PS：
   ![](http://img.blog.csdn.net/20150915105356500)   
 
 4、为什么操作线程的方法wait、notify、notifyAll定义在了object类中，因为这些方法是监视器的方法，监视器其实就是锁。锁可以是任意的对象，任意的对象调用的方式一定在object类中。
+
+
 生产者-消费者问题：
 
 ```java
@@ -695,8 +700,13 @@ public class StudentDemo {
 ## 1、线程组
 
   Java中使用ThreadGroup来表示线程组，它可以对一批线程进行分类管理，Java允许程序直接对线程组进行控制。默认情况下，所有的线程都属于主线程组。
-  public final ThreadGroup getThreadGroup()：返回该线程所属的线程组。
-  Thread(ThreadGroup group,Runnable target, String name)：给线程设置分组
+
+```java
+public final ThreadGroup getThreadGroup() //返回该线程所属的线程组。
+
+Thread(ThreadGroup group,Runnable target, String name) // 给线程设置分组
+```
+
 ##　2、线程池
 
 程序启动一个新线程成本是比较高的，因为它涉及到要与操作系统进行交互。而使用线程池可以很好的提高性能，尤其是当程序中要创建大量生存期很短的线程时，更应该考虑使用线程池。
@@ -734,9 +744,8 @@ Timer：一种工具，线程用其安排以后在后台线程中执行的任务
 
 ## 实现Runnable好处 
 
-1. 将线程的任务从线程的子类中分离出来，进行了单独的封装，实现数据和程序分离，
+1. 将线程的任务从线程的子类中分离出来，进行了单独的封装，实现数据和程序分离，按照面向对象的思想将任务封装成对象。
 
-按照面向对象的思想将任务封装成对象。
 
 2. 避免了Java单继承的局限性。所以，创建线程的第二种方式较为常用。
 
