@@ -172,7 +172,7 @@ JDK的下载步骤图3
 public static void main(String [] args){ }
 ```
 
-（4）在主方法的大括号中间添加一行输出语句
+在主方法的大括号中间添加一行输出语句
 
 ```java
 System.out.println(“hello world”);
