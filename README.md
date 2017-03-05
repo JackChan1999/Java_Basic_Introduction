@@ -3,3 +3,23 @@
 《Java基础入门》附有配套视频、源代码、测试题、教学PPT、教学实施案例、教学设计大纲等资源，并提供在线答疑平台。
 
 《Java基础入门》既可作为高等院校本、专科计算机相关专业的程序设计课程教材，也可作为Java技术基础的培训教材，是一本适合广大计算机编程初学者的入门级教材。
+
+# 课程结构
+
+* [Java基础： Java概述](Java基础： Java概述.md)
+* [阿里巴巴Java开发手册](阿里巴巴Java开发手册.md)
+* [Java基础：面向对象](Java基础：面向对象.md)
+* [Java基础：基本数据类型包装类](Java基础：基本数据类型包装类.md)
+* [Java基础：String类](Java基础：String类.md)
+* [Java基础：JDK1.5新特性](Java基础：JDK1.5新特性.md)
+* [Java基础：正则表达式](Java基础：正则表达式.md)
+* [Java基础：IO流之File类](Java基础：IO流之File类.md)
+* [Java基础：IO流之字节流和字符流](Java基础：IO流之字节流和字符流.md)
+* [Java基础：多线程](Java基础：多线程.md)
+* [Java基础：反射](Java基础：反射.md)
+* [Java基础：注解](Java基础：注解.md)
+* [Java基础：动态代理](Java基础：动态代理.md)
+* [Java基础：网络编程](Java基础：网络编程.md)
+* [Http，Tcp，Udp，Socket的区别](Http，Tcp，Udp，Socket的区别.md)
+* [你应该更新的Java知识](你应该更新的Java知识.md)
+
