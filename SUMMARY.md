@@ -14,3 +14,4 @@
 * [Java基础：动态代理](Java基础：动态代理.md)
 * [Java基础：网络编程](Java基础：网络编程.md)
 * [Http，Tcp，Udp，Socket的区别](Http，Tcp，Udp，Socket的区别.md)
+* [你应该更新的Java知识](你应该更新的Java知识.md)
