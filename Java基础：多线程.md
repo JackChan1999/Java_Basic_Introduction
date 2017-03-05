@@ -96,6 +96,8 @@ class ThreadTest {
 
 运行结果：
 
+![](http://img.blog.csdn.net/20150810155243606)
+
 ### 为什么要重写run()方法？
 
 Thread类用于描述线程，线程是需要任务的。所以Thread类也有对任务的描述。这个任务就是通过Thread类中的run方法来体现。也就是说，run方法就是封装自定义线程运行任务的函数，run方法中定义的就是线程要运行的任务代码。所以只有继承Thread类，并复写run方法，将运行的代码定义在run方法中即可。
@@ -164,6 +166,8 @@ class ThreadTest {
 ```
 运行结果：
 
+![](http://img.blog.csdn.net/20150810155901572)
+
 - 如何获取线程名称：Thread.currentThread().getName()
 - 如何给线程设置名称：setName()、Thread(Runnable target, String name)
 - 实现接口方式的好处：
@@ -179,7 +183,7 @@ public static ExecutorService newFixedThreadPool(int nThreads)
 ```
 
 - 这种线程池的线程可以执行：
-可以执行Runnable对象或者Callable对象代表的线程。
+    可以执行Runnable对象或者Callable对象代表的线程。
 - 调用如下方法即可
     - Future<?> submit(Runnable task)：
       提交一个 Runnable 任务用于执行，并返回一个表示该任务的 Future。
@@ -231,9 +235,11 @@ public class CallableDemo {
 
 运行结果：
 
+![](http://img.blog.csdn.net/20150810174959628)
+
 
 实现Callable的优缺点
-  
+
 - 好处：可以有返回值；可以抛出异常。
 - 弊端：代码比较复杂，所以一般不用
 
@@ -266,13 +272,18 @@ public final voidsetPriority(int newPriority); //设置线程的优先级
 
 ## 2、线程控制
 
+![](http://img.blog.csdn.net/20150915215004371)
+
 
 # 第四讲 线程的生命周期
 
 ## 1、线程的状态
 
+![](http://img.blog.csdn.net/20150830230910235)
 
 ##　2、线程的生命周期图
+
+![](http://img.blog.csdn.net/20150915110410513)
 
 
 #　第五讲 线程安全问题
@@ -337,6 +348,8 @@ class TicketDemo {
 
 运行结果：
 
+![](http://img.blog.csdn.net/20150810160818265)
+
 - 同步可以解决安全问题的根本原因就在那个对象上。该对象如同锁的功能。
 - 同步代码块的对象可以是哪些呢? 可以是任意对象，但每个线程都必须是同一对象。
 - 同步的前提：多个线程；多个线程使用的是同一个锁对象
@@ -394,6 +407,8 @@ class TicketDemo {
 ```
 
 运行结果：
+
+![](http://img.blog.csdn.net/20150810163520331)
 
 PS：
 
@@ -481,6 +496,8 @@ public class SellTicketDemo {
 
 运行结果：
 
+![](http://img.blog.csdn.net/20150810174524432)
+
 # 六、死锁
 
 同步弊端：效率低，如果出现了同步嵌套，就容易产生死锁问题。
@@ -541,6 +558,8 @@ class DeadLockDemo {
 
 运行结果：
 
+![](http://img.blog.csdn.net/20150810170803595)
+
 原因分析：
 
 由上图可以看到程序已经被锁死，无法向下执行。run方法中的同步代码块需要获取obj对象锁，才能执行代码块中的show方法。而执行show方法则必须获取this对象锁，然后才能执行其中的同步代码块。当线程t1获取到obj对象锁执行同步代码块，线程t2获取到this对象锁执行show方法。同步代码块中的show方法因无法获取到this对象锁无法执行，show方法中的同步代码块因无法获取到obj对象锁无法执行，就会产生死锁。
@@ -559,9 +578,12 @@ class DeadLockDemo {
 PS：
 
 - 这些方法都必须定义在同步中，因为这些方法是用于操作线程状态的方法。
+
 - 必须要明确到底操作的是哪个锁上的线程！
+
 - wait和sleep区别？
-            
+
+  ![](http://img.blog.csdn.net/20150915105356500)   
 
 4、为什么操作线程的方法wait、notify、notifyAll定义在了object类中，因为这些方法是监视器的方法，监视器其实就是锁。锁可以是任意的对象，任意的对象调用的方式一定在object类中。
 生产者-消费者问题：
@@ -668,6 +690,8 @@ public class StudentDemo {
 
 运行结果：
 
+![](http://img.blog.csdn.net/20150810173609584)
+
 ## 1、线程组
 
   Java中使用ThreadGroup来表示线程组，它可以对一批线程进行分类管理，Java允许程序直接对线程组进行控制。默认情况下，所有的线程都属于主线程组。
@@ -680,27 +704,27 @@ public class StudentDemo {
 - 线程池里的每一个线程代码结束后，并不会死亡，而是再次回到线程池中成为空闲状态，等待下一个对象来使用。
 - 在JDK5之前，我们必须手动实现自己的线程池，从JDK5开始，Java内置支持线程池。JDK5新增了一个Executors工厂类来产生线程池，有如下几个方法
     - public static ExecutorService newCachedThreadPool()：
-    创建一个线程池对象
+      创建一个线程池对象
     - public static ExecutorService newFixedThreadPool(int nThreads)：
-    创建一个线程池对象，控制要创建几个线程
+      创建一个线程池对象，控制要创建几个线程
     - public static ExecutorService newSingleThreadExecutor()：
-    创建一个使用单个 worker 线程的 Executor
-    这些方法的返回值是ExecutorService对象，该对象表示一个线程池，可以执行Runnable对象或者Callable对象代表的线程。它提供了如下方法：
+      创建一个使用单个 worker 线程的 Executor
+      这些方法的返回值是ExecutorService对象，该对象表示一个线程池，可以执行Runnable对象或者Callable对象代表的线程。它提供了如下方法：
     - Future<?>submit(Runnable task)
-    提交一个 Runnable 任务用于执行，并返回一个表示该任务的 Future
+      提交一个 Runnable 任务用于执行，并返回一个表示该任务的 Future
     - <T>Future<T>  submit(Callable<T>task)
-    提交一个返回值的任务用于执行，返回一个表示任务的未决结果的 Future。
+      提交一个返回值的任务用于执行，返回一个表示任务的未决结果的 Future。
 
 #　八、定时器的使用
 
 定时器是一个应用十分广泛的线程工具，可用于调度多个定时任务以后台线程的方式执行。在Java中，可以通过Timer和TimerTask类来实现定义调度的功能
 Timer：一种工具，线程用其安排以后在后台线程中执行的任务。可安排任务执行一次，或者定期重复执行。
- 
+
+![](http://img.blog.csdn.net/20150915215755157)
+
 实际开发中使用的是Quartz：一个完全由java编写的开源调度框架。
 
 #　九、多线程总结
-
-# 多线程
 
 ## 三种多选实现方案
 
@@ -715,7 +739,7 @@ Timer：一种工具，线程用其安排以后在后台线程中执行的任务
 按照面向对象的思想将任务封装成对象。
 
 2. 避免了Java单继承的局限性。所以，创建线程的第二种方式较为常用。
- 
+
 ## 线程间的通信
 - 多个线程在处理同一资源，但是任务却不同，这时候就需要线程间通信。
 - 等待/唤醒机制涉及的方法
@@ -725,12 +749,12 @@ Timer：一种工具，线程用其安排以后在后台线程中执行的任务
 
 ## wait、sleep区别
 
- 1. wait可以指定时间也可以不指定。sleep必须指定时间。
- 2. 在同步中时，对CPU的执行权和锁的处理不同。
-   wait：释放CPU执行权，释放锁。Object中的方法。
-   sleep：释放CPU执行权，不释放锁。Thread中的方法。
- 3. sleep必需捕获异常，wait，notify，notifyAll不需要捕获异常
- 
+- wait可以指定时间也可以不指定。sleep必须指定时间。
+- 在同步中时，对CPU的执行权和锁的处理不同。
+  - wait：释放CPU执行权，释放锁。Object中的方法。
+  - sleep：释放CPU执行权，不释放锁。Thread中的方法。
+- sleep必需捕获异常，wait，notify，notifyAll不需要捕获异常
+
 ## 常用方法
 
 - 1. String getName()：获取线程的名称
