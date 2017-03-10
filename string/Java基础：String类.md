@@ -1,14 +1,14 @@
-#相关阅读
+# 相关阅读
 1. [Java基础：String类](http://blog.csdn.net/axi295309066/article/details/52765748)
 2. [Java字符串格式化](http://blog.csdn.net/axi295309066/article/details/52820512)
 3. [Java基础：正则表达式](http://blog.csdn.net/axi295309066/article/details/52822073)
 
-##**一、概述**
+# **1. 概述**
 字符串是由多个字符组成的一串数据(字符序列)，字符串可以看成是字符数组。
 
 在实际开发中，字符串的操作是最常见的操作，没有之一。而Java没有内置的字符串类型，所以，就在Java类库中提供了一个类String 供我们来使用。String 类代表字符串。
 
-##**二、String类的特点**
+# **2. String类的特点**
 - 字符串是常量,它的值在创建之后不能更改
 - Java 程序中的所有字符串字面值（如 "abc" ）都作为此类的实例实现。
 - 字符串如果是变量相加，先开空间，在拼接。
@@ -35,17 +35,17 @@ public class StringDemo {
 
 ![字符串在内存中](http://img.blog.csdn.net/20150827221310522)
 
-##**三、常见操作方法**
+# **3. 常见操作方法**
 
-###**1、构造方法**
-|方法|说明|
-|----|----|
-|String() | 创建一个内容为空的字符串 |
-|String(byte[]) |  根据指定的字节数组创建对象 |
-|String(byte[]，int，int) |  根据字节数组的一部分创建对象 |
-|String(char[])     |根据指定的字符数组创建对象 |
-|String(char[]，int，int) |  根据字符数组的一部分创建对象 |
-|String(String)     |根据指定的字符串内容创建对象 |
+## **3.1 构造方法**
+| 方法                     | 说明             |
+| :--------------------- | :------------- |
+| String()               | 创建一个内容为空的字符串   |
+| String(byte[])         | 根据指定的字节数组创建对象  |
+| String(byte[]，int，int) | 根据字节数组的一部分创建对象 |
+| String(char[])         | 根据指定的字符数组创建对象  |
+| String(char[]，int，int) | 根据字符数组的一部分创建对象 |
+| String(String)         | 根据指定的字符串内容创建对象 |
 <br>
 ```java
 package cn.itcast_01;  
@@ -117,17 +117,17 @@ public class StringDemo {
 
 运行结果：
 
-![这里写图片描述](http://img.blog.csdn.net/20150812165529841)
+![String字符串](http://img.blog.csdn.net/20150812165529841)
 
-###**2、判断功能**
-|方法|说明|
-|----|----|
- |equals() |	比较字符串的内容是否相等，区分大小写 |
- |equalsIgnoreCase() |	比较字符串的内容是否相等，忽略大小写 |
- |contains(String str) |	判断大字符串中是否包含小字符串 |
- |startsWith()	 |判断字符串是否以某个字符串开头 |
- |endsWith() |	判断字符串是否以某个字符串结尾 |
- |isEmpty()	 |判断字符串是否为空 |
+## **3.2 判断功能**
+| 方法                   | 说明                 |
+| :------------------- | :----------------- |
+| equals()             | 比较字符串的内容是否相等，区分大小写 |
+| equalsIgnoreCase()   | 比较字符串的内容是否相等，忽略大小写 |
+| contains(String str) | 判断大字符串中是否包含小字符串    |
+| startsWith()         | 判断字符串是否以某个字符串开头    |
+| endsWith()           | 判断字符串是否以某个字符串结尾    |
+| isEmpty()            | 判断字符串是否为空          |
  <br>
 ```java
 package cn.itcast_03;  
@@ -190,20 +190,20 @@ public class StringDemo {
 
 运行结果：
 
-![这里写图片描述](http://img.blog.csdn.net/20150812170702813)
+![String字符串](http://img.blog.csdn.net/20150812170702813)
 
-###**3、获取功能**
-|方法|说明|
-|----|----|
- |length()	 |获取字符串长度 |
- |charAt(int index) |	获取指定位置的字符 |
- |indexOf(int ch) |	字符第一次出现的索引 |
- |indexOf(String str)	 |字符串第一次出现的索引 |
- |indexOf(int ch,int fromIndex)	 |字符从指定位置后第一次出现的索引 |
- |indexOf(String str,int from) |	字符串从指定位置后第一次出现的索引 |
- |lastIndexOf()	 |字符串最后一次出现的索引 |
- |subString(int start) |	从指定位置开始截取字符串 |
- |subString(int start,int end)	 |截取字符串，包左不包右 |
+## **3.3 获取功能**
+| 方法                            | 说明                |
+| :---------------------------- | :---------------- |
+| length()                      | 获取字符串长度           |
+| charAt(int index)             | 获取指定位置的字符         |
+| indexOf(int ch)               | 字符第一次出现的索引        |
+| indexOf(String str)           | 字符串第一次出现的索引       |
+| indexOf(int ch,int fromIndex) | 字符从指定位置后第一次出现的索引  |
+| indexOf(String str,int from)  | 字符串从指定位置后第一次出现的索引 |
+| lastIndexOf()                 | 字符串最后一次出现的索引      |
+| subString(int start)          | 从指定位置开始截取字符串      |
+| subString(int start,int end)  | 截取字符串，包左不包右       |
 <br>
 ```java
 package cn.itcast_04;   
@@ -265,17 +265,17 @@ public class StringDemo {
 
 运行结果：
 
-![这里写图片描述](http://img.blog.csdn.net/20150812171207780)
-###**4、转换功能**
-|方法|说明|
-|----|----|
- |getBytes()	 |把字符串转成字节数组 |
- |getCharArray()	 |把字符串转成字符数组 |
- |valueOf(char[] chs) |	把字符数组转成字符串 |
- |valueOf(int i) |	把int类型的数据转成字符串 |
- |toLowerCase()	 |把字符串转成小写 |
- |toUpperCase()	 |把字符串转成大写 |
- |concat(String str)	 |字符串拼接 |
+![String字符串](http://img.blog.csdn.net/20150812171207780)
+## **3.4 转换功能**
+| 方法                  | 说明             |
+| :------------------ | :------------- |
+| getBytes()          | 把字符串转成字节数组     |
+| getCharArray()      | 把字符串转成字符数组     |
+| valueOf(char[] chs) | 把字符数组转成字符串     |
+| valueOf(int i)      | 把int类型的数据转成字符串 |
+| toLowerCase()       | 把字符串转成小写       |
+| toUpperCase()       | 把字符串转成大写       |
+| concat(String str)  | 字符串拼接          |
 <br>
 ```java
 package cn.itcast_05;  
@@ -341,17 +341,17 @@ public class StringDemo {
 
 运行结果：
 
-![这里写图片描述](http://img.blog.csdn.net/20150812171437935)
+![String字符串](http://img.blog.csdn.net/20150812171437935)
 
-###**5、其他功能**
-|方法|说明|
-|----|----|
- |replace(char old,char new) |	替换字符 |
- |replace(String old,String new) |	替换字符串 |
- |trim()	 |去掉字符串两端空格 |
- |compareTo()	 |按字典顺序比较字符串 |
- |compareToIngnoreCase()	 |按字典顺序比较字符串，忽略大小写 |
- |format() |	格式化字符串 |
+## **3.5 其他功能**
+| 方法                             | 说明               |
+| :----------------------------- | :--------------- |
+| replace(char old,char new)     | 替换字符             |
+| replace(String old,String new) | 替换字符串            |
+| trim()                         | 去掉字符串两端空格        |
+| compareTo()                    | 按字典顺序比较字符串       |
+| compareToIngnoreCase()         | 按字典顺序比较字符串，忽略大小写 |
+| format()                       | 格式化字符串           |
  <br>
 ```java
 String.format(Locale.CHINA，"第%03d条数据%s"，10，"str")
@@ -404,10 +404,10 @@ public class StringDemo {
 
 运行结果：
 
-![这里写图片描述](http://img.blog.csdn.net/20150812171606164)
+![String字符串](http://img.blog.csdn.net/20150812171606164)
 
-##**四、String类练习**
-###1、把数组中的数据按照指定个格式拼接成一个字符串
+# **4. String类练习**
+## 4.1 把数组中的数据按照指定个格式拼接成一个字符串
 
 ```java
 package cn.itcast_07;  
@@ -466,7 +466,7 @@ public class StringTest2 {
     }  
 }  
 ```
-###**2、字符串反转**
+## **4.2 字符串反转**
 ```java
 package cn.itcast_07;  
   
@@ -534,7 +534,7 @@ public class StringTest3 {
     }  
 }  
 ```
-###**3、统计大串中小串出现的次数**
+## **4.3 统计大串中小串出现的次数**
 ```java
 package cn.itcast_07;  
   
@@ -601,19 +601,19 @@ public class StringTest5 {
 }  
 ```
 
-##**StringBuffer**
+# **5. StringBuffer**
 我们如果对字符串进行拼接操作，每次拼接，都会构建一个新的String对象，既耗时，又浪费空间。而StringBuffer就可以解决这个问题
-  
+
 - StringBuffer是线程安全的可变字符序列。
 - StringBuffer和String的区别?
-  
+
 前者长度和内容可变，后者不可变。如果使用前者做字符串的拼接，不会浪费太多的资源。
 
-##**常见操作方法**
+# **6. 常见操作方法**
 
-![这里写图片描述](http://img.blog.csdn.net/20161009130440163)
+![String字符串](http://img.blog.csdn.net/20161009130440163)
 
-###**1、构造方法和获取方法**
+## **6.1 构造方法和获取方法**
 
 ```java
 package cn.itcast_01;  
@@ -659,7 +659,7 @@ public class StringBufferDemo {
     }  
 }  
 ```
-###**2、添加功能**
+## **6.2 添加功能**
 ```java
 package cn.itcast_02;  
   
@@ -699,8 +699,8 @@ public class StringBufferDemo {
 ```
 运行结果：
 
-![这里写图片描述](http://img.blog.csdn.net/20150812173229336)
-###**3、删除功能**
+![String字符串](http://img.blog.csdn.net/20150812173229336)
+## **6.3 删除功能**
 ```java
 package cn.itcast_03;  
   
@@ -738,9 +738,9 @@ public class StringBufferDemo {
 ```
 运行结果：
 
-![这里写图片描述](http://img.blog.csdn.net/20150812173401174)
+![String字符串](http://img.blog.csdn.net/20150812173401174)
 
-###**4、替换功能**
+## **6.4 替换功能**
 ```java
 package cn.itcast_04;  
   
@@ -770,8 +770,8 @@ public class StringBufferDemo {
 
 运行结果：
 
-![这里写图片描述](http://img.blog.csdn.net/20150812173516782)
-###**5、反转功能**
+![String字符串](http://img.blog.csdn.net/20150812173516782)
+## **6.5 反转功能**
 
 ```java
 package cn.itcast_05;  
@@ -798,8 +798,8 @@ public class StringBufferDemo {
 
 运行结果：
 
-![这里写图片描述](http://img.blog.csdn.net/20150812213220882)
-###**6、截取功能**
+![String字符串](http://img.blog.csdn.net/20150812213220882)
+## **6.6 截取功能**
 
 ```java
 package cn.itcast_06;  
@@ -834,10 +834,10 @@ public class StringBufferDemo {
 
 运行结果：
 
-![这里写图片描述](http://img.blog.csdn.net/20150812173649049)
+![String字符串](http://img.blog.csdn.net/20150812173649049)
 
-##**StringBuffer类练习**
-###**1、String和StringBuffer的相互转换**
+# **7. StringBuffer类练习**
+## **7.1 String和StringBuffer的相互转换**
 ```java
 package cn.itcast_07;  
   
@@ -880,8 +880,8 @@ public class StringBufferTest {
 ```
 运行结果：
 
-![这里写图片描述](http://img.blog.csdn.net/20150812174201510)
-###**2、把数组拼接成一个字符串**
+![String字符串](http://img.blog.csdn.net/20150812174201510)
+## **7.2 把数组拼接成一个字符串**
 ```java
 package cn.itcast_07;  
   
@@ -941,9 +941,9 @@ public class StringBufferTest2 {
 ```
 运行结果：
 
-![这里写图片描述](http://img.blog.csdn.net/20150812174450815)
+![String字符串](http://img.blog.csdn.net/20150812174450815)
 
-###**3、把字符串反转**
+## **7.3 把字符串反转**
 ```java
 package cn.itcast_07;  
   
@@ -997,8 +997,8 @@ public class StringBufferTest3 {
 ```
 运行结果：
 
-![这里写图片描述](http://img.blog.csdn.net/20150812174652547)
-###**4、判断一个字符串是否是对称字符串**
+![String字符串](http://img.blog.csdn.net/20150812174652547)
+## **7.4 判断一个字符串是否是对称字符串**
 
 ```java
 package cn.itcast_07;  
@@ -1067,8 +1067,6 @@ public class StringBufferTest4 {
     }  
 }
 ```
-
-  
 运行结果：
 
-![这里写图片描述](http://img.blog.csdn.net/20150812174740312)
+![String字符串](http://img.blog.csdn.net/20150812174740312)

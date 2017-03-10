@@ -1,13 +1,12 @@
-##**一、File类概述**
+# **1. File类概述**
 文件和目录路径名的抽象表示形式，表示一个文件或文件夹，并提供了一系列操作文件或文件夹的方法
-###**1、构造方法**
-|方法|功能描述|
-|:----|:----|
-|File(String pathname)|根据路径得到File对象|
-|File(String parent,String child)|根据目录和子文件/目录得到对象|
-|File(File parent,String child)|根据父File对象和子文件/目录得到对象|
-###示例代码
-
+# **2. 构造方法**
+| 方法                               | 功能描述                 |
+| :------------------------------- | :------------------- |
+| File(String pathname)            | 根据路径得到File对象         |
+| File(String parent,String child) | 根据目录和子文件/目录得到对象      |
+| File(File parent,String child)   | 根据父File对象和子文件/目录得到对象 |
+示例代码
 ```java
 package cn.itcast_01;
 import java.io.File;
@@ -38,15 +37,14 @@ public class FileDemo {
 	}
 }
 ```
-###**2、创建功能**
-|返回值|方法|功能描述|
-|:---|:----|:----|
-|boolean |createNewFile()|创建文件|
-|boolean |mkdir()|创建文件夹|
-|boolean |mkdirs()|创建多级文件夹，如果父级文件夹不存在，会自动创建|
-|File|createTempFile()|创建一个用于缓存的临时文件|
-###代码示例
-
+# **3. 创建功能**
+| 返回值     | 方法               | 功能描述                     |
+| :------ | :--------------- | :----------------------- |
+| boolean | createNewFile()  | 创建文件                     |
+| boolean | mkdir()          | 创建文件夹                    |
+| boolean | mkdirs()         | 创建多级文件夹，如果父级文件夹不存在，会自动创建 |
+| File    | createTempFile() | 创建一个用于缓存的临时文件            |
+代码示例
 ```java
 package cn.itcast_02;
 import java.io.File;
@@ -92,12 +90,11 @@ public class FileDemo {
 	}
 }
 ```
-###**3、删除功能**
-|返回值|方法|功能描述|
-|:---|:----|:----|
-|boolean |delete()|删除文件或文件夹|
-###代码示例
-
+# **4. 删除功能**
+| 返回值     | 方法       | 功能描述     |
+| :------ | :------- | :------- |
+| boolean | delete() | 删除文件或文件夹 |
+代码示例
 ```java
 package cn.itcast_03;
 import java.io.File;
@@ -143,12 +140,11 @@ public class FileDemo {
 	}
 }
 ```
-###**4、重命名功能**
-|方法|功能描述|
-|:----|:----|
-|renamneTo(File dest)|路径名相同就是重命名，不一样就是改名加剪切|
-###代码示例
-
+# **5. 重命名功能**
+| 方法                   | 功能描述                  |
+| :------------------- | :-------------------- |
+| renamneTo(File dest) | 路径名相同就是重命名，不一样就是改名加剪切 |
+代码示例
 ```java
 package cn.itcast_04;
 import java.io.File;
@@ -174,18 +170,16 @@ public class FileDemo {
 	}
 }
 ```
-###**5、判断功能**
-|方法|功能描述|
-|:----|:----|
-|isDirectory()|判断是否是目录|
-|isFile()|判断是否是文件|
-|exists()|判断是否是存在|
-|canRead()|判断是否是可读|
-|canWrite()|判断是否是可写|
-|isHidden()|判断是否是隐藏|
-
-###示例代码
-
+# **6. 判断功能**
+| 方法            | 功能描述    |
+| :------------ | :------ |
+| isDirectory() | 判断是否是目录 |
+| isFile()      | 判断是否是文件 |
+| exists()      | 判断是否是存在 |
+| canRead()     | 判断是否是可读 |
+| canWrite()    | 判断是否是可写 |
+| isHidden()    | 判断是否是隐藏 |
+示例代码
 ```java
 import java.io.File;  
   
@@ -212,19 +206,19 @@ public class FileDemo {
     }  
 }
 ```
-###**6、获取功能**
-|返回值|方法|功能描述|
-|:---|:----|:----|
-|String| getAbsolutePath()|获取绝对路径|
-|String |getPath()|获取相对路径|
-|String |getName()|获取名称|
-|long|getFreeSpace()|获取剩余可用空间|
-|long|getTotalSpace()|获取总大小|
-|long |length()|获取长度，字节数|
-|long |lastModified()|获取最后一次修改时间，毫秒值|
-|String[]| list()|获取指定目录下的所有文件或文件夹的名称数组|
-|File[]| listFiles()|获取指定目录下的所有文件或文件夹的File数组|
-###代码示例
+# **7. 获取功能**
+| 返回值      | 方法                | 功能描述                    |
+| :------- | :---------------- | :---------------------- |
+| String   | getAbsolutePath() | 获取绝对路径                  |
+| String   | getPath()         | 获取相对路径                  |
+| String   | getName()         | 获取名称                    |
+| long     | getFreeSpace()    | 获取剩余可用空间                |
+| long     | getTotalSpace()   | 获取总大小                   |
+| long     | length()          | 获取长度，字节数                |
+| long     | lastModified()    | 获取最后一次修改时间，毫秒值          |
+| String[] | list()            | 获取指定目录下的所有文件或文件夹的名称数组   |
+| File[]   | listFiles()       | 获取指定目录下的所有文件或文件夹的File数组 |
+代码示例
 ```java
 package cn.itcast_06;
 import java.io.File;
@@ -259,8 +253,8 @@ public class FileDemo {
 ```
 运行结果：
 
-![这里写图片描述](http://img.blog.csdn.net/20150812001535129)
-###**高级获取功能**
+![file](http://img.blog.csdn.net/20150812001535129)
+# **8. 高级获取功能**
 
 ```java
 package cn.itcast_07;
@@ -292,20 +286,20 @@ public class FileDemo {
 ```
 运行结果：
 
-![这里写图片描述](http://img.blog.csdn.net/20150812002155871)
+![file](http://img.blog.csdn.net/20150812002155871)
 
-###**7、文件过滤器**   
-|返回值|方法|功能描述|
-|:---|:----|:----|
-|String[]| list(FilenameFilter filter)|返回满足条件的文件名数组|
-|File[]| listFiles(FilenameFilter filter)|返回满足条件的文件数组|
+# **9. 文件过滤器**   
+| 返回值      | 方法                               | 功能描述         |
+| :------- | :------------------------------- | :----------- |
+| String[] | list(FilenameFilter filter)      | 返回满足条件的文件名数组 |
+| File[]   | listFiles(FilenameFilter filter) | 返回满足条件的文件数组  |
 
-##**二、File练习**
+# **10. File练习**
 文件名称过滤器的实现思想及代码
 
 - public String[] list(FilenameFilter filter)
 - public File[] listFiles(FilenameFilter filter)
-###**1、代码示例：文件名称过滤器的实现**
+## **10.1 代码示例：文件名称过滤器的实现**
 
 ```java
 package cn.itcast_08;
@@ -351,7 +345,7 @@ public class FileDemo2 {
 	}
 }
 ```
-###**2、代码示例：递归遍历目录下指定后缀名结尾的文件名称**
+## **10.2 代码示例：递归遍历目录下指定后缀名结尾的文件名称**
 
 ```java
 package cn.itcast_03;
@@ -402,7 +396,7 @@ public class FilePathDemo {
 
 ![](http://img.blog.csdn.net/20150812003235467)
 
-###**3、代码示例：递归删除带内容的目录**
+## **10.3 代码示例：递归删除带内容的目录**
 
 ```java
 package cn.itcast_03;
@@ -449,4 +443,4 @@ public class FileDeleteDemo {
 
 运行结果：
 
-![这里写图片描述](http://img.blog.csdn.net/20150812003454970)
+![file](http://img.blog.csdn.net/20150812003454970)

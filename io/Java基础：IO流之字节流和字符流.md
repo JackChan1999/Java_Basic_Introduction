@@ -1,5 +1,5 @@
 ![io流](http://img.blog.csdn.net/20161003130057678)
-##**一、流的概念**
+# **1. 流的概念**
 流(stream)的概念源于UNIX中管道(pipe)的概念。在UNIX中，管道是一条不间断的字节流，用来实现程序或进程间的通信，或读写外围设备、外部文件等。
 
 一个流，必有源端和目的端，它们可以是计算机内存的某些区域，也可以是磁盘文件，甚至可以是Internet上的某个URL。
@@ -10,7 +10,7 @@
 
 形象的比喻——水流 ，文件======程序 ，文件和程序之间连接一个管道，水流就在之间形成了,自然也就出现了方向：可以流进，也可以流出.便于理解，这么定义流： 流就是一个管道里面有流水，这个管道连接了文件和程序。
 
-##**二、IO流概述**
+# **2. IO流概述**
 大多数应用程序都需要实现与设备之间的数据传输，例如键盘可以输入数据，显示器可以显示程序的运行结果等。在Java中，将这种通过不同输入输出设备（键盘，内存，显示器，网络等）之间的数据传输抽象的表述为“流”，程序允许通过流的方式与输入输出设备进行数据传输。Java中的“流”都位于Java.io包中，称之为IO（输入输出）流。 IO流：即InputOutput的缩写。
 
 输入流和输出流相对于内存设备而言。将外设中的数据读取到内存中：输入。将内存的数写入到外设中：输出。
@@ -24,13 +24,13 @@ IO流的特点：
 - 流按流向分为：输入流和输出流。
 
 PS：流只能操作数据，而不能操作文件。
-##**三、流的三种分类方式**      
+# **3. 流的三种分类方式**      
 - 按流的方向分为：输入流和输出流     
 - 按流的数据单位不同分为：字节流和字符流     
 - 按流的功能不同分为:节点流和处理流
 
-![这里写图片描述](http://img.blog.csdn.net/20161002235649942)
-##**四、流的层次结构** 
+![io](http://img.blog.csdn.net/20161002235649942)
+# **4. 流的层次结构** 
 
  IO流的常用基类：
 
@@ -40,26 +40,26 @@ PS：流只能操作数据，而不能操作文件。
 **PS：**此四个类派生出来的子类名称都是以父类名作为子类名的后缀，以前缀为其功能；如InputStream子类FileInputStream；Reader子类FileReader
 
 字符流的由来：
-      
+​      
 其实就是：字节流读取文字字节数据后，不直接操作而是先查指定的编码表，获取对应的文字。再对这个文字进行操作。简单说：字节流+编码表。
 
-###**1、InputStream**
-![这里写图片描述](http://img.blog.csdn.net/20150827230436781)
+## **4.1 InputStream**
+![io流](http://img.blog.csdn.net/20150827230436781)
 
-###**2、OutputStream**
-![这里写图片描述](http://img.blog.csdn.net/20150827230338538)
+## **4.2 OutputStream**
+![io流](http://img.blog.csdn.net/20150827230338538)
 
-###**3、Reader**
-![这里写图片描述](http://img.blog.csdn.net/20150827230507625)
+## **4.3 Reader**
+![io流](http://img.blog.csdn.net/20150827230507625)
 
-###**4、Writer**
-![这里写图片描述](http://img.blog.csdn.net/20150827230537267)
+## **4.4 Writer**
+![io](http://img.blog.csdn.net/20150827230537267)
 
-##**五、字节流**
-###**1、字节流写数据**
+# **5. 字节流**
+## **5.1 字节流写数据**
 字节输出流：抽象类OutputStream，实现类FileOutputStream
 
-![这里写图片描述](http://img.blog.csdn.net/20150915111705070)
+![io流](http://img.blog.csdn.net/20150915111705070)
 
 字节输出流操作步骤：
 
@@ -68,21 +68,21 @@ PS：流只能操作数据，而不能操作文件。
 - 释放资源
 
 **字节流写数据的方式**
-|方法|说明|
-|---|---|
-|write(int b)|一次写一个字节|
-|write(byte[] b)|一次写一个字节数组|
-|write(byte[] b,int off,int len)|一次写一个字节数组的一部分|
-|flush()|刷新缓冲区|
-|close()|释放资源|
+| 方法                              | 说明            |
+| :------------------------------ | :------------ |
+| write(int b)                    | 一次写一个字节       |
+| write(byte[] b)                 | 一次写一个字节数组     |
+| write(byte[] b,int off,int len) | 一次写一个字节数组的一部分 |
+| flush()                         | 刷新缓冲区         |
+| close()                         | 释放资源          |
 <br>
 **如何实现数据的换行?**
 
 - 为什么没有换行呢?
   因为只是写了字节数据，并没有写入换行符号。
 - 如何实现呢?
-  写入换行符号即可。
-        
+  写入换行符号即可
+
 **PS：不同的系统针对不同的换行符号识别是不一样的?**
 
 - windows：\r\n
@@ -139,7 +139,7 @@ public class FileOutputStreamDemo {
 	}
 }
 ```
-###**字节流写数据的方式**
+## **5.2 字节流写数据的方式**
 
 ```java
 package cn.itcast_01;
@@ -246,25 +246,25 @@ public class FileOutputStreamDemo4 {
 	}
 }
 ```
-##**2、字节流读取数据**
+## **5.3 字节流读取数据**
 
 字节输入流：抽象类InputStream，实现类FileInputStream
 
-![这里写图片描述](http://img.blog.csdn.net/20150915111743638)
+![io流](http://img.blog.csdn.net/20150915111743638)
 
 字节输入流操作步骤：
 
 - A：创建字节输入流对象
 - B：调用read()方法读取数据，并把数据显示在控制台
 - C：释放资源
- 
+
 **字节流读数据的方式**
-|方法|功能描述|
-|---|---|
-|  int read()|一次读取一个字节|
-| int read(byte[] b)|一次读取一个字节数组|
-|int read(byte[] b,int off,int len)|一次读一个字节数组的一部分|
-| void close()|释放资源|
+| 方法                                 | 功能描述          |
+| ---------------------------------- | ------------- |
+| int read()                         | 一次读取一个字节      |
+| int read(byte[] b)                 | 一次读取一个字节数组    |
+| int read(byte[] b,int off,int len) | 一次读一个字节数组的一部分 |
+| void close()                       | 释放资源          |
 <br>
 ```java
 package cn.itcast_02;
@@ -339,7 +339,7 @@ public class FileInputStreamDemo {
 }
 ```
 
-###**3、字节流复制数据练习**
+## **5.4 字节流复制数据练习**
 
 代码示例：把c:\\a.txt内容复制到d:\\b.txt中
 
@@ -375,9 +375,9 @@ public class CopyFileDemo2 {
 	}
 }
 ```
-###**4、字节缓冲流**
+## **4、字节缓冲流**
 字节流一次读写一个数组的速度明显比一次读写一个字节的速度快很多，这是加入了数组这样的缓冲区效果，java本身在设计的时候，也考虑到了这样的设计思想(装饰设计模式后面讲解)，所以提供了字节缓冲区流。
- 
+
  字节缓冲输出流：BufferedOutputStream，字节缓冲输入流：BufferedInputStream。
 ```java
 package cn.itcast_05;
@@ -413,7 +413,7 @@ public class BufferedOutputStreamDemo {
 	}
 }
 ```
-###**代码示例：字节缓冲流复制数据练习**
+## **5.5 字节缓冲流复制数据练习**
 
 ```java
 package cn.itcast_06;
@@ -510,9 +510,9 @@ public class CopyMp4Demo {
 	}
 }
 ```
-##**六、字符流**
+# **6. 字符流**
 
-###**1、转换流出现的原因及思想**
+## **6.1 转换流出现的原因及思想**
 由于字节流操作中文不是特别方便，所以，java就提供了转换流。字符流=字节流+编码表。
 
 编码表：由字符及其对应的数值组成的一张表
@@ -521,13 +521,13 @@ public class CopyMp4Demo {
 
 计算机只能识别二进制数据，早期由来是电信号。为了方便应用计算机，让它可以识别各个国家的文字。就将各个国家的文字用数字来表示，并一一对应，形成一张表。
 
-![这里写图片描述](http://img.blog.csdn.net/20150812155310074)
+![io流](http://img.blog.csdn.net/20150812155310074)
 
 字符串中的编码问题
 
    编码：把看得懂的变成看不懂的
-   解码：把看不懂的变成看得懂的
-   
+   解码：把看不懂的变成看得懂
+
 
 ```java
 package cn.itcast_01;
@@ -576,23 +576,23 @@ public class StringDemo {
 	}
 }
 ```
-###**2、转换流概述**
+## **6.2 转换流概述**
 OutputStreamWriter 字符输出流
 
-![这里写图片描述](http://img.blog.csdn.net/20150915111452739)
+![io流](http://img.blog.csdn.net/20150915111452739)
 
 InputStreamReader 字符输入流
 
-![这里写图片描述](http://img.blog.csdn.net/20150915111611235)
+![io流](http://img.blog.csdn.net/20150915111611235)
 
 **OutputStreamWriter写数据**
-|方法|功能描述|
-|---|---|
-|write(int c)|写入一个字符|
-|write(char[] cbuf)|写入一个字符数组|
-|write(char[] cbuf,int off,int len)|写入一个字符数组的一部分|
-|write(String str)|写入一个字符串|
-|write(String str,int off,int len)|写入一个字符串的一部分|
+| 方法                                 | 功能描述         |
+| ---------------------------------- | ------------ |
+| write(int c)                       | 写入一个字符       |
+| write(char[] cbuf)                 | 写入一个字符数组     |
+| write(char[] cbuf,int off,int len) | 写入一个字符数组的一部分 |
+| write(String str)                  | 写入一个字符串      |
+| write(String str,int off,int len)  | 写入一个字符串的一部分  |
 <br>
 字符流操作要注意的问题：
 
@@ -655,7 +655,7 @@ public class OutputStreamWriterDemo {
 	}
 }
 ```
-###**InputStreamReader读数据**
+## **6.3 InputStreamReader读数据**
 - public int read()：一次读一个字符 
 - public int read(char[] cbuf)：一次读一个字符数组
 
@@ -693,7 +693,7 @@ public class InputStreamReaderDemo {
 	}
 }
 ```
-###**代码示例：字符流复制文本文件**
+## **6.4 字符流复制文本文件**
 
 ```java
 package cn.itcast_04;
@@ -740,12 +740,12 @@ public class CopyFileDemo {
 	}
 }
 ```
-###**转换流的简化写法**
+## **6.5 转换流的简化写法**
 转换流的名字比较长，而我们常见的操作都是按照本地默认编码实现的，所以，为了简化我们的书写，转换流提供了对应的子类。
 
 **FileWriter**
 
-![这里写图片描述](http://img.blog.csdn.net/20150915111939505)
+![io流](http://img.blog.csdn.net/20150915111939505)
 
 代码示例：把当前项目目录下的a.txt内容复制到当前项目目录下的b.txt中
 
@@ -798,9 +798,9 @@ public class CopyFileDemo2 {
 	}
 }
 ```
-###**FileReader**
+## **6.6 FileReader**
 
-![这里写图片描述](http://img.blog.csdn.net/20150915112037930)
+![io流](http://img.blog.csdn.net/20150915112037930)
 
 代码示例：把c:\\a.txt内容复制到d:\\b.txt中
 
@@ -837,15 +837,15 @@ public class CopyFileDemo3 {
 	}
 }
 ```
-##**字符缓冲流**
+# **7. 字符缓冲流**
 字符流为了高效读写，也提供了对应的字符缓冲流。BufferedWriter：字符缓冲输出流，BufferedReader：字符缓冲输入流。
 
-###**BufferedWriter基本用法**
+## **7.1 BufferedWriter基本用法**
 将文本写入字符输出流，缓冲各个字符，从而提供单个字符、数组和字符串的高效写入。 可以指定缓冲区的大小，或者接受默认的大小。在大多数情况下，默认值就足够大了。 
 
-![这里写图片描述](http://img.blog.csdn.net/20150915112318443)
+![io流](http://img.blog.csdn.net/20150915112318443)
 
-![这里写图片描述](http://img.blog.csdn.net/20150915112318443)
+![io流](http://img.blog.csdn.net/20150915112318443)
 
 代码示例：BufferedWriter基本用法
 
@@ -880,12 +880,12 @@ public class BufferedWriterDemo {
 	}
 }
 ```
-###**BufferedReader基本用法**
+###**7.2 BufferedReader基本用法**
 从字符输入流中读取文本，缓冲各个字符，从而实现字符、数组和行的高效读取。  可以指定缓冲区的大小，或者可使用默认的大小。大多数情况下，默认值就足够大了。 
 
-![这里写图片描述](http://img.blog.csdn.net/20150915112441236)
+![io流](http://img.blog.csdn.net/20150915112441236)
 
-![这里写图片描述](http://img.blog.csdn.net/20150915112520875)
+![io流](http://img.blog.csdn.net/20150915112520875)
 
 代码示例：  BufferedReader基本用法
 
@@ -924,7 +924,7 @@ public class BufferedReaderDemo {
 	}
 }
 ```
-###**特殊功能**
+## **7.3 特殊功能**
 
 - BufferedWriter，newLine()：根据系统来决定换行符
 - BufferedReader，String readLine()：一次读取一行数据
@@ -1025,10 +1025,8 @@ public class CopyFileDemo2 {
 }
 ```
 
-七、IO六总结
+# 8. 总结
 
-![这里写图片描述](http://img.blog.csdn.net/20150827230556993)
+![io流](http://img.blog.csdn.net/20150827230556993)
 
-![这里写图片描述](http://img.blog.csdn.net/20150812142557398)
-
-
+![io流](http://img.blog.csdn.net/20150812142557398)

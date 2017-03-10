@@ -2,25 +2,25 @@
 
 Java5中的线程并发库都在java.util.concurrent包及子包中
 
-##**Executor类的继承结构**
+# **1. Executor类的继承结构**
 ![ThreadPoolExecutor](http://img.blog.csdn.net/20161024205013699)
 
 Executor是线程池的顶级接口，只有一个执行任务的方法execute()
 
 ExecutorService是Executor的子接口，该接口中包含了线程池常用的一些方法
-|方法|功能描述|
-|---|---|
-|execute()|执行任务|
-|shutdown()|调用后不再接收新任务，如果里面有任务，就执行完|
-|shutdownNow()|调用后不再接受新任务，如果有等待任务，移出队列；有正在执行的，尝试停止之|
-|isShutdown()|判断线程池是否关闭|
-|isTerminated()|判断线程池中任务是否执行完成|
-|submit()|提交任务|
-|invokeAll()|执行一组任务|
+| 方法             | 功能描述                                 |
+| :-------------- | :------------------------------------ |
+| execute()      | 执行任务                                 |
+| shutdown()     | 调用后不再接收新任务，如果里面有任务，就执行完              |
+| shutdownNow()  | 调用后不再接受新任务，如果有等待任务，移出队列；有正在执行的，尝试停止之 |
+| isShutdown()   | 判断线程池是否关闭                            |
+| isTerminated() | 判断线程池中任务是否执行完成                       |
+| submit()       | 提交任务                                 |
+| invokeAll()    | 执行一组任务                               |
 
-##**ThreadPoolExecutor**
+# **2. ThreadPoolExecutor**
 ExecutorService的默认实现，同时也是Executors的底层实现
-###**构造方法**
+## **2.1 构造方法**
 
 ```java
 public ThreadPoolExecutor(
@@ -33,45 +33,45 @@ public ThreadPoolExecutor(
     RejectedExecutionHandler handler //异常捕获器
 )
 ```
-**int corePoolSize**
+### **2.1.1 int corePoolSize**
 
 核心池的大小，这个参数跟后面讲述的线程池的实现原理有非常大的关系。在创建了线程池后，默认情况下，线程池中并没有任何线程，而是等待有任务到来才创建线程去执行任务，除非调用了prestartAllCoreThreads()或者prestartCoreThread()方法，从这2个方法的名字就可以看出，是预创建线程的意思，即在没有任务到来之前就创建corePoolSize个线程或者一个线程。默认情况下，在创建了线程池后，线程池中的线程数为0，当有任务来之后，就会创建一个线程去执行任务，当线程池中的线程数目达到corePoolSize后，就会把到达的任务放到缓存队列当中
 
-**int maximumPoolSize**
+###  **2.1.2 int maximumPoolSize**
 
 线程池最大线程数，这个参数也是一个非常重要的参数，它表示在线程池中最多能创建多少个线程
 
-**long keepAliveTime**
+###  **2.1.3 long keepAliveTime**
 
 表示线程没有任务执行时最多保持多久时间会终止。默认情况下，只有当线程池中的线程数大于corePoolSize时，keepAliveTime才会起作用，直到线程池中的线程数不大于corePoolSize，即当线程池中的线程数大于corePoolSize时，如果一个线程空闲的时间达到keepAliveTime，则会终止，直到线程池中的线程数不超过corePoolSize。但是如果调用了allowCoreThreadTimeOut(boolean)方法，在线程池中的线程数不大于corePoolSize时，keepAliveTime参数也会起作用，直到线程池中的线程数为0
 
-**TimeUnit unit**
+###  **2.1.4 TimeUnit unit**
 
 参数keepAliveTime的时间单位，有7种取值
 
-- TimeUnit.DAYS;               //天
-- TimeUnit.HOURS;             //小时
-- TimeUnit.MINUTES;           //分钟
-- TimeUnit.SECONDS;           //秒
-- TimeUnit.MILLISECONDS;      //毫秒
-- TimeUnit.MICROSECONDS;      //微妙
-- TimeUnit.NANOSECONDS;       //纳秒
+- TimeUnit.DAYS                        //天
+- TimeUnit.HOURS                    //小时
+- TimeUnit.MINUTES                 //分钟
+- TimeUnit.SECONDS               //秒
+- TimeUnit.MILLISECONDS      //毫秒
+- TimeUnit.MICROSECONDS      //微妙
+- TimeUnit.NANOSECONDS       //纳秒
 
-###**RejectedExecutionHandler**
+### **2.1.5 RejectedExecutionHandler**
 
-- **ThreadPoolExecutor.AbortPolicy**	
-当添加任务出错时的策略捕获器，丢弃任务并抛出RejectedExecutionException异常
+- ThreadPoolExecutor.AbortPolicy	
+  当添加任务出错时的策略捕获器，丢弃任务并抛出RejectedExecutionException异常
 
-- **ThreadPoolExecutor.DiscardPolicy**	
-也是丢弃任务，但是不抛出异常
+- ThreadPoolExecutor.DiscardPolicy 
+  也是丢弃任务，但是不抛出异常
 
-- **ThreadPoolExecutor.DiscardOldestPolicy**	
-丢弃队列最前面的任务，然后重新尝试执行任务（重复此过程）
+- ThreadPoolExecutor.DiscardOldestPolicy
+  丢弃队列最前面的任务，然后重新尝试执行任务（重复此过程）
 
-- **ThreadPoolExecutor.CallerRunsPolicy**	
-由调用线程处理该任务
+- ThreadPoolExecutor.CallerRunsPolicy
+  由调用线程处理该任务
 
-##**任务提交给线程池之后的处理策略**
+# **3. 任务提交给线程池之后的处理策略**
 1、如果当前线程池中的线程数目小于corePoolSize，则每来一个任务，就会创建执行这个任务
 
 ![ThreadPoolExecutor](http://img.blog.csdn.net/20161025001312662)
@@ -92,27 +92,27 @@ public ThreadPoolExecutor(
 
 如果线程池中的线程数量大于 corePoolSize时，如果某线程空闲时间超过keepAliveTime，线程将被终止，直至线程池中的线程数目不大于corePoolSize；如果允许为核心池中的线程设置存活时间，那么核心池中的线程空闲时间超过keepAliveTime，线程也会被终止
 
-##**阻塞队列的介绍（BlockingQueue）**
+# **4. 阻塞队列的介绍（BlockingQueue）**
 
-##**线程池工具类Executors**
+# **5. 线程池工具类Executors**
 jdk1.5之后的一个新类，提供了一些静态工厂，生成一些常用的线程池，ThreadPoolExecutor是Executors类的底层实现
-|方法|功能描述|
-|---|---|
-|newCachedThreadPool()|创建一个可缓存的线程池|
-|newFixedThreadPool()|创建一个固定大小的线程池|
-|newScheduledThreadPool()|创建一个大小无限的线程池。此线程池支持定时以及周期性执行任务的需求|
-|newSingleThreadExecutor()|创建单个线程的线程池，始终保证线程池中会有一个线程在。当某线程死去，会找继任者|
-|defaultThreadFactory()|创建一个默认线程池工厂|
+| 方法                        | 功能描述                                    |
+| :------------------------ | :-------------------------------------- |
+| newCachedThreadPool()     | 创建一个可缓存的线程池                             |
+| newFixedThreadPool()      | 创建一个固定大小的线程池                            |
+| newScheduledThreadPool()  | 创建一个大小无限的线程池。此线程池支持定时以及周期性执行任务的需求       |
+| newSingleThreadExecutor() | 创建单个线程的线程池，始终保证线程池中会有一个线程在。当某线程死去，会找继任者 |
+| defaultThreadFactory()    | 创建一个默认线程池工厂                             |
 
-##**线程池**
+# **6. 线程池**
 在线程池的编程模式下，任务是提交给整个线程池，而不是直接交给某个线程，线程池在拿到任务后，它就在内部找有无空闲的线程，再把任务交给内部某个空闲的线程，这就是封装
 
 记住：任务是提交给整个线程池，一个线程同时只能执行一个任务，但可以同时向一个线程池提交多个任务。
 
 示例：
 
-- 创建固定大小的线程池、
-- 创建缓存线程池 、 
+- 创建固定大小的线程池
+- 创建缓存线程池  
 - 用线程池创建定时器
 - 创建单一线程池（始终保证线程池中会有一个线程在。当某线程死去，会找继任者）
 
@@ -186,7 +186,7 @@ public class ThreadPoolTest {
 }  
 ```
 
-# 线程池的简单使用
+# 7. 线程池的简单使用
 
 ```java
 /**
