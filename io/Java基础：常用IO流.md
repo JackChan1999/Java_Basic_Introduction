@@ -1,14 +1,16 @@
-# 数据流
-一、概述：数据流是操作基本数据类型的流，分为数据输入流，数据输出流。
+# 1. 数据流
+## 1.1 概述
 
-## 二、数据输入流
+数据流是操作基本数据类型的流，分为数据输入流，数据输出流。
+
+## 1.2 数据输入流
 
 1、DataInputStream：数据输出流允许应用程序以适当方式将基本 Java 数据类型写入输出流中。然后，应用程序可以使用数据输入流将数据读入。
 
 2、构造方法
 DataOutputStream(OutputStream out) ：创建一个新的数据输出流，将数据写入指定基础输出流。
 
-## 三、数据输出流
+## 1.3 数据输出流
 
 1、DataOutputStream：数据输入流允许应用程序以与机器无关方式从底层输入流中读取基本 Java 数据类型。应用程序可以使用数据输出流写入稍后由数据输入流读取的数据。
 
@@ -93,30 +95,30 @@ public class DataStreamDemo {
 运行结果：
 
 ![](http://img.blog.csdn.net/20150812193046398?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center)
-# 内存操作流
+# 2. 内存操作流
 
-## 一、概述
+## 2.1 概述
 内存操作流：用于处理临时存储信息的，程序结束，数据就从内存中消失。
 
-## 二、操作字节数组
+## 2.2 操作字节数组
 
-### 1、ByteArrayInputStream
+### 2.2.1 ByteArrayInputStream
 
 ByteArrayInputStream 包含一个内部缓冲区，该缓冲区包含从流中读取的字节。内部计数器跟踪 read 方法要提供的下一个字节。 
 
 关闭 ByteArrayInputStream 无效。此类中的方法在关闭此流后仍可被调用，而不会产生任何 IOException。 
 
 ![](http://img.blog.csdn.net/20150915113704568)
-### 2、ByteArrayOutputStream
+### 2.2.2 ByteArrayOutputStream
 
 此类实现了一个输出流，其中的数据被写入一个 byte 数组。缓冲区会随着数据的不断写入而自动增长。可使用 toByteArray() 和 toString() 获取数据。 
 
 关闭 ByteArrayOutputStream 无效。此类中的方法在关闭此流后仍可被调用，而不会产生任何 IOException。
 
 ![](http://img.blog.csdn.net/20150915113809621)
-# 操作字符数组
+# 3. 操作字符数组
 
-1、CharArrayReader
+## 3.1 CharArrayReader
 
 此类实现一个可用作字符输入流的字符缓冲区。
 
@@ -125,7 +127,7 @@ CharArrayReader(char[] buf) // 根据指定的 char 数组创建一个 CharArray
 CharArrayReader(char[] buf, int offset, int length) // 根据指定的 char 数组创建一个 CharArrayReader。 
 ```
 
-2、CharArrayWriter
+## 3.2 CharArrayWriter
 
 此类实现一个可用作 Writer 的字符缓冲区。缓冲区会随向流中写入数据而自动增长。可使用 toCharArray() 和 toString() 获取数据。 
 
@@ -136,12 +138,13 @@ CharArrayWriter() // 创建一个新的 CharArrayWriter。
 CharArrayWriter(int initialSize) // 创建一个具有指定初始大小的新 CharArrayWriter。 
 ```
 
-# 操作字符串
+# 4. 操作字符串
 
-1、StringReader
+## 4.1 StringReader
+
 其源为一个字符串的字符流。StringReader(String s) ：创建一个新字符串 reader。
 
-2、StringWriter
+## 4.2 StringWriter
 
 一个字符流，可以用其回收在字符串缓冲区中的输出来构造字符串。 
 关闭 StringWriter 无效。此类中的方法在关闭该流后仍可被调用，而不会产生任何 IOException。 
@@ -204,22 +207,22 @@ public class ByteArrayStreamDemo {
 运行结果：
 
 ![](http://img.blog.csdn.net/20150812194600220)
-# 打印流
+# 5. 打印流
 
-## 一、打印流概述
+## 5.1 打印流概述
 打印流分为： 字节流打印流PrintStream和字符打印流PrintWriter。
 
-## 二、字节流打印流
+## 5.2 字节流打印流
 
 PrintStream 为其他输出流添加了功能，使它们能够方便地打印各种数据值表示形式。它还提供其他两项功能。与其他输出流不同，PrintStream 永远不会抛出 IOException；而是，异常情况仅设置可通过 checkError 方法测试的内部标志。另外，为了自动刷新，可以创建一个 PrintStream；这意味着可在写入 byte 数组之后自动调用 flush 方法，可调用其中一个 println 方法，或写入一个换行符或字节 ('\n')。 
 PrintStream 打印的所有字符都使用平台的默认字符编码转换为字节。在需要写入字符而不是写入字节的情况下，应该使用 PrintWriter 类。
 
 ![](http://img.blog.csdn.net/20150915113935210)  
 
-## 三、字符打印流
+## 5.3 字符打印流
 
 向文本输出流打印对象的格式化表示形式。此类实现在 PrintStream 中的所有 print 方法。它不包含用于写入原始字节的方法，对于这些字节，程序应该使用未编码的字节流进行写入。
- 
+
 与 PrintStream 类不同，如果启用了自动刷新，则只有在调用 println、printf 或 format 的其中一个方法时才可能完成此操作，而不是每当正好输出换行符时才完成。这些方法使用平台自有的行分隔符概念，而不是换行符。 
 
 此类中的方法不会抛出 I/O 异常，尽管其某些构造方法可能抛出异常。客户端可能会查询调用 checkError() 是否出现错误。
@@ -309,14 +312,14 @@ public class PrintWriterDemo2 {
 }
 ```
 
-四、打印流特点
+## 5.4 打印流特点
 
 - 只能操作目的地，不能操作数据。
 - 可以操作任意类型的数据。
 - 如果启动了自动刷新，能够自动刷新。
 - 可以操作文件的流
 
-五、打印流复制文本文件
+## 5.5 打印流复制文本文件
 
 ```java
 package cn.itcast_03;
@@ -372,9 +375,9 @@ public class CopyFileDemo {
 }
 ```
 
-# 标准输入输出流
+# 6. 标准输入输出流
 
-一、标准输入输出流
+## 6.1 标准输入输出流
 
 - System类中的字段：in，out。
 - 它们各代表了系统标准的输入和输出设备。
@@ -512,9 +515,9 @@ public class SystemOutDemo2 {
 
 ![](http://img.blog.csdn.net/20150812201726994)
 
-# 随机访问流
+# 7. 随机访问流
 
-一、RandomAccessFile概述
+## 7.1 RandomAccessFile概述
 
 RandomAccessFile类不属于流，是Object类的子类。但它融合了InputStream和OutputStream的功能。
 
@@ -522,7 +525,7 @@ RandomAccessFile类不属于流，是Object类的子类。但它融合了InputSt
 
 通常，如果此类中的所有读取例程在读取所需数量的字节之前已到达文件末尾，则抛出 EOFException（是一种 IOException）。如果由于某些原因无法读取任何字节，而不是在读取所需数量的字节之前已到达文件末尾，则抛出 IOException，而不是 EOFException。需要特别指出的是，如果流已被关闭，则可能抛出 IOException。 
 
-二、构造方法
+## 7.2 构造方法
 
 public RandomAccessFile(String name,String mode)
 
@@ -589,18 +592,20 @@ public class RandomAccessFileDemo {
 
 ![](http://img.blog.csdn.net/20150812214652815)
 
-# 合并流
+# 8. 合并流
 
-一、SequenceInputStream概述
+## 8.1 SequenceInputStream概述
 
 SequenceInputStream类可以将多个输入流串流在一起，合并为一个输入流，因此，该流也被称为合并流。
 
 SequenceInputStream 表示其他输入流的逻辑串联。它从输入流的有序集合开始，并从第一个输入流开始读取，直到到达文件末尾，接着从第二个输入流读取，依次类推，直到到达包含的最后一个输入流的文件末尾为止。 
 
-二、SequenceInputStream的构造方法
+## 8.2 SequenceInputStream的构造方法
+
 ![](http://img.blog.csdn.net/20150915114300896)
 ![](http://img.blog.csdn.net/20150915114300896)
-三、把多个文件的内容写入到一个文本文件
+
+## 8.3 把多个文件的内容写入到一个文本文件
 
 ```java
 package cn.itcast_06;
@@ -656,9 +661,9 @@ public class SequenceInputStreamDemo2 {
 }
 ```
 
-# 序列化流
+# 9. 序列化流
 
-## 序列化流ObjectOutputStream
+## 9.1 序列化流ObjectOutputStream
 
 ObjectOutputStream 将 Java 对象的基本数据类型和图形写入 OutputStream。可以使用 ObjectInputStream 读取（重构）对象。通过在流中使用文件可以实现对象的持久存储。如果流是网络套接字流，则可以在另一台主机上或另一个进程中重构对象。 
 
@@ -677,7 +682,7 @@ ObjectOutputStream() ：为完全重新实现 ObjectOutputStream 的子类提供
 
 ObjectOutputStream(OutputStream out) ：创建写入指定 OutputStream 的 ObjectOutputStream。 
 
-## 反序列化流ObjectInputStream
+## 9.2 反序列化流ObjectInputStream
 
 1、ObjectInputStream 对以前使用 ObjectOutputStream 写入的基本数据和对象进行反序列化。 
 
@@ -700,11 +705,11 @@ ObjectOutputStream(OutputStream out) ：创建写入指定 OutputStream 的 Obje
 该接口居然没有任何方法，类似于这种没有方法的接口被称为标记接口
 
 10、序列化数据后，再次修改类文件，读取数据会出问题，如何解决呢?
- 
+
  每次修改java文件的内容的时候,class文件的id值都会发生改变。而读取文件的时候，会和class文件中的id值进行匹配。所以，就会出问题。让这个id值在java文件中是一个固定的值，这样，你修改文件的时候，这个id值就不会发生改变。
 
 我们要知道的是：看到类实现了序列化接口的时候，要想解决黄色警告线问题，就可以自动产生一个序列化id值。而且产生这个值以后，我们对类进行任何改动，它读取以前的数据是没有问题的。
-      
+​      
 11、我一个类中可能有很多的成员变量，有些我不想进行序列化。请问该怎么办呢?
       使用transient关键字声明不需要序列化的成员变量
 
@@ -763,23 +768,23 @@ public class ObjectStreamDemo {
 }
 ```
 
-# Properties集合
+# 10. Properties集合
 
-## 一、Properties概述
+## 10.1 Properties概述
 
-1、Properties:属性集合类。是一个可以和IO流相结合使用的集合类。
-2、Properties 可保存在流中或从流中加载。属性列表中每个键及其对应值都是一个字符串。
-3、是Hashtable的子类，说明是一个Map集合。
+- Properties：属性集合类。是一个可以和IO流相结合使用的集合类。
+- Properties 可保存在流中或从流中加载。属性列表中每个键及其对应值都是一个字符串。
+- 是Hashtable的子类，说明是一个Map集合。
 
-## Properties的常用操作方法
+## 10.2 Properties的常用操作方法
 
-### 1、构造方法
+### 10.2.1 构造方法
 ```java
 Properties() // 创建一个无默认值的空属性列表。 
 Properties(Properties defaults) // 创建一个带有指定默认值的空属性列表
-``` 
+```
 
-### 2、Properties作为Map集合的使用
+### 10.2.2 Properties作为Map集合的使用
 
 ```java
 package cn.itcast_08;
@@ -821,7 +826,8 @@ public class PropertiesDemo {
 运行结果：
 
 ![](http://img.blog.csdn.net/20150812232958740)
-3、Properties的特殊功能
+
+## 10.3 Properties的特殊功能
 
 ```java
 public Object setProperty(String key,String value) // 添加元素
@@ -871,7 +877,7 @@ public class PropertiesDemo2 {
 运行结果：
 
 ![](http://img.blog.csdn.net/20150812233438061)
-## 4、Properties和IO流的结合使用
+## 10.4 Properties和IO流的结合使用
 
 ```java
 public void load(Reader reader) // 把文件中的数据读取到集合中
@@ -935,7 +941,7 @@ public class PropertiesDemo3 {
 }
 ```
 
-## 5、Properties练习
+## 10.5 Properties练习
 
 我有一个文本文件，我知道数据是键值对形式的，但是不知道内容是什么。请写一个程序判断是否有“lisi”这样的键存在，如果有就改变其实为”100”
 

@@ -299,7 +299,7 @@ public class FileDemo {
 
 - public String[] list(FilenameFilter filter)
 - public File[] listFiles(FilenameFilter filter)
-## **10.1 代码示例：文件名称过滤器的实现**
+## **10.1 文件名称过滤器的实现**
 
 ```java
 package cn.itcast_08;
@@ -345,7 +345,7 @@ public class FileDemo2 {
 	}
 }
 ```
-## **10.2 代码示例：递归遍历目录下指定后缀名结尾的文件名称**
+## **10.2 递归遍历目录下指定后缀名结尾的文件名称**
 
 ```java
 package cn.itcast_03;
@@ -396,7 +396,7 @@ public class FilePathDemo {
 
 ![](http://img.blog.csdn.net/20150812003235467)
 
-## **10.3 代码示例：递归删除带内容的目录**
+## **10.3 递归删除带内容的目录**
 
 ```java
 package cn.itcast_03;

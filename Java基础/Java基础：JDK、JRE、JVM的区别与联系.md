@@ -1,6 +1,6 @@
-# 一、 详细介绍
+# 1. 详细介绍
 
-## 1. JVM -- java virtual machine
+## 1.1 JVM -- java virtual machine
 
 JVM就是我们常说的java虚拟机，它是整个java实现跨平台的 最核心的部分，所有的java程序会首先被编译为.class的类文件，这种类文件可 以在虚拟机上执行，也就是说class并不直接与机器的操作系统相对应，而是经过虚拟机间接与操作系统交互，由虚拟机将程序解 释给本地系统执行。
 
@@ -9,7 +9,7 @@ JVM 是 Java 平台的基础，和实际的机器一样，它也有自己的指�
 
 JVM 的主要工作是解释自己的指令集（即字节码）到 CPU 的指令集或 OS 的系统调用，保护用户免被恶意程序骚扰。 JVM 对上层的 Java 源文件是不关心的，它关注的只是由源文件生成的类文件（ class file ）。类文件的 组成包括 JVM 指令集，符号表以及一些补助信息。
 
-## 2. JRE -- java runtime environment
+## 1.2 JRE -- java runtime environment
 
 JRE是指java运行环境。光有JVM还不能成class的 执行，因为在解释class的时候JVM需要调用解释所需要的类库lib。 在JDK的安装目 录里你可以找到jre目录，里面有两个文件夹bin和lib,在 这里可以认为bin里的就是jvm，lib中则是jvm工 作所需要的类库，而jvm和 lib和起来就称为jre。所以，在你写完java程序编译成.class之后，你可以把这个.class文件 和jre一起打包发给朋友，这样你的朋友就 可以运行你写程序了。（jre里有运行.class的java.exe）
 
@@ -20,7 +20,7 @@ JRE （ Java Runtime Environment ），是运行 Java 程序必不可少的（�
 JRE里面有一个 JVM ， JRE 与具体的 CPU 结构和操作系统有关，我们从 Sun 下载 JRE 的时候就看到了不同的各种版本，，同 JVM 一起组成 JRE 的还有 一些 API （如 awt ， swing 等）， JRE 是 运行 Java 程序必不可少的.
 
 
-## 3. JDK -- java development kit
+## 1.3 JDK -- java development kit
 
 JDK是java开发工具包，基本上每个学java的人都会先在机器 上装一个JDK，那他都包含哪几部分呢？让我们看一下JDK的安装目录。在目录下面有 六个文件夹、一个src类库源码压缩包、和其他几个声明文件。其中，真正在运行java时起作用的 是以下四个文件夹：bin、include、lib、 jre。现在我们可以看出这样一个关系，JDK包含JRE，而JRE包 含JVM。
 
@@ -32,7 +32,7 @@ JDK是java开发工具包，基本上每个学java的人都会先在机器 上�
 
 注意：这里的bin、lib文件夹和jre里的bin、lib是 不同的，总的来说JDK是用于java程序的开发,而jre则 是只能运行class而没有编译的功能。eclipse、idea等 其他IDE有自己的编译器而不是用JDK bin目录中自带的，所以在安装时你会发现他们只要求你 选中jre路径就ok了。
 
-# 二、 三者联系
+# 2. 三者联系
 
 ![](http://dl.iteye.com/upload/attachment/364841/7dbc84af-e878-3718-beb5-6471ad99b995.gif)
 
