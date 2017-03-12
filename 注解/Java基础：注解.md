@@ -1,10 +1,10 @@
-##**系列阅读**
+#**系列阅读**
 - [Java基础：类加载器](http://blog.csdn.net/axi295309066/article/details/52893604)
 - [Java基础：反射](http://blog.csdn.net/axi295309066/article/details/52888711)
 - [Java基础：注解](http://blog.csdn.net/axi295309066/article/details/52893032)
 - [Java基础：动态代理](http://blog.csdn.net/axi295309066/article/details/52892859)
 
-##**1、概述**
+# 1. 概述
 注解相当于一种标记，在程序中加了注解就等于为程序打上了某种标记，没加，则等于没有某种标记，以后，javac编译器，开发工具和其他程序可以用反射来了解你的类及各种元素上有无何种标记，看你有什么标记，就去干相应的事。标记可以加在包，类，字段，方法，方法的参数以及局部变量上
 
 开发中常见注解：
@@ -13,9 +13,9 @@
 - @Deprecated：作用在方法上。标记该方法为作废方法（已过时）
 - @SuppressWarnings：作用在方法上，压制警告
 
-##**2、注解类型**
+# 2. 注解类型
 8种基本数据类型，String，Class，enum，annotation，以上类型的数组类型
-##**3、定义注解**
+# 3. 定义注解
 
 ```java
 @Target(ElementType.FIELD)
@@ -25,18 +25,18 @@ public @interface ViewInject {
     String name() default "zhangsan";//默认值
 }
 ```
-###**@interface**
+### @interface
 使用@interface声明一个注解类
 
-###**@Target**
+### @Target
 表示注解的作用目标，是一个枚举值
-|作用目标|说明|
-|---|---|
-|ElementType.FIELD|作用于成员变量|
-|ElementType.METHOD|作用于方法|
-|ElementType.CONSTRUCTOR |作用于构造方法|
-|ElementType.PARAMETER| 作用于方法的参数|
-###**@Retention**
+| 作用目标                    | 说明       |
+| :---------------------- | :------- |
+| ElementType.FIELD       | 作用于成员变量  |
+| ElementType.METHOD      | 作用于方法    |
+| ElementType.CONSTRUCTOR | 作用于构造方法  |
+| ElementType.PARAMETER   | 作用于方法的参数 |
+### @Retention
 表示注解的保存策略，也是一个枚举值
 
 注解的保留策略是指，注解是只保留在源代码上，还是保留到class文件上，再或者是类在运行时，可以被类加载器加载到内存中。
@@ -45,25 +45,25 @@ public @interface ViewInject {
 
 指定注解的保留策略需要使用元注解@Retention，它有一个value属性，类型为RetentionPolicy类型，RetentionPolicy是枚举类型
 
-|保存策略|说明|
-|---|---|
-|RetentionPolicy.SOURCE|注解只保存在源代码中，即.java文件|
-|RetentionPolicy.CLASS|注解保存在字节码中,即.class文件|
-|RetentionPolicy.RUNTIME |注解保存在内存中的字节码，可用于反射|
+| 保存策略                    | 说明                  |
+| :---------------------- | :------------------ |
+| RetentionPolicy.SOURCE  | 注解只保存在源代码中，即.java文件 |
+| RetentionPolicy.CLASS   | 注解保存在字节码中,即.class文件 |
+| RetentionPolicy.RUNTIME | 注解保存在内存中的字节码，可用于反射  |
 
-###**注解的属性**
+### 注解的属性
 
 ```java
 String name() default "zhangsan";//默认值
 ```
 定义注解的属性，有点像java类中的方法，上面的代码定义了一个类型为String类型，注解名为name的属性，default是给注解设置默认值
-###value属性
+### value属性
 ```java
 String value() default "xxx"; 
 ```
 如果注解中有一个名称为value的属性，且你只想设置value属性（即其他属性都采用默认值或者你只有一个value属性），那么可以省略value=部分，例如：@MyAnnotation("AllenIverson")
 
-###数组类型的属性
+### 数组类型的属性
 
 ```java
 int [] arrayAttr() default {1,2,3};//定义
@@ -71,10 +71,12 @@ int [] arrayAttr() default {1,2,3};//定义
 ```
 如果数组属性中只有一个元素，这时候属性值部分可以省略大括
 
-##**Annotation**
-##注解的应用结构图
-![这里写图片描述](http://img.blog.csdn.net/20161022152925252)
-##**反射注解**
+# 4. Annotation
+## 4.1 注解的应用结构图
+
+![Annotation](http://img.blog.csdn.net/20161022152925252)
+
+## 4.2 反射注解
 类上的注解：使用Class获取
 
 - Class.getAnnotation()：获取指定类型的注解
@@ -137,7 +139,7 @@ public class Demo1 {
 }
 ```
 
-##**实现注解小框架**
+## 4.3 实现注解小框架
 
 ```java
 public class ViewUtils {
@@ -184,7 +186,7 @@ public class ViewUtils {
 }
 ```
 
-# **Annotation Processing Tool**
+# 5. Annotation Processing Tool
 
 编译时注解在项目编译的时候生成新的Java文件，这样可以减少手动的代码输入，而且可以不用使用反射，对程序不会造成性能影响。
 
@@ -192,13 +194,13 @@ public class ViewUtils {
 
 [Annotation-Processing-Tool详解](http://www.open-open.com/lib/view/open1470735314518.html)
 
-# **javapoet**
+# 6. javapoet
 
-动态生成Java源码
+动态生成Java源码，ButterKnife使用了该框架，实现了编译时注解
 
 [javapoet——让你从重复无聊的代码中解放出来](http://www.jianshu.com/p/95f12f72f69a)
 
-# 注解框架
+# 7. 注解框架
 
 - Dagger1
 - Dagger2

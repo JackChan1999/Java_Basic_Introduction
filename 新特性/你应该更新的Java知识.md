@@ -1,5 +1,3 @@
-原文链接：http://www.blogbus.com/dreamhead-logs/236028457.html
-
 你应该更新的Java知识之常用程序库（一）
 你应该更新的Java知识之常用程序库（二）
 你应该更新的Java知识之构建工具
@@ -23,7 +21,6 @@ public class People {
     public List getPeople() {
        return this.people;
    }
-
      ...
 }
 ```
@@ -70,20 +67,17 @@ public class People {
     public ImmutableList getPeople() {
         return this.people;
     } 
-
     ...
 }
 ```
 
 这样一来，代码依然很简单，但是，意义却与从前完全不一样了。我们不必再为可能存在的隐忧顾虑了：一旦元素放到集合里，就不可能修改它了，因为它是不可变的。
 
-对于使用这段代码的人来说，getter自不必说，如往常一样使用，setter也不费力。只是当做字面量使用的集合，我们已经在《你应该更新的Java知识之集合初始化》中讨论过了。如果要适配于现有程序库，把一个已有的List转成ImmutableList也不复杂，一个简单的copyOf方法就可以实现：
-
-  
+对于使用这段代码的人来说，getter自不必说，如往常一样使用，setter也不费力。只是当做字面量使用的集合，我们已经在《你应该更新的Java知识之集合初始化》中讨论过了。如果要适配于现有程序库，把一个已有的List转成ImmutableList也不复杂，一个简单的copyOf方法就可以实现
 
 ```java
-  List existingPeople = ... 
-    ImmutableList immutablePeople = copyOf(existingPeople);
+List existingPeople = ... 
+ImmutableList immutablePeople = copyOf(existingPeople);
 ```
 
 为了让讨论更完整，这里不得不提到另外一个不变接口的选择：Iterable。它是从Java 5开始进入JDK的一个接口：
@@ -99,3 +93,5 @@ public interface Iterable  {
 既然它是JDK里的东西，为什么不把它优先推荐呢？原因有几个。最重要的一个原因在于我们熟知的Iterator，它有一个方法叫做remove，可能大多数Java程序员已经习惯性地忽略了这个方法，但它就在哪里，它是一个可以“改变”集合的方法，所以，从语义上说，它不是一个很好的选择。另外，从已有的代码习惯来说，很多程序员还是很喜欢用List、Set作为接口，所以，ImmutableList从心理上来说，更接近已有的习惯。剩下的一个点似乎不那么重要，有些代码真的需要使用到特定类型的接口。不过，就大多数代码而言，我们只是要得到的一个集合，做一些操作，而这些操作我们在《你应该更新的Java知识之集合操作》中做了一些讨论。
 
 在函数式编程中，不变是提升程序稳定性一个很重要的概念。既然我们大多数情况下实际用到的是不变集合，那就不妨直接把它表现出来。
+
+原文链接：http://www.blogbus.com/dreamhead-logs/236028457.html

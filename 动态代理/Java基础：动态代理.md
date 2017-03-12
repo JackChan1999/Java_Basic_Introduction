@@ -4,7 +4,7 @@
 - [Java基础：注解](http://blog.csdn.net/axi295309066/article/details/52893032)
 - [Java基础：动态代理](http://blog.csdn.net/axi295309066/article/details/52892859)
 
-##**概述**
+##**1. 概述**
 在运行时，动态创建一组指定的接口的实现类对象（代理对象）！
 
 代理是实现AOP（面向切面编程）的核心和关键技术，动态代理的用途与装饰模式很相似，就是为了对某个对象进行增强。所有使用装饰者模式的案例都可以使用动态代理来替换。
@@ -17,7 +17,7 @@
 
 而程序运行过程中产生对象其实就是我们刚才反射讲解的内容，所以，动态代理其实就是通过反射来生成一个代理
 
-##**工作原理**
+##**2. 工作原理**
 
 - client调用代理
 - 代理的构造方法接收一个invocationhandler参数
@@ -49,13 +49,13 @@ Object invoke(Object proxy,Method method,Object[] args)
 4、Proxy类中创建动态代理对象的方法的三个参数
 
 - **ClassLoader对象**
-定义了由哪个ClassLoader对象来对生成的代理对象进行加载
+  定义了由哪个ClassLoader对象来对生成的代理对象进行加载
 
 - **Interface对象的数组**
-表示的是我将要给我需要代理的对象提供一组什么接口，如果我提供了一组接口给它，那么这个代理对象就宣称实现了该接口(多态)，这样我就能调用这组接口中的方法了
+  表示的是我将要给我需要代理的对象提供一组什么接口，如果我提供了一组接口给它，那么这个代理对象就宣称实现了该接口(多态)，这样我就能调用这组接口中的方法了
 
 - **InvocationHandler对象**
-表示的是当我这个动态代理对象在调用方法的时候，会关联到哪一个InvocationHandler对象上
+  表示的是当我这个动态代理对象在调用方法的时候，会关联到哪一个InvocationHandler对象上
 
 每一个动态代理类都必须要实现InvocationHandler这个接口，并且每个代理类的实例都关联到了一个handler，当我们通过代理对象调用一个方法的时候，这个方法的调用就会被转发为由InvocationHandler这个接口的invoke 方法来进行调用。
 
@@ -63,7 +63,7 @@ Object invoke(Object proxy,Method method,Object[] args)
 
 - Object proxy：代表动态代理对象
 - Method method：代表正在执行的方法
--  Object[] args：代表调用目标方法时传入的实参
+- Object[] args：代表调用目标方法时传入的实参
 
 ![这里写图片描述](http://img.blog.csdn.net/20161022121714416)
 
@@ -71,7 +71,7 @@ Object invoke(Object proxy,Method method,Object[] args)
 
 创建的代理对象是在jvm运行时动态生成的一个对象，它并不是我们的InvocationHandler类型，也不是我们定义的那组接口的类型，而是在运行是动态生成的一个对象，并且命名方式都是这样的形式，以$开头，proxy为中，最后一个数字表示对象的标号
 
-##**动态代理的实现**
+##**3. 动态代理的实现**
 
 ```java
 package cn.itcast_06;
@@ -200,7 +200,7 @@ public class Test {
 }
 ```
 
-##**Spring原理**
+##**4. Spring原理**
 
 ```java
 public class ProxyFactoryBean {

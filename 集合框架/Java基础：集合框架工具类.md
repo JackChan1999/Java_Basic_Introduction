@@ -1,44 +1,44 @@
-# Collections工具类
+# 1. Collections工具类
 
-## 一、Collections类概述
+## 1.1 Collections类概述
 
 针对集合操作 的工具类，里面的方法都是静态的，可以对集合进行排序、二分查找、反转、混排等。
 
-## 二、Collection和Collections的区别
+## 1.2 Collection和Collections的区别
 
 Collection:是单列集合的顶层接口，有子接口List和Set。Collections:是针对集合操作的工具类，有对集合进行排序和二分查找等方法
 
-## 三、Collections常用方法
+## 1.3 Collections常用方法
 
-1、public static &lt;T> void sort(List&lt;T> list)
+- public static <T> void sort(List<T> list)
 
 使用sort方法可以根据元素的自然顺序 对指定列表按升序进行排序。列表中的所有元素都必须实现 Comparable 接口。此列表内的所有元素都必须是使用指定比较器可相互比较的 
 
-2、public static &lt;T> int binarySearch(List&lt;?> list,T key)
+- public static <T> int binarySearch(List<?> list,T key)
 
 使用二分搜索法搜索指定列表，以获得指定对象。
 
-3、public static &lt;T> T max(Collection&lt;?> coll)
+- public static <T> T max(Collection<?> coll)
 
 根据元素的自然顺序，返回给定 collection 的最大元素。
 
-4、public static void reverse(List&lt;?> list)
+- public static void reverse(List<?> list)
 
 反转指定列表中元素的顺序。
 
-5、public static void shuffle(List&lt;?> list)
+- public static void shuffle(List<?> list)
 
 混排算法所做的正好与 sort 相反: 它打乱在一个 List 中可能有的任何排列的踪迹。也就是说，基于随机源的输入重排该 List, 这样的排列具有相同的可能性（假设随机源是公正的）。这个算法在实现一个碰运气的游戏中是非常有用的。例如，它可被用来混排代表一副牌的 Card 对象的一个 List 。另外，在生成测试案例时，它也是十分有用的。
 
-6、fill(List&lt;? super T> list, T obj)
+- fill(List<? super T> list, T obj)
 
 使用指定元素替换指定列表中的所有元素。
 
-7、copy(List&lt;? super T> dest, List&lt;? extends T> src) 
+- copy(List<? super T> dest, List<? extends T> src) 
 
 将所有元素从一个列表复制到另一个列表。用两个参数，一个目标 List 和一个源 List, 将源的元素拷贝到目标，并覆盖它的内容。目标 List 至少与源一样长。如果它更长，则在目标 List 中的剩余元素不受影响。 
 
-8、集合线程安全化
+- 集合线程安全化
 
 List&lt;T> synchronizedList(List&lt;T> list);//返回支持的同步（线程安全的）List集合
 
@@ -109,19 +109,20 @@ public class CollectionsDemo {
 
 ![](http://img.blog.csdn.net/20150828214536645)
 
-# Arrays工具类  
+# 2. Arrays工具类  
 
-一、概述
+## 2.1 概述
 
- 此类包含用来操作数组（比如排序和搜索）的各种方法。此类还包含一个允许将数组作为列表来查看的静态工厂。 
-二、常用方法
+此类包含用来操作数组（比如排序和搜索）的各种方法。此类还包含一个允许将数组作为列表来查看的静态工厂。 
 
-1、集合与数组的转换
+## 2.2 常用方法
+
+### 集合与数组的转换
 
 (1) 将数组转换为集合
 
-Lsit&lt;T>  asList(T... a);//返回一个受指定数组支持的固定大小的列表。
-  
+Lsit<T>  asList(T... a);//返回一个受指定数组支持的固定大小的列表。
+
 把数组变成List集合的好处：可以使用集合的思想和方法来操作数组中的元素。如：contains，get，indexOf，subList等方法。
 
 PS:
@@ -131,28 +132,32 @@ PS:
 - 如果数组中的元素都是基本数据类型，那么会将该数组作为集合中的元素存在。
 
 (2) 集合转数组
- 
 
-2、查找
+### 查找
 
 int binarySearch()：使用二分搜索法来搜索指定的 byte 型数组，以获得指定的值
 
-3、判断
+### 判断
+
 boolean equals(Object[] a, Object[] a2)：判断指定的两个数组是否相等
 
-4、排序
+### 排序
+
 void sort()：对指定的数组按数字升序进行排序。
- 
-5、复制
+
+### 复制
+
 &lt;T> T[] copyOf(T[] original, int newLength) 
 复制指定的数组，截取或用 null 填充（如有必要），以使副本具有指定的长度。
 
-6、填充
+### 填充
+
  void  fill(Object[] a, Object val) 将指定的 Object 引用分配给指定 Object 数组的每个元素。
- 
-7、其他方法
-(1) toString(Object[] a)：返回指定数组内容的字符串表示形式。
-(2) int hashCode(Object[] a) 基于指定数组的内容返回哈希码。
+
+### 其他方法
+
+- toString(Object[] a)：返回指定数组内容的字符串表示形式。
+- int hashCode(Object[] a) 基于指定数组的内容返回哈希码。
 
 ```java
 package com.heima.test;

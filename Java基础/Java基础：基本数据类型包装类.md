@@ -1,39 +1,39 @@
-##**一、基本类型包装类概述**
+# **1. 基本类型包装类概述**
 为了方便操作基本数据类型值，将其封装成了对象，在对象中定义了属性和行为丰富了该数据的操作。
 
  用于描述该对象的类就称为基本数据类型对象包装类。
- 
+
 - 将基本数据类型封装成对象的好处在于可以在对象中定义更多的功能方法操作该数据。
 - 常用的操作之一：用于基本数据类型与字符串之间的转换。
 - 基本类型和包装类的对应：Byte，Short，Integer，Long，Float，Double，Character，Boolean
 
-|基本数据类型|包装数据类型|
-|---|---|
-|byte|Byte|
-|short|Short|
-|int|Integer|
-|long|Long|
-|float|Float|
-|double|Double|
-|char|Character|
-|boolean|Boolean|
+| 基本数据类型  | 包装数据类型    |
+| :------ | :-------- |
+| byte    | Byte      |
+| short   | Short     |
+| int     | Integer   |
+| long    | Long      |
+| float   | Float     |
+| double  | Double    |
+| char    | Character |
+| boolean | Boolean   |
 
-##**二、基本数据类型包装类应用**
+# **2. 基本数据类型包装类应用**
  该包装对象主要用于基本类型和字符串之间的转换
 
- **1、基本类型 -> 字符串**
- 
- - 基本类型数值+""
- - 用String类中的静态方法valueOf(基本类型数值);
+## 2.1 基本类型 -> 字符串
 
-**2、字符串 -> 基本类型**
+- 基本类型数值+""
+- 用String类中的静态方法valueOf(基本类型数值);
+
+## 2.2 字符串 -> 基本类型
 
  使用包装类中的静态方法xxx parseXxx("xxx");
- 
- - int parseInt(String str);
- - long parseLong(String str);
- - boolean parseBoolean(String str);
- - 只有Character没有parse方法。
+
+- int parseInt(String str);
+- long parseLong(String str);
+- boolean parseBoolean(String str);
+- 只有Character没有parse方法。
 
 如果字符串被Integer进行对象的封装，可使用另一个非静态的方法，intValue。
 
@@ -41,25 +41,25 @@
 
 用Integer的静态方法valueOf(String s);
 
-##**三、Integer类**
-###**1、Integer类概述**
+# **3. Integer类**
+## **3.1 Integer类概述**
 Integer 类在对象中包装了一个基本类型 int 的值
 该类提供了多个方法，能在 int 类型和 String 类型之间互相转换，还提供了处理 int 类型时非常有用的其他一些常量和方法
 
-###**2、构造方法**
+## **3.2 构造方法**
 public Integer(int value)
 public Integer(String s)
 
 PS：这个字符串必须是由数字字符组成
 
-##**3、int类型和String类型的相互转换**
-|方法|说明|
-|----|----|
-|int intValue()|以 int 类型返回该 Integer 的值|
-|static int parseInt(String s)|将字符串参数作为有符号的十进制整数进行解析|
-|static String toString(int i)|返回一个表示指定整数的 String 对象|
-|static Integer valueOf(int i)|返回一个表示指定的 int 值的 Integer 实例|
-|static Integer valueOf(String s)|返回保存指定的 String 的值的 Integer 对象|
+## **3.3 int类型和String类型的相互转换**
+| 方法                               | 说明                            |
+| -------------------------------- | ----------------------------- |
+| int intValue()                   | 以 int 类型返回该 Integer 的值        |
+| static int parseInt(String s)    | 将字符串参数作为有符号的十进制整数进行解析         |
+| static String toString(int i)    | 返回一个表示指定整数的 String 对象         |
+| static Integer valueOf(int i)    | 返回一个表示指定的 int 值的 Integer 实例   |
+| static Integer valueOf(String s) | 返回保存指定的 String 的值的 Integer 对象 |
 <br>
 代码示例：
 ```java
@@ -113,18 +113,18 @@ public class IntegerDemo {
 
 运行结果：
 
-![这里写图片描述](http://img.blog.csdn.net/20150829005403871)
+![Integer](http://img.blog.csdn.net/20150829005403871)
 
-###**4、常用的基本进制转换**
-|方法|说明|
-|----|----|
-|String toBinaryString(int i)|以二进制（基数 2）无符号整数形式返回一个整数参数的字符串表示形式|
-|String toOctalString(int i)|以八进制（基数 8）无符号整数形式返回一个整数参数的字符串表示形式|
-|String toHexString(int i)|以十六进制（基数 16）无符号整数形式返回一个整数参数的字符串表示形式|
+## **3.4 常用的基本进制转换**
+| 方法                           | 说明                                  |
+| ---------------------------- | ----------------------------------- |
+| String toBinaryString(int i) | 以二进制（基数 2）无符号整数形式返回一个整数参数的字符串表示形式   |
+| String toOctalString(int i)  | 以八进制（基数 8）无符号整数形式返回一个整数参数的字符串表示形式   |
+| String toHexString(int i)    | 以十六进制（基数 16）无符号整数形式返回一个整数参数的字符串表示形式 |
 
-###**5、十进制到其他进制**
+## **3.5 十进制到其他进制**
 public static String toString(int i,int radix)
-###**6、其他进制到十进制**
+## **3.6 其他进制到十进制**
 public static int parseInt(String s,int radix)
 
 代码示例：
@@ -184,9 +184,9 @@ public class IntegerDemo {
 
 运行结果：
 
-![这里写图片描述](http://img.blog.csdn.net/20150829005703287)
+![Integer](http://img.blog.csdn.net/20150829005703287)
 
-###**7、自动拆装箱**
+## **3.7 自动拆装箱**
 
 ```java
 package cn.itcast_05;  
@@ -223,20 +223,20 @@ public class IntegerDemo {
 }  
 ```
 
-##**四、Character类**
-###**1、Character类概述**
+# **4. Character类**
+## **4.1 Character类概述**
 Character 类在对象中包装一个基本类型 char 的值
 此外，该类提供了几种方法，以确定字符的类别（小写字母，数字，等等），并将字符从大写转换成小写，反之亦然
-###**2、构造方法**
+## **4.2 构造方法**
 public Character(char value)
-###**3、常用方法**
-|方法|说明|
-|----|----|
-|isUpperCase(char ch)|判断是否是大写|
-|isLowerCase(char ch)|判断是否是小写|
-|isDigit(char ch)|判断是否是数字|
-|char toUpperCase(char ch)|转换成大写|
-|char toLowerCase(char ch)|转换成小写|
+## **4.3 常用方法**
+| 方法                        | 说明      |
+| ------------------------- | ------- |
+| isUpperCase(char ch)      | 判断是否是大写 |
+| isLowerCase(char ch)      | 判断是否是小写 |
+| isDigit(char ch)          | 判断是否是数字 |
+| char toUpperCase(char ch) | 转换成大写   |
+| char toLowerCase(char ch) | 转换成小写   |
 <br>
 代码示例：
 
@@ -277,7 +277,7 @@ public class CharacterDemo {
     }  
 } 
 ```
-###**4、练习**
+## **4.4 练习**
 代码示例：统计一个字符串中大写字母字符，小写字母字符，数字字符出现的次数。(不考虑其他字符)
 
 ```java
@@ -341,4 +341,4 @@ public class CharacterTest {
 
 运行结果：
 
-![这里写图片描述](http://img.blog.csdn.net/20150829010223059)
+![Character](http://img.blog.csdn.net/20150829010223059)
