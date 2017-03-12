@@ -1,0 +1,285 @@
+##**笔记摘要**
+
+这里介绍了java5中的线程锁技术：Lock和Condition，实现线程间的通信，其中的读锁和写锁的使用通过一个缓存系统进行了演示，对于Condition的应用通过一个阻塞队列进行演示。
+
+线程锁技术：Lock & Condition 实现线程同步通信所属包：java.util.concurrent.locks
+##**Lock**
+Lock比传统线程模型中的synchronized方式更加面向对象，相对于synchronized 方法和语句它具有更广泛的锁定操作，此实现允许更灵活的结构，可以具有差别很大的属性，可以支持多个相关的 Condition 对象。 
+
+于现实生活中类似，锁本身也是一个对象。两个线程执行的代码片段要实现同步互斥的结果，它们必须用同一个Lock对象，锁是上在代表要操作的资源的类的内部方法中，而不是线程代码中。
+
+**读写锁：**
+
+分为读锁和写锁，多个读锁不互斥，读锁与写锁互斥，写锁与写锁互斥，这是由JVM自己控制的。
+
+读写锁的使用情景：
+
+- 如果代码只读数据，就可以很多人共同读取，但不能同时写。
+- 如果代码修改数据，只能有一个人在写，且不能同时读数据。
+
+API中ReentrantReadWriteLock类提供的一个读写锁缓存示例：
+
+```java
+class CachedData {  
+     
+　　Object data;  
+    volatile boolean cacheValid;  
+     
+　　ReentrantReadWriteLock rwl = new ReentrantReadWriteLock();  
+  
+　　void processCachedData() {  
+       
+　　      rwl.readLock().lock();  
+      
+　　      if (!cacheValid) {  
+          
+　　      // Must release read lock before acquiring write lock  
+          
+　　      rwl.readLock().unlock();  
+　　      rwl.writeLock().lock();  
+          
+　　     // Recheck state because another thread might have acquired  
+　    　 // write lock and changed state before we did.    
+　　    if (!cacheValid) {  
+            
+　　         data = ...       
+　　         cacheValid = true;  
+          
+　　     }  
+　　    // Downgrade by acquiring read lock before releasing write lock  
+             rwl.readLock().lock();  
+          
+　　      rwl.writeLock().unlock(); // Unlock write, still hold read  
+       
+　　    }  
+　　       use(data);  
+　　      rwl.readLock().unlock();  
+     
+　　}  
+}  
+```
+
+读写锁的应用：编写一个缓存系统
+
+注解：为了避免线程的安全问题，synchronized和ReadWriteLock都可以，synchronized也防止了并发读取，性能较低有一个线程先进去，开始读取数据，进行判断，发现没有数据，其他线程就没有必要进去了，就释放读锁，加上写锁，去查找数据写入，为了避免写入的其他对象等待，再做一次判断，数据写入完成后，释放写锁，上读锁，防止写入，还原原来的状态。
+
+两次判断：第一次为了写入数据，所以释放读锁，上写锁。第二次为了防止阻塞的线程重复写入
+
+```java
+import java.util.HashMap;  
+import java.util.Map;  
+import java.util.concurrent.locks.ReadWriteLock;  
+import java.util.concurrent.locks.ReentrantReadWriteLock;  
+  
+public class CacheDemo {  
+  
+    //定义一个map用于缓存对象  
+    private Map<String, Object> cache = new HashMap<String, Object>();  
+          
+    //获取一个读写锁对象  
+    private ReadWriteLock rwl = new ReentrantReadWriteLock();  
+      
+    //带有缓存的获取指定值的方法  
+    public  Object getData(String key){  
+        rwl.readLock().lock();      //上读锁  
+        Object value = null;  
+        try{  
+            value = cache.get(key); //获取要查询的值     
+            if(value == null){  //线程出现安全问题的地方  
+                  
+                rwl.readLock().unlock();    //没有数据，释放读锁，上写锁  
+                rwl.writeLock().lock(); //多个线程去上写锁，第一个上成功后，其他线程阻塞，第一个线程开始执行下面的代码，最后  
+                            //释放写锁后，后面的线程继续上写锁，为了避免后面的线程重复写入，进行二次判断  
+  
+                try{  
+                    if(value==null){    //二次判断，防止其他线程重复写数据  
+                            value = "aaaa"; //实际是去查询数据库  
+                    }  
+                }finally{  
+                    rwl.writeLock().unlock();   //写完数据，释放写锁  
+                }  
+                rwl.readLock().lock();  //恢复读锁  
+            }  
+        }finally{  
+            rwl.readLock().unlock();    //最终释放读锁  
+        }  
+        return value;   //返回获取到的值  
+    }  
+}  
+```
+##**Condition**
+
+Condition 将 Object 监视器方法（wait、notify 和 notifyAll）分解成截然不同的对象，以便通过将这些对象与任意 Lock 实现组合使用，为每个对象提供多个等待 set（wait-set）。其中，Lock 替代了 synchronized 方法和语句的使用，Condition 替代了 Object 监视器方法wait和notify的使用
+     
+一个锁内部可以有多个Condition，即有多路等待通知，传统的线程机制中一个监视器对象上只能有一路等待和通知，要想实现多路等待和通知，必须嵌套使用多个同步监视器对象。使用一个监视器往往会产生顾此失彼的情况。
+     
+在等待 Condition 时，允许发生“虚假唤醒”，这通常作为对基础平台语义的让步。对于大多数应用程序，这带来的实际影响很小，因为 Condition 应该总是在一个循环中被等待，并测试正被等待的状态声明。某个实现可以随意移除可能的虚假唤醒，但建议应用程序程序员总是假定这些虚假唤醒可能发生，因此总是在一个循环中等待。 
+
+Condition的应用：阻塞队列（使用了两个监视器）
+ 
+说明：该应用是 java.util.concurrent.locks包中Condition接口中的示例代码。使用了两个Condition分别用于管理取数据的线程，和存数据的线程，这样就可以明确的唤醒需要的一类线程，如果使用一个Condition，当队列满了之后，唤醒的并不一定就是取数据的线程
+
+```java
+class BoundedBuffer {  
+  
+  final Lock lock = new ReentrantLock();  
+  final Condition notFull  = lock.newCondition();   
+  final Condition notEmpty = lock.newCondition();   
+  
+  final Object[] items = new Object[100];  
+  int putptr, takeptr, count;  
+  
+  public void put(Object x) throws InterruptedException {  
+    lock.lock();  
+    try {  
+      while (count == items.length) //循环判断队列是否已存满  
+        notFull.await();    //如果队列存满了，则要存入数据的线程等待  
+      items[putptr] = x;   
+      if (++putptr == items.length) putptr = 0;//当队列放满，指针回到0  
+      ++count;      //添加了一个数据  
+      notEmpty.signal();    //队列中有数据了，所以就唤醒取数据的线程  
+    } finally {  
+      lock.unlock();  
+    }  
+  }  
+  
+  public Object take() throws InterruptedException {  
+    lock.lock();  
+    try {  
+      while (count == 0)    //循环判断，队列是否有空位  
+        notEmpty.await();   //要取的线程等待  
+      Object x = items[takeptr];   
+      if (++takeptr == items.length) takeptr = 0;  
+      --count;  //取走一个，说明队列有空闲的位置，  
+      notFull.signal(); //所以通知存入的线程  
+      return x;  
+    } finally {  
+      lock.unlock();  
+    }  
+  }   
+}  
+```
+
+##**Condition练习**
+一共有3个线程，两个子线程先后循环10次，接着主线程循环100次，接着又回到两 个子线程先后循环10次，再回到主线程又循环100，如此循环50次。
+
+思路：老二先执行，执行完唤醒老三，老三执行完唤醒老大，老大执行完唤醒老二，以此循环，所以定义3个Condition对象和一个执行标识即可
+
+示例出现的问题：两个文件中有同名类的情况
+
+解决方案：可以将一个文件中的那个同名外部类放进类中，但是静态不能创建内部类的实例对象，所以需要加上static，这样两个类的名称就不一样了。 一个是原来的类名，一个是在自己类名前面加上外部类的类名。
+
+```java
+import java.util.concurrent.locks.Condition;  
+import java.util.concurrent.locks.Lock;  
+import java.util.concurrent.locks.ReentrantLock;  
+  
+public class ThreeConditionCommunication {  
+    public static void main(String[] args){  
+          
+        final Business business = new Business();  
+          
+　　//创建并启动子线程老二  
+        new Thread(new Runnable(){  
+            @Override  
+            public void run() {  
+                for(int i=1;i<=50;i++){  
+                    business.sub2(i);  
+                }  
+            }  
+        }).start();  
+                  
+　　//创建并启动子线程老三  
+        new Thread(new Runnable(){  
+            @Override  
+            public void run() {  
+                for(int i=1;i<=50;i++){  
+                    business.sub3(i);  
+                }  
+            }  
+        }).start();  
+  
+            //主线程  
+            for(int i=1;i<=50;i++){  
+                business.main(i);  
+          }  
+       }  
+      
+    static class Business{  
+          
+        Lock lock = new ReentrantLock();   
+        Condition condition1 = lock.newCondition();  
+        Condition condition2 = lock.newCondition();  
+        Condition condition3 = lock.newCondition();  
+          
+        //定义一个变量来决定线程的执行权  
+        private int ShouldSub = 1;  
+          
+        public  void  sub2(int i){  
+            //上锁，不让其他线程执行  
+            lock.lock();  
+            try{  
+            if(ShouldSub != 2){ //如果不该老二执行，就等待  
+                try {  
+                    condition2.await();  
+                } catch (InterruptedException e) {  
+                    e.printStackTrace();  
+                }  
+            }  
+              
+            for(int j=1;j<=10;j++){  
+                System.out.println("sub thread sequence of"+i+",loop of "+j);  
+            }  
+            ShouldSub = 3;  //准备让老三执行  
+            condition3.signal();        //唤醒老三  
+            }finally{  
+                lock.unlock();  
+            }     
+        }  
+          
+        public  void  sub3(int i){  
+              
+            lock.lock();  
+            try{  
+            if(ShouldSub != 3){  
+                try {  
+                    condition3.await();  
+                } catch (InterruptedException e) {  
+                    e.printStackTrace();  
+                }  
+            }  
+              
+            for(int j=1;j<=10;j++){  
+                System.out.println("sub2 thread sequence of"+i+",loop of "+j);  
+            }  
+                ShouldSub = 1;  //准备让老大执行  
+                condition1.signal();        //唤醒老大  
+            }finally{  
+                lock.unlock();  
+            }  
+        }  
+          
+　　//主线程  
+        public  void main(int i){  
+              
+            lock.lock();  
+            try{  
+            if(ShouldSub!=1){  
+                try {  
+                    condition1.await();  
+                } catch (InterruptedException e) {  
+                    e.printStackTrace();  
+                }  
+            }  
+            for(int j=1;j<=100;j++){  
+                System.out.println("main thread sequence of"+i+", loop of "+j);  
+            }     
+            ShouldSub = 2;  //准备让老二执行  
+            condition2.signal();        //唤醒老二  
+            }finally{  
+                lock.unlock();  
+            }     
+        }     
+    }  
+   }  
+```

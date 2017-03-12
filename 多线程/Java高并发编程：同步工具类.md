@@ -1,0 +1,436 @@
+##**内容摘要**
+
+这里主要介绍了java5中线程锁技术以外的其他同步工具，首先介绍Semaphore：一个计数信号量。用于控制同时访问资源的线程个数，CyclicBarrier同步辅助类：从字面意思看是路障，这里用于线程之间的相互等待，到达某点后，继续向下执行。CountDownLatch同步辅助类：在完成一组正在其他线程中执行的操作之前，它允许一个或多个线程一直等待。犹如倒计时计数器，然后是Exchanger：实现两个对象之间数据交换，可阻塞队列：ArrayBlockingQueue，通过阻塞队列间的通信来演示其作用，最后介绍了几个同步集合。
+
+##**Semaphore实现信号灯**
+
+Semaphore可以维护当前访问自身的线程个数，并提供了同步机制，使用Semaphore可以控制同时访问资源的线程个数，例如，实现一个文件允许的并发访问数。Semaphore 只对可用许可的号码进行计数，并采取相应的行动。 
+   
+Semaphore实现的功能就像：银行办理业务，一共有5个窗口，但一共有10个客户，一次性最多有5个客户可以进行办理，其他的人必须等候，当5个客户中的任何一个离开后，在等待的客户中有一个人可以进行业务办理。
+
+Semaphore提供了两种规则：
+ 
+ - 一种是公平的：获得资源的先后，按照排队的先后。在构造函数中设置true实现
+ - 一种是野蛮的：谁有本事抢到资源，谁就可以获得资源的使用权。
+
+与传统的互斥锁的异同：
+
+单个信号量的Semaphore对象可以实现互斥锁的功能，并且可以是由一个线程获得了“锁“，再由另外一个线程释放”锁“，这可以应用于死锁恢复的一些场合。
+
+应用场景：共享资源的争夺，例如游戏中选手进入房间的情况。
+
+```java
+import java.util.concurrent.ExecutorService;  
+import java.util.concurrent.Executors;  
+import java.util.concurrent.Semaphore;  
+  
+public class SemaphoreTest {  
+    public static void main(String[] args) {  
+          
+　　//创建一个可根据需要创建新线程的线程池  
+　　ExecutorService service = Executors.newCachedThreadPool();  
+        final  Semaphore sp = new Semaphore(3);  
+          
+　　//创建10个线程  
+　　for(int i=0;i<10;i++){  
+            Runnable runnable = new Runnable(){  
+                    public void run(){  
+                    try {  
+                        sp.acquire();   //获取灯，即许可权  
+                    } catch (InterruptedException e1) {  
+                        e1.printStackTrace();  
+                    }  
+                    System.out.println("线程" + Thread.currentThread().getName() +   
+                            "进入，当前已有" + (3-sp.availablePermits()) + "个并发");  
+                    try {  
+                        Thread.sleep((long)(Math.random()*10000));  
+                    } catch (InterruptedException e) {  
+                        e.printStackTrace();  
+                    }  
+                    System.out.println("线程" + Thread.currentThread().getName() +   
+                            "即将离开");                      
+                    sp.release();   // 释放一个许可，将其返回给信号量  
+  
+                    //下面代码有时候执行不准确，因为其没有和上面的代码合成原子单元  
+                    System.out.println("线程" + Thread.currentThread().getName() +   
+                            "已离开，当前已有" + (3-sp.availablePermits()) + "个并发");                      
+                }  
+            };  
+            service.execute(runnable);            
+        }  
+    }  
+}  
+```
+
+##**CyclicBarrier**
+
+一个同步辅助类，它允许一组线程互相等待，直到到达某个公共屏障点 (common barrier point)。在涉及一组固定大小的线程的程序中，这些线程必须不时地互相等待，此时 CyclicBarrier 很有用。因为该 barrier 在释放等待线程后可以重用，所以称它为循环 的 barrier。 
+
+CyclicBarrier 支持一个可选的 Runnable 命令，在一组线程中的最后一个线程到达之后（但在释放所有线程之前），该命令只在每个屏障点运行一次。若在继续所有参与线程之前更新共享状态，此屏障操作 很有用。 
+
+3个线程到达某个集合点后再向下执行,使用await方法实现
+
+```java
+import java.util.concurrent.CyclicBarrier;  
+import java.util.concurrent.ExecutorService;  
+import java.util.concurrent.Executors;  
+  
+public class CyclicBarrierTest {  
+  
+    public static void main(String[] args) {  
+        ExecutorService service = Executors.newCachedThreadPool();  
+        final  CyclicBarrier cb = new CyclicBarrier(3);  
+        for(int i=0;i<3;i++){  
+            Runnable runnable = new Runnable(){  
+                    public void run(){  
+                    try {  
+                        Thread.sleep((long)(Math.random()*10000));    
+                        System.out.println("线程" + Thread.currentThread().getName() +   
+                                "即将到达集合地点1，当前已有" + (cb.getNumberWaiting()+1) + "个已经到达，" + (cb.getNumberWaiting()==2?"都到齐了，继续走啊":"正在等候"));                         
+                        cb.await();//在所有参与者都已经在此 barrier 上调用 await 方法之前，将一直等待。  
+                          
+                        Thread.sleep((long)(Math.random()*10000));    
+                        System.out.println("线程" + Thread.currentThread().getName() +   
+                                "即将到达集合地点2，当前已有" + (cb.getNumberWaiting()+1) + "个已经到达，" + (cb.getNumberWaiting()==2?"都到齐了，继续走啊":"正在等候"));  
+                        cb.await();   
+                        Thread.sleep((long)(Math.random()*10000));    
+                        System.out.println("线程" + Thread.currentThread().getName() +   
+                                "即将到达集合地点3，当前已有" + (cb.getNumberWaiting() + 1) + "个已经到达，" + (cb.getNumberWaiting()==2?"都到齐了，继续走啊":"正在等候"));                       
+                        cb.await();                       
+                    } catch (Exception e) {  
+                        e.printStackTrace();  
+                    }                 
+                }  
+            };  
+            service.execute(runnable);  
+        }  
+        service.shutdown();  
+    }  
+}  
+```
+##**CountDownLatch**
+
+一个同步辅助类，在完成一组正在其他线程中执行的操作之前，它允许一个或多个线程一直等待。犹如倒计时计数器，调用CountDownLatch对象的countDown方法就将计数器减1，当计数到达0时，则所有等待者或单个等待者开始执行。
+
+ 可以实现一个人（也可以是多个人）等待其他所有人都来通知他，也可以实现一个人通知多个人的效果，类似裁判一声口令，运动员开始奔跑（一对多），或者所有运送员都跑到终点后裁判才可以公布结果（多对一）。
+
+ 用指定的计数 初始化 CountDownLatch。在调用 countDown() 方法之前，await 方法会一直受阻塞。之后，会释放所有等待的线程，await 的所有后续调用都将立即返回。这种现象只出现一次——计数无法被重置。如果需要重置计数，请考虑使用 CyclicBarrier。 
+
+实现运动员比赛的效果
+
+```java
+import java.util.concurrent.CountDownLatch;  
+import java.util.concurrent.CyclicBarrier;  
+import java.util.concurrent.ExecutorService;  
+import java.util.concurrent.Executors;  
+  
+public class CountdownLatchTest {  
+  
+    public static void main(String[] args) {  
+          
+　　ExecutorService service = Executors.newCachedThreadPool();  
+　　  
+　　//构造一个用给定计数初始化的 CountDownLatch,相当于裁判的口哨  
+　　final CountDownLatch cdOrder = new CountDownLatch(1);  
+　　  
+　　//相当于定义3个运行员  
+        final CountDownLatch cdAnswer = new CountDownLatch(3);  
+        for (int i = 0; i < 3; i++) {  
+            Runnable runnable = new Runnable() {  
+                public void run() {  
+                    try {  
+                        System.out.println("线程"  
+                                + Thread.currentThread().getName() + "正准备接受命令");  
+  
+                        // 等待发令枪  
+                        cdOrder.await();//使当前线程在锁存器倒计数至零之前一直等待  
+  
+                        System.out.println("线程"  
+                                + Thread.currentThread().getName() + "已接受命令");  
+                        Thread.sleep((long) (Math.random() * 10000));  
+                        System.out  
+                                .println("线程"  
+                                        + Thread.currentThread().getName()  
+                                        + "回应命令处理结果");  
+  
+                        // 各个运动员完报告成绩之后，通知裁判  
+                        cdAnswer.countDown();//递减锁存器的计数，如果计数到达零，则释放所有等待的线程  
+  
+                    } catch (Exception e) {  
+                        e.printStackTrace();  
+                    }  
+                }  
+            };  
+            service.execute(runnable);  
+        }  
+        try {  
+            Thread.sleep((long) (Math.random() * 10000));  
+  
+            System.out.println("线程" + Thread.currentThread().getName()  
+                    + "即将发布命令");  
+            // 发令枪打响，比赛开始  
+            cdOrder.countDown();  
+  
+            System.out.println("线程" + Thread.currentThread().getName()  
+                    + "已发送命令，正在等待结果");  
+  
+            // 裁判等待各个运动员的结果  
+            cdAnswer.await();  
+  
+            // 裁判公布获得所有运动员的成绩  
+            System.out.println("线程" + Thread.currentThread().getName()  
+                    + "已收到所有响应结果");  
+        } catch (Exception e) {  
+            e.printStackTrace();  
+        }  
+        service.shutdown();  
+  
+    }  
+}  
+```
+
+##**Exchanger**
+      
+用于实现两个对象之间的数据交换，每个对象在完成一定的事务后想与对方交换数据，第一个先拿出数据的对象将一直等待第二个对象拿着数据到来时，彼此才能交换数据。
+
+方法：exchange（V x）
+
+等待另一个线程到达此交换点（除非当前线程被中断），然后将给定的对象传送给该线程，并接收该线程的对象。
+
+应用：使用 Exchanger 在线程间交换缓冲区
+
+示例：模拟毒品交易情景
+
+```java
+import java.util.concurrent.Exchanger;  
+import java.util.concurrent.ExecutorService;  
+import java.util.concurrent.Executors;  
+  
+public class ExchangerTest {  
+  
+    public static void main(String[] args) {  
+        ExecutorService service = Executors.newCachedThreadPool();  
+        final Exchanger exchanger = new Exchanger();  
+        service.execute(new Runnable(){  
+            public void run() {  
+                try {                 
+  
+                    String data1 = "毒品";  
+                    System.out.println("线程" + Thread.currentThread().getName() +   
+                    "正在把: " + data1 +"   交易出去");  
+                    Thread.sleep((long)(Math.random()*10000));  
+                    String data2 = (String)exchanger.exchange(data1);  
+                    System.out.println("线程" + Thread.currentThread().getName() +   
+                    "换得了: " + data2);  
+                }catch(Exception e){  
+                      
+                }  
+            }     
+        });  
+        service.execute(new Runnable(){  
+            public void run() {  
+                try {                 
+  
+                    String data1 = "美金";  
+                    System.out.println("线程" + Thread.currentThread().getName() +   
+                    "正在把: " + data1 +"   交易出去");  
+                    Thread.sleep((long)(Math.random()*10000));                    
+                    String data2 = (String)exchanger.exchange(data1);  
+                    System.out.println("线程" + Thread.currentThread().getName() +   
+                    "换得了: " + data2);  
+                }catch(Exception e){  
+                      
+                }                 
+            }     
+        });       
+    }  
+}  
+```
+##**ArrayBlockingQueue**
+
+一个由数组支持的有界阻塞队列。此队列按 FIFO（先进先出）原则对元素进行排序。队列包含固定长度的队列和不固定长度的队列。
+
+这是一个典型的“有界缓存区”，固定大小的数组在其中保持生产者插入的元素和使用者提取的元素。一旦创建了这样的缓存区，就不能再增加其容量。试图向已满队列中放入元素会导致操作受阻塞；试图从空队列中提取元素将导致类似阻塞。
+
+通俗的讲：当指定队列大小，如果已经放满，其他存入数据的线程就阻塞，等着该队列中有空位，才能放进去。当取的比较快，队列中没有数据，取数据的线程阻塞，等队列中放入了数据，才可以取。
+
+ArrayBlockingQueue中只有put和take方法才具有阻塞功能。方法类型如下
+
+|功能|抛出异常|特殊值|阻塞|超时|
+|---|---|---|---|---|
+|插入|add(e)|offer(e)|put(e)|offer(e, time, unit)|
+|移除|remove()|poll()|take()|poll(time, unit)|
+|检查|element()|peek()|不可用|不可用|
+<br>
+示例：用3个空间的队列来演示向阻塞队列中存取数据的效果。
+
+通俗的讲：  
+
+当指定队列大小，如果已经放满，其他存入数据的线程就阻塞，等着该队列中有空位，才能放进去。当取的比较快，队列中没有数据，取数据的线程阻塞，等队列中放入了数据，才可以取。  
+  
+ArrayBlockingQueue中只有put和take方法才具有阻塞功能。方法类型如下  
+|功能|抛出异常|特殊值|阻塞|超时|
+|---|---|---|---|---|
+|插入|add(e)|offer(e)|put(e)|offer(e, time, unit)|
+|移除|remove()|poll()|take()|poll(time, unit)|
+|检查|element()|peek()|不可用|不可用 |
+<br>         
+用3个空间的队列来演示向阻塞队列中存取数据的效果。     
+
+```java
+package cn.xushuai.thread;  
+import java.util.concurrent.ArrayBlockingQueue;  
+import java.util.concurrent.BlockingQueue;  
+  
+public class BlockingQueueTest {  
+    public static void main(String[] args) {  
+        final BlockingQueue queue = new ArrayBlockingQueue(3);  
+        for(int i=0;i<2;i++){  
+            new Thread(){  
+                public void run(){  
+                    while(true){  
+                        try {  
+                            Thread.sleep((long)(Math.random()*1000));  
+                            System.out.println(Thread.currentThread().getName() + "准备放数据!");                              
+                            queue.put(1);   //放进去后，可能立即执行“准备取数据”  
+                            System.out.println(Thread.currentThread().getName() + "已经放了数据，" +                             
+                                        "队列目前有" + queue.size() + "个数据");  
+                        } catch (InterruptedException e) {  
+                            e.printStackTrace();  
+                        }  
+  
+                    }  
+                }  
+                  
+            }.start();  
+        }  
+          
+        new Thread(){  
+            public void run(){  
+                while(true){  
+                    try {  
+                        //将此处的睡眠时间分别改为100和1000，观察运行结果  
+                        Thread.sleep(1000);  
+                        System.out.println(Thread.currentThread().getName() + "准备取数据!");  
+                        queue.take();   //取出后可能來不及执行下面的打印语句，就跑到了“准备放数据”，  
+                        System.out.println(Thread.currentThread().getName() + "已经取走数据，" +                             
+                                "队列目前有" + queue.size() + "个数据");                      
+                    } catch (InterruptedException e) {  
+                        e.printStackTrace();  
+                    }  
+                }  
+            }  
+        }.start();            
+    }  
+}  
+```
+##**阻塞队列间的通信**
+A队列向空间中存数据，B从空间里取数据，A存入后，通知B去取，B取过之后，通知A去放，依次循环
+
+**示例**：子线程先循环10次，接着主线程循环100次，接着又回到子线程，循环10次，再回到主线程又循环100，如此循环50次。
+        
+**说明**：这里通过使 用两个具有1个空间的队列来实现同步通知的功能（实现了锁和condition的功能），以便实现队列间的通信，其中使用到了构造代码块为主队列先存入一个数据，以使其先阻塞，子队列先执行。
+
+使用构造代码块的原因：
+
+成员变量在创建类的实例对象时，才分配空间，才能有值，所以创建一个构造方法来给main_quene赋值，这里不可以使用静态代码块，因为静态在还没创建对象就存在， 而sub_quene和main_quene是对象创建以后的成员变量，所以这里用匿名构造方法，它的运行时期在任何构造方法之前，创建几个对象就执行几次
+
+```java
+import java.util.concurrent.ArrayBlockingQueue;  
+import java.util.concurrent.BlockingQueue;  
+  
+public class BlockingQueueCommunication {  
+    public static void main(String[] args){  
+          
+        final Business business = new Business();  
+          
+        new Thread(new Runnable(){  
+            @Override  
+            public void run() {  
+                for(int i=1;i<=50;i++){  
+                    business.sub(i);  
+                }  
+            }  
+        }).start();  
+  
+            //主线程外部循环  
+            for(int i=1;i<=50;i++){  
+                business.main(i);  
+          }  
+       }  
+  
+    //业务类  
+    static class Business{  
+          
+        BlockingQueue<Integer> sub_quene = new ArrayBlockingQueue<Integer>(1);  
+        BlockingQueue<Integer> main_quene = new ArrayBlockingQueue<Integer>(1);  
+                  
+        {  
+　　//为了让子队列先走，所以在一开始就往主队列中存入一个对象，使其阻塞。  
+            try {  
+                main_quene.put(1);    
+            } catch (InterruptedException e) {  
+                e.printStackTrace();  
+            }         
+        }  
+          
+        //子队列先走       
+        public  void sub(int i){  
+              
+            try {  
+                sub_quene.put(1);   //子队列第一次存入，可以执行，但由于只有1个空间，已经存满，所以只有在执行后要等到take之后才能继续下次执行  
+            } catch (InterruptedException e) {  
+                e.printStackTrace();  
+            }  
+            //子队列循环执行  
+            for(int j=1;j<=10;j++){  
+                System.out.println("sub thread sequence of"+i+",loop of "+j);  
+            }  
+            try {  
+                main_quene.take();  //让主队列从已经填满的队列中取出数据，使其开始第一次执行  
+            } catch (InterruptedException e) {  
+                e.printStackTrace();  
+            }  
+        }  
+          
+        public void main(int i){  
+              
+            try {  
+                main_quene.put(1);  //主队列先前放过1个空间，现在处于阻塞状态，等待子队列通知，即子线程中的main_quene.take();   
+            } catch (InterruptedException e) {  
+                e.printStackTrace();  
+            }  
+              
+　　//主队列循环执行  
+            for(int j=1;j<=100;j++){  
+                System.out.println("main thread sequence of"+i+", loop of "+j);  
+            }     
+            try {  
+                sub_quene.take(); //让子队列从已经填满的队列中取出数据，使其执行  
+            } catch (InterruptedException e) {  
+                e.printStackTrace();  
+            }  
+        }     
+    }  
+   }  
+```
+##**Java5中的一些同步集合类**
+
+###**1、ConcurrentHashMap（同步的HashMap）**
+
+支持获取的完全并发和更新的所期望可调整并发的哈希表。此类遵守与 Hashtable 相同的功能规范，并且包括对应于 Hashtable 的每个方法的方法版本。
+
+不过，尽管所有操作都是线程安全的，但获取操作不 必锁定，并且不 支持以某种防止所有访问的方式锁定整个表。此类可以通过程序完全与 Hashtable 进行互操作，这取决于其线程安全，而与其同步细节无关。
+
+内部原理：
+
+其实内部使用了代理模式，你给我一个HashMap，我就给你一个同步的HashMap。同步的HashMap在调用方法时，是去分配给原始的HashMap只是在去调用方法的同时加上了Synchronized，以此实现同步效果
+
+###**2、ConcurrentSkipListSet（类似于TreeSet）**
+一个基于 ConcurrentSkipListMap 的可缩放并发 NavigableSet 实现。set 的元素可以根据它们的自然顺序进行排序，也可以根据创建 set 时所提供的Comparator 进行排序，具体取决于使用的构造方法。
+
+###**3、CopyOnWriteArrayList** 
+ArrayList 的一个线程安全的变体，可解决线程安全问题，在遍历的时候，同时进行添加操作。其中所有可变操作（add、set 等等）都是通过对底层数组进行一次新的复制来实现的。
+
+###**4、CopyOnWriteArraySet**
+对其所有操作使用内部 CopyOnWriteArrayList 的 Set。 

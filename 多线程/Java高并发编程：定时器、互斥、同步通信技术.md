@@ -1,0 +1,377 @@
+##**笔记摘要**
+这里分析了多线程的一些细节问题，并介绍了传统定时器的创建，同时实现了根据自己的调度计划的自定义定时器，对于传统互斥技术中发现的内部类问题，进行了分析，最后对于同步通信技术，是重点，分析了如何处理类似的问题，如何设计能够更加清晰简单，体现了高内聚和程序的健壮性
+
+##**多线程的几个知识点**
+
+###**1、为何使用实现Runnable的方式创建线程更普遍？**
+new Runnable（）的方式，更加体现面向对象的思想
+
+通过 new Thread（）创建一个线程，代码封装在runnable对象中，代码和线程独立分开来，但最终将它们组合在一起。
+
+```java
+Thread thread = new Thread（）{new Runnable（）{public void run（）{ }}}；
+```
+
+###**2、获取线程名的时候，应使用currentThread（）.getName()方式**
+
+因为this.getName()方式，只有在当前对象是Thread的时候可以，当我们使用runnable方式时，this代表的是runnable对象，它仅是要运行代码的宿主，而不是线程，当然编译也无法通过（没有此方法）。
+ 
+###**3、创建线程的两种传统方式的run方法执行问题**
+查看Thread类的run（）方法的源代码，可以看到其实这两种方式都是在调用Thread对象的run方法，如果Thread类的run方法没有被覆盖，并且为该Thread对象设置了一个Runnable对象，该run方法会调用Runnable对象的run方法。
+
+下面是Thread类的run方法的源码，可以看到runnable对象也是调用了Thread的run方法。
+
+当runnable对象不为null,并且有自己的run方法，则执行自己的，如果target为null，则Thread类的run方法什么也不执行，所以我们在创建线程的时候不直接创建Thread对象，而是创建其子类对象，目的是为了复写run方法，把要执行的代码放进去，否则该线程没有意义
+
+```java
+Private Runnable target;  
+public void run() {  
+        if (target != null) {  
+            target.run();  
+        }  
+}  
+```
+
+###**4、问题1：如果在Thread子类覆盖的run方法中编写了运行代码，也为Thread子类对象传递了一个Runnable对象，那么，线程运行时的执行代码**
+
+是子类的run方法的代码？还是Runnable对象的run方法的代码？
+如：new Thread (new runnable(){public void run(){}}){ public void run(){}};     （ 匿名内部类的方式实现的一个子类，并在构造方法中传入了一个Runnable对象）会运行子类的run方法。因为当某个对象调用start方法之后，就会去找自己对象的run方法，如果没有就会找父类的run方法，父类的run方法会找runnable运行。
+
+其实就是多态的一种体现，覆盖了父类的就执行自己的，没有覆盖就去找父类的执行
+
+问题2：多线程机制是否会提高程序的运行效率？
+
+多线程机制并不会提高程序的运行效率，反而性能更低，因为CPU需要在不同线程之间频繁切换。
+ 
+###**5、多线程下载的误解？**
+
+多线程下载其实是抢了服务器的带宽，一个线程代表一个用户，每个线程分配的带宽是相等的，开启的线程多，就会分配更多的带宽，是在抢资源，而不是自己更快。
+
+##**传统定时器：Timer类**
+ 
+定时器有两种：一种在指定时间只执行一次，另一种先在指定时间执行一次，之后每隔指定时间循环执行。
+ 
+该示例说明了定时器的创建方式，并通过自定义定时器的方式，在一个定时器内部通过不同切换秒数，来实现在不同的间隔时间实现循环爆炸，
+ 另外还通过两个类之间的互相实现相同的效果
+ 
+
+```java
+import java.util.Date;  
+import java.util.Timer;  
+import java.util.TimerTask;  
+  
+public class TraditionalTimerTest {  
+  
+    private static int count = 0;  
+    public static void main(String[] args) {  
+          
+        //创建一个定时器并调度任务  
+    /*  new Timer().schedule(new TimerTask() { 
+             
+            @Override 
+            public void run() { 
+                System.out.println("bombing!"); 
+                 
+            } 
+        }, 3000);//3秒以后爆炸 
+*/      //}, 10000,3000);       //10秒以后爆炸，以后每隔3秒炸一次  
+          
+          
+        //自定义一个定时器  
+        class MyTimerTask extends TimerTask{  
+              
+            @Override  
+            public void run() {  
+                count = (count+1)%2;    //在0和1之间切换  
+                System.out.println("bombing!");  
+                new Timer().schedule(/*new TimerTask() { 
+                     
+                    @Override 
+                    public void run() { 
+                        System.out.println("bombing!"); 
+                    } 
+                }*/new MyTimerTask(),2000+2000*count);  
+                //实现循环，不能用this，因为是匿名，所以只能执行一次，  
+                //就像炸弹一样，炸完后就没有了，必须布置新的炸弹  
+                //所以创建一个类，每次在最后new一个新的炸弹  
+            }  
+        }  
+          
+        //开启定时器，每隔2秒调用一次MyTimerTask  
+        new Timer().schedule(new MyTimerTask(), 2000);  
+          
+        //为了观察定时器任务的执行：每隔1秒打印一次当前秒数  
+        while(true){  
+            System.out.println(new Date().getSeconds());  
+            try {  
+                Thread.sleep(1000);  
+            } catch (InterruptedException e) {  
+                // TODO Auto-generated catch block  
+                e.printStackTrace();  
+            }  
+        }  
+    }  
+}  
+```
+
+
+使用互相调用的方式实现间隔2秒和4秒的连环爆炸
+
+```java
+import java.util.Date;  
+import java.util.Timer;  
+import java.util.TimerTask;  
+  
+public class MyTraditionalTimer {  
+    public static void main(String[] args){  
+          
+        new Timer().schedule(new MyTimerTask(), 4000);  
+          
+        //打印当前秒数  
+        while(true){  
+            System.out.println(new Date().getSeconds());  
+            try {  
+                Thread.sleep(1000);  
+            } catch (InterruptedException e) {  
+                // TODO Auto-generated catch block  
+                e.printStackTrace();  
+            }  
+        }  
+    }  
+}  
+//每隔2秒调用MyTimerTask2  
+class MyTimerTask extends TimerTask{  
+      
+    @Override  
+    public void run() {  
+        // TODO Auto-generated method stub  
+        System.out.println("boomping!!!");  
+        new Timer().schedule(new MyTimerTask2(),2000);  
+    }  
+}  
+  
+//每隔4秒调用MyTimerTask2  
+class MyTimerTask2 extends TimerTask{  
+      
+    @Override  
+    public void run() {  
+        // TODO Auto-generated method stub  
+        System.out.println("boomping!!!");  
+        new Timer().schedule(new MyTimerTask(), 4000);  
+    }  
+}  
+```
+
+##**调度框架：quarts**
+Quartz是一个开源的作业调度框架，它完全由Java写成，并设计用于J2SE和J2EE应用中。它提供了巨大的灵活性而不牺牲简单性。你能够用它来为执行一个作业而创建简单的或复杂的调度。它有很多特征，如：数据库支持，集群，插件，EJB作业预构建，JavaMail及其它，支持cron-like表达式等等。
+
+对于定时器中不能很好实现的需求，我们可以想到quarts,这里并没有介绍其使用方式，以后开发用到，能够记起，去查资料
+
+##**传统线程互斥技术**
+ 
+发现的问题：在主函数内部不能创建内部类的实例对象
+
+内部类的一个重要特点就是可以访问外部类的成员变量，成员变量是对象身上的，对象创建完后，成员变量才分配空间，所以内部类访问外部类
+的成员变量需要外部类的实例对象。而静态方法先存在，所以不可以。
+ 
+解决方式：
+
+可以将内部类定义为静态的，或者将创建内部类的实例对象的语句封装在一个外部类的成员方法中，这里定义了一个init方法，因为方法调用需要对象，这个对象就是将来调用该方法的对象
+
+示例说明：
+
+本示例主要是对上面的问题进行了展示，另外对过去的互斥技术中的锁所使用的对象进行了分析
+
+```java
+public class TraditionalThreadSychronized {  
+    public static void main(String[] args) {  
+          
+        //无法创建，必须关联一个外部类的实例对象，可以定义一个方法，  
+        //或者将外部类定义为静态  
+        //final Outputer outputer = new Outputer(); //编译错误  
+        new TraditionalThreadSychronized().init();  
+    }  
+      
+    //方法需要对象调用，所以就关联了一个外部类的对象  
+    private void init() {  
+        final Outputer outputer = new Outputer();  
+        new Thread(new Runnable() {  
+  
+            @Override  
+            public void run() {  
+                while (true) {  
+                    try {  
+                        Thread.sleep(10);  
+                    } catch (InterruptedException e) {  
+                        e.printStackTrace();  
+                    }  
+                    outputer.output("11111");  
+                }  
+            }  
+  
+        }).start();  
+  
+        new Thread(new Runnable() {  
+  
+            @Override  
+            public void run() {  
+                while (true) {  
+  
+                    try {  
+                        Thread.sleep(10);  
+                    } catch (InterruptedException e) {  
+                        e.printStackTrace();  
+                    }  
+                    // outputer.output("are you happy?");  
+                    outputer.output2("22222");  
+                }  
+            }  
+        }).start();  
+  
+    }  
+  
+     static class Outputer {  
+         //  
+        public void output(String name) {  
+            // String lock = "";  
+            int len = name.length();  
+  
+            // synchronized(lock){ 使用同一把锁，任意对象都可以  
+            // synchronized(this){ 同步函数使用的是锁是this，即outputer对象  
+            synchronized (Outputer.class) { // 静态方法的锁只能是class字节码对象  
+                for (int i = 0; i < len; i++) {  
+                    System.out.print(name.charAt(i));  
+                }  
+                System.out.println();  
+            }  
+        }  
+  
+        // 同步函数使用的是锁是this  
+        /* 
+          public synchronized void output2(String name){  
+            int len = name.length(); 
+            for(int i=0;i<len;i++){  
+                System.out.print(name.charAt(i)); } 
+                System.out.println();  
+              } 
+          } 
+         */  
+          
+        //定义同步的静态方法  
+        public static synchronized void output2(String name) {  
+            int len = name.length();  
+  
+            for (int i = 0; i < len; i++) {  
+                System.out.print(name.charAt(i));  
+            }  
+            System.out.println();  
+        }  
+    }  
+}  
+```
+
+##**传统线程同步通信技术**
+这里通过一道面试题进行讲解
+
+需求：子线程循环10次，接着主线程循环100次，接着又回到子线程循环10次，接着再回到主线程又循环100次，如此循环50次
+
+1、思路：
+ 
+ 使用面向对象的方式思考，子线程的任务是循环10次，子线程的任务是循环100次，所以可以将它们各自的任务封装起来，在封装内部实现各自的同步（锁是放在代表要操作的资源的类的内部方法中），最后别的对象来调用，循环50次即可
+ 
+2、Eclipse小技巧：
+
+这里打印结果过长，我们可以使用eclipse将打印结果输出到文件中：
+Run As àRun ConfigurationsàCommonàFile前打勾—>指定路径
+ 
+3、锁对象的定义
+
+两个线程执行的代码片段要实现同步互斥的效果，它们必须用同一个锁对象，锁是放在代表要操作的资源的类的内部方法中，而不是在线程代码中。
+ 
+4、实现按指定的顺序执行
+
+需要用到wait，Notify，当轮到自己要执行的时候，让对象去唤醒自己，可以定义一个标识，来决定谁可以执行
+ 
+5、wait方法必须放在synchronized的里面，而且调用它的对象必须和synchronized的对象是同一个。
+ 
+6、While比if更严谨，因为会循环判断执行条件，所以可以防止伪唤醒，（并不是期望的对象来唤醒自己）。
+ 
+经验：要用到共同数据（包括同步锁）或共同算法的若干个方法应该归于同一个类上，在这个类的内部去管理各个方法的状态，这种设计正好体现了高类聚和程序的健壮性
+
+```java
+public class TraditionalThreadCommunication {  
+    public static void main(String[] args){  
+          
+        //获取一个业务对象  
+        final Business business = new Business();  
+          
+        //子线程  
+        new Thread(new Runnable(){  
+  
+            @Override  
+            public void run() {  
+                for(int i=1;i<=50;i++){  
+                    /*for(int j=0;j<10;j++){ 
+                        System.out.println("sub thread sequence of"+i+",loop of "+j); 
+                    }*/  
+                    business.sub(i);  
+                }  
+            }  
+        }).start();  
+              
+            //主线程  
+            for(int i=1;i<=50;i++){  
+                  
+            /*  for(int j=0;j<100;j++){ 
+                System.out.println("main thread sequence of"+i+", loop of "+j); 
+                }   */        
+                business.main(i);  
+          }  
+       }  
+   }  
+  
+//定义一个业务类  
+class Business{  
+      
+    //定义一个boolean型变量来决定子线程和主线程的执行权  
+    private boolean bShouldSub = true;  
+      
+    //子线程  
+    public synchronized void sub(int i){//把同步的鎖放在资源身上  
+        //不该子线程执行，等待  
+        if(!bShouldSub){  
+            try {  
+                this.wait();  
+            } catch (InterruptedException e) {  
+                // TODO Auto-generated catch block  
+                e.printStackTrace();  
+            }  
+        }  
+          
+        for(int j=1;j<=10;j++){  
+            System.out.println("sub thread sequence of"+i+",loop of "+j);  
+        }  
+        bShouldSub = false;  
+        this.notify();      //唤醒主线程  
+    }  
+      
+    //主线程  
+    public synchronized void main(int i){  
+          
+        //若是子线程执行，主线程等待  
+        if(bShouldSub){  
+            try {  
+                this.wait();  
+            } catch (InterruptedException e) {  
+                // TODO Auto-generated catch block  
+                e.printStackTrace();  
+            }  
+        }  
+        for(int j=1;j<=100;j++){  
+            System.out.println("main thread sequence of"+i+", loop of "+j);  
+        }     
+        bShouldSub = true;  
+        this.notify();      //唤醒子线程  
+    }     
+}  
+```
