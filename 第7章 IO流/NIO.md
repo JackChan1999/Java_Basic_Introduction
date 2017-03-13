@@ -1000,16 +1000,13 @@ while(true){
 
 ServerSocketChannel可以设置成非阻塞模式。在非阻塞模式下，accept() 方法会立刻返回，如果还没有新进来的连接，返回的将是null。 因此，需要检查返回的SocketChannel是否是null。如： 
 
-```Java 
+```java
 ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();  
-  
 serverSocketChannel.socket().bind(new InetSocketAddress(9999));  
 serverSocketChannel.configureBlocking(false);  
   
 while(true){  
-    SocketChannel socketChannel =  
-            serverSocketChannel.accept();  
-  
+    SocketChannel socketChannel = serverSocketChannel.accept();  
     if(socketChannel != null){  
         //do something with socketChannel...  
     }  
@@ -1025,7 +1022,7 @@ Java NIO中的DatagramChannel是一个能收发UDP包的通道。因为UDP是无
 
 下面是 DatagramChannel 的打开方式： 
 
-```Java 
+```java
 DatagramChannel channel = DatagramChannel.open();  
 channel.socket().bind(new InetSocketAddress(9999));  
 ```
@@ -1036,7 +1033,7 @@ channel.socket().bind(new InetSocketAddress(9999));
 
 通过receive()方法从DatagramChannel接收数据，如： 
 
-```Java 
+```java
 ByteBuffer buf = ByteBuffer.allocate(48);  
 buf.clear();  
 channel.receive(buf);  
@@ -1048,7 +1045,7 @@ receive()方法会将接收到的数据包内容复制到指定的Buffer. 如果
 
 通过send()方法从DatagramChannel发送数据，如: 
 
-```Java 
+```java
 String newData = "New String to write to file..." + System.currentTimeMillis();  
   
 ByteBuffer buf = ByteBuffer.allocate(48);  
