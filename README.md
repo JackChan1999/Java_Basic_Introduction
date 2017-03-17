@@ -10,5 +10,5 @@
 # 课程结构
 
 * [序言](README.md)
-  * [Java概述](第1章 Java开发入门/Java概述.md)
+  * [Java概述](Java开发入门/Java概述.md)
   * [JDK、JRE、JVM的区别与联系](第1章 Java开发入门/JDK、JRE、JVM的区别与联系.md)
