@@ -12,11 +12,11 @@ https://alleniverson.gitbooks.io/java-basic-introduction/content/
 
 * [序言](README.md)
 * 第1章 Java开发入门
-  * [Java概述](第1章 Java开发入门/Java概述.md)
-  * [JDK、JRE、JVM的区别与联系](第1章 Java开发入门/JDK、JRE、JVM的区别与联系.md)
+  * [Java概述](第1章%20 Java开发入门/Java概述.md)
+  * [JDK、JRE、JVM的区别与联系](第1章%20 Java开发入门/JDK、JRE、JVM的区别与联系.md)
 * 第2章 Java编程基础
-  * [Java语法基础-1](第2章 Java编程基础/Java语法基础-1.md)
-  * [Java语法基础-2](第2章 Java编程基础/Java语法基础-2.md)
+  * [Java语法基础-1](第2章%20Java编程基础/Java语法基础-1.md)
+  * [Java语法基础-2](第2章%20Java编程基础/Java语法基础-2.md)
   * [基本数据类型包装类](第2章 Java编程基础/基本数据类型包装类.md)
   * [阿里巴巴Java开发手册](第2章 Java编程基础/阿里巴巴Java开发手册.md)
   * [详细介绍JAVA和C++区别](第2章 Java编程基础/详细介绍JAVA和C++区别.md)
@@ -56,7 +56,7 @@ https://alleniverson.gitbooks.io/java-basic-introduction/content/
   * [网络编程](第8章 网络编程/网络编程.md)
 * 第9章 反射机制
   * [类加载器](第9章 反射机制/类加载器.md)
-  * [反射](第9章反射机制/反射.md)
+  * [反射](第9章 反射机制/反射.md)
   * [注解](第9章 反射机制/注解.md)
   * [动态代理](第9章 反射机制/动态代理.md)
 * 第10章 新特性
