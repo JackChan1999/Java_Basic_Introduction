@@ -1,11 +1,12 @@
 # GitHub托管主页
 
-[https://github.com/JackChen1999/Java-basic-introduction](https://github.com/JackChen1999/Java-basic-introduction)  
+https://github.com/JackChen1999/Java-basic-introduction
+
 请读者点击Star进行关注并支持！
 
 # 在线阅读
 
-[https://alleniverson.gitbooks.io/java/content/](https://alleniverson.gitbooks.io/java/content/)
+https://alleniverson.gitbooks.io/java-basic-introduction/content/
 
 # 课程结构
 
@@ -55,7 +56,7 @@
   * [网络编程](第8章 网络编程/网络编程.md)
 * 第9章 反射机制
   * [类加载器](第9章 反射机制/类加载器.md)
-  * [反射](第9章 反射机制/反射.md)
+  * [反射](第9章反射机制/反射.md)
   * [注解](第9章 反射机制/注解.md)
   * [动态代理](第9章 反射机制/动态代理.md)
 * 第10章 新特性
