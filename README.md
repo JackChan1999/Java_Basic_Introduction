@@ -62,4 +62,4 @@ https://alleniverson.gitbooks.io/java-basic-introduction/content/
 * 第10章 新特性
   * [JDK新特性](https://alleniverson.gitbooks.io/java-basic-introduction/content/第10章%20新特性/JDK新特性.html)
   * [你应该更新的Java知识](https://alleniverson.gitbooks.io/java-basic-introduction/content/第10章%20新特性/你应该更新的Java知识.html)
-  * [Google Guava官方教程](https://alleniverson.gitbooks.io/java-basic-introduction/content/第10章%20新特性/Google Guava官方教程.html)
+  * [Google Guava官方教程](https://alleniverson.gitbooks.io/java-basic-introduction/content/第10章%20新特性/Google%20Guava官方教程.html)
