@@ -57,12 +57,12 @@
 * 第9章 反射机制
   * [类加载器](https://alleniverson.gitbooks.io/java-basic-introduction/content/第9章%20反射机制/类加载器.html)
   * [反射](https://alleniverson.gitbooks.io/java-basic-introduction/content/第9章%20反射机制/反射.html)
-  * [公共技术点之Java反射](第9章 反射机制/公共技术点之Java反射.md)
+  * [公共技术点之Java反射](第9章%20反射机制/公共技术点之Java反射.md)
   * [注解](https://alleniverson.gitbooks.io/java-basic-introduction/content/第9章%20反射机制/注解.html)
-  * [公共技术点之Java注解](第9章 反射机制/公共技术点之Java注解.md)
+  * [公共技术点之Java注解](第9章%20反射机制/公共技术点之Java注解.md)
   * [动态代理](https://alleniverson.gitbooks.io/java-basic-introduction/content/第9章%20反射机制/动态代理.html)
-  * [公共技术点之Java动态代理](第9章 反射机制/公共技术点之Java动态代理.md)
-  * [公共技术点之依赖注入](第9章 反射机制/公共技术点之依赖注入.md)
+  * [公共技术点之Java动态代理](第9章%20反射机制/公共技术点之Java动态代理.md)
+  * [公共技术点之依赖注入](第9章%20反射机制/公共技术点之依赖注入.md)
 * 第10章 新特性
   * [JDK新特性](https://alleniverson.gitbooks.io/java-basic-introduction/content/第10章%20新特性/JDK新特性.html)
   * [你应该更新的Java知识](https://alleniverson.gitbooks.io/java-basic-introduction/content/第10章%20新特性/你应该更新的Java知识.html)
