@@ -66,4 +66,4 @@
 * [第10章 新特性](第10章%20新特性/README.md)
 	* [JDK新特性](第10章%20新特性/JDK新特性.md)
 	* [你应该更新的Java知识](第10章%20新特性/你应该更新的Java知识.md)
-	* [Google Guava官方教程](第10章%20新特性/Google Guava官方教程.md)
+	* [Google Guava官方教程](第10章%20新特性/Google%20Guava官方教程.md)
