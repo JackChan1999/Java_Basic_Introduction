@@ -3,5 +3,8 @@
 "title" : "Java基础入门",
 "language": "zh-hans",
 "author" : "AllenIverson",
-"gitbook": "3.2.2"
+"gitbook": "3.2.2",
+"pdf": {
+        "fontFamily": "等线"
+    }
 }
