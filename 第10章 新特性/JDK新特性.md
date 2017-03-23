@@ -170,6 +170,99 @@ public interface Food {
 }
 ```
 
+## 1.5 常量接口 vs 枚举常量类
+
+把常量定义在接口里与类里都能通过编译，那2者到底有什么区别呢？那个更合理？ 
+
+### 常量接口 
+```java
+public interface ConstInterfaceA {  
+  public static final String CONST_A = "aa";  
+  public static final String CONST_C = "ac";  
+}  
+```
+
+存在问题: 
+
+- 无法限制开发员继承/实现接口. 
+
+- 开发员能够在子接口里继续添加常量.而这些常量可能得不到祖先层的支持. 
+
+- 常量作为参数时,是String,int等弱类型,开发员可以传入没有在常量接口里定义的值,这个问题无法通过编译器发现. 
+
+- 由于开发员可以直接写常量值, 所以不能用==对比,只能用equals对比,不能优化性能 
+
+- 开发员在没有参考资料时,不可能知道某个int型的参数到底应该赋什么内容. 
+
+- 编译时,是直接把常量的值编译到类的二进制代码里,常量的值在升级中变化后,需要重新编译所有引用常量的类,因为里面存的是旧值. 
+
+
+### 常量类 
+
+```java
+public class ConstClassA {  
+  public static final String CONST_A = "aa";  
+  public static final String CONST_C = "ac";  
+  
+  private ConstClassA() {  
+  }  
+}  
+```
+
+常量类可以设置构造函数为private,从而限制继承,也就没有继续添加常量的问题了. 
+但是其他问题与常量接口一样无法解决 
+
+
+### 枚举常量类 
+
+```java
+public class EnumClassA {  
+  private String name;  
+  
+  private EnumClassA(String name) {  
+    this.name = name;  
+  }  
+  
+  public static final EnumClassA CONST_A = new EnumClassA("aa");  
+  public static final EnumClassA CONST_C = new EnumClassA("ac");  
+}  
+```
+
+解决了以上所有问题,主要体现在: 
+
+- 私有构造函数,避免被继承和扩展. 
+
+- 定义方法的参数时,必须用枚举常量类类型,如上面的EnumClassA类型,这样就转变成了强类型,不会出现弱类型引起的问题. 
+
+- 常量值地址唯一,可以用==直接对比,性能会有提高. 
+
+- 开发员可以根据该参数类型打开对应的类,从而找到定义的常量. 
+
+- 编译时,没有把常量值编译到代码里,即使常量的值发生变化也不会影响引用常量的类. 
+
+
+### enum类型 
+
+```java
+public static enum Grade {  
+   A(4),  
+   B(3),  
+   C(2),  
+   D(1),  
+   F(0);  
+     
+   private int points;  
+   Grade(int points) {  
+       this.points = points;  
+   }  
+     
+   int getPoints() {  
+       return points;  
+   }  
+};  
+```
+这是JDK1.5引入的,其实就是枚举常量类的代码封装简化而已。查看enum反编译后的代码与枚举常量类的结构非常相似。这可能是因为java的设计者一开始觉得enum与OO思想不符,所以没有提供支持,但是随着常量接口的滥用和枚举常量类方案的出现,才在JDK1.5里增加了enum
+
 # **2. 静态导入** 
 
 1、要使用用静态成员（方法和变量）我们必须给出提供这个方法的类。使用静态导入可以使被导入类的所有静态变量和静态方法在当前类直接可见，使用这些静态成员无需再给出他们的类名。
