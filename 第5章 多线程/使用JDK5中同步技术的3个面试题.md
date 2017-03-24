@@ -54,8 +54,8 @@ public class Test {
                 public void run() {  
                     while(true){  
                         try {  
-                            String log = queue.take();  //开始没有数据，阻塞，一旦有其中一个线程就去取  
-                                            //数据，即不再阻塞，就开始打印  
+                            //开始没有数据，阻塞，一旦有其中一个线程就去取数据，即不再阻塞，就开始打印
+                            String log = queue.take();    
                             parseLog(log);  
                         } catch (InterruptedException e) {  
                             e.printStackTrace();  
@@ -66,15 +66,15 @@ public class Test {
             }).start();  
         }  
           
-               //打印秒数  
+        //打印秒数  
         System.out.println("begin:"+(System.currentTimeMillis()/1000));  
           
           
-        for(int i=0;i<16;i++){  //这行代码不能改动  
-            final String log = ""+(i+1);//这行代码不能改动  
+        for(int i=0;i<16;i++){  // 这行代码不能改动  
+            final String log = ""+(i+1); // 这行代码不能改动  
             {  
                     try {  
-                        queue.put(log);     //向队列中存储数据  
+                        queue.put(log);  // 向队列中存储数据  
                     } catch (InterruptedException e) {  
                         e.printStackTrace();  
                     }  
@@ -88,7 +88,7 @@ public class Test {
         System.out.println(log+":"+(System.currentTimeMillis()/1000));  
           
         try {  
-            Thread.sleep(1000);     //模拟每条日志打印需要1秒  
+            Thread.sleep(1000);     // 模拟每条日志打印需要1秒  
         } catch (InterruptedException e) {  
             e.printStackTrace();  
         }         
@@ -180,9 +180,8 @@ public class Test {
         for(int i=0;i<10;i++){  //这行不能改动  
             String input = i+"";  //这行不能改动  
             try {  
-                queue.put(input);       //将指定元素添加到此队列  
+                queue.put(input); //将指定元素添加到此队列  
             } catch (InterruptedException e) {  
-                // TODO Auto-generated catch block  
                 e.printStackTrace();  
             }  
         }  
@@ -228,7 +227,7 @@ class TestDo {
 
 
 ```java
-//不能改动此Test类      
+    //不能改动此Test类      
     public class Test extends Thread{  
           
         private TestDo testDo;  
@@ -288,8 +287,10 @@ class TestDo {
 
 对于源代码中关于实现值相同而对象不同的效果进行解释：
 对于：
-     a = "1"+"";
-     b = "1"+"";
+```java 
+ a = "1"+"";
+ b = "1"+"";
+```
 编译器自动优化，所以a和b是同一个对象
 
 而对于：key = key+key2;  由于是变量，编译器无法识别，这时a和b把“1”和“”赋值给key和key2时会得到两个不同的对象
@@ -364,14 +365,15 @@ class TestDo {
             //迭代，找出原集合里和传进来的值相同的对象  
             for(Iterator iter=keys.iterator();iter.hasNext();){  
                 try {  
-                    Thread.sleep(20);   //迭代的时候休息一会，在ArrayList下演示并发修改异常  
+                    Thread.sleep(20);   // 迭代的时候休息一会，在ArrayList下演示并发修改异常  
                 } catch (InterruptedException e) {  
                     e.printStackTrace();  
                 }  
                 Object oo = iter.next();  
                 if(oo.equals(o)){   //如果两个对象的值相同  
-                    o = oo;     //就让原集合中的那个相等值的对象作为锁对象，由于原对象之前做的就是锁  
-                            //这样两个锁就相同了，就可以实现互斥  
+                    //就让原集合中的那个相等值的对象作为锁对象，由于原对象之前做的就是锁
+                    //这样两个锁就相同了，就可以实现互斥
+                  	o = oo;    
                     break;  
                 }  
             }  
