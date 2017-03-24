@@ -4,14 +4,14 @@
 Callable 接口类似于Runnable，两者都是为那些其实例可能被另一个线程执行的类设计的。但是 Runnable 不会返回结果，并且无法抛出经过检查的异常，而Callable返回结果并且可能抛出异常的任务
 
 ##**2. Future** 
-Future 接口表示异步计算的结果。它提供了检查计算是否完成的方法，以等待计算的完成，并获取计算的结果。计算完成后只能使用 get 方法来获取结果，如有必要，计算完成前可以阻塞此方法
-​     
-Future取得的结果类型和Callable返回的结果类型必须一致，这是通过泛型来实现的。Callable要采用ExecutorService的submit方法提交，返回的future对象可以取消任务
+Future 接口表示异步计算的结果。它提供了检查计算是否完成的方法，以等待计算的完成，并获取计算的结果。计算完成后只能使用get()方法来获取结果，如有必要，计算完成前可以阻塞此方法
+
+Future取得的结果类型和Callable返回的结果类型必须一致，这是通过泛型来实现的。Callable要采用ExecutorService的submit()方法提交，返回的future对象可以取消任务
 
 ##**3. CompletionService**
-CompletionService用于提交一组Callable任务，其take方法返回已完成的一个Callable任务对应的Future对象。
+CompletionService用于提交一组Callable任务，其take()方法返回已完成的一个Callable任务对应的Future对象。
 
-示例：这里数据的获取好比同时种了号几块地的麦子，然后等待收割，秋收时，哪块先熟，先收割哪块
+示例：这里数据的获取好比同时种了好几块地的麦子，然后等待收割，秋收时，哪块先熟，先收割哪块
 
 ```java
 import java.util.Random;  
@@ -47,12 +47,9 @@ public class CallableAndFuture {
           
         try {  
             System.out.println("拿到结果：" + future.get()); //获取线程执行后的结果  
-              
         } catch (InterruptedException e) {  
-            // TODO Auto-generated catch block  
             e.printStackTrace();  
         } catch (ExecutionException e) {  
-            // TODO Auto-generated catch block  
             e.printStackTrace();  
         }  
                    
@@ -86,4 +83,20 @@ public class CallableAndFuture {
         }  
     }  
 }  
+```
+输出结果
+
+```
+等待結果……
+拿到结果：hello
+3
+6
+10
+2
+4
+8
+5
+1
+7
+9
 ```

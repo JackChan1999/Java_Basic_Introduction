@@ -17,7 +17,6 @@ public class HandlerThreadActivity extends AppCompatActivity {
     //与UI线程相关的handler
     private Handler mHandler = new Handler();
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
