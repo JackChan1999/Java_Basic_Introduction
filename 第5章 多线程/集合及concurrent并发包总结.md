@@ -1,4 +1,4 @@
-##1. 集合包
+## 1. 集合包
 
 集合包最常用的有Collection和Map两个接口的实现类，Colleciton用于存放多个单对象，Map用于存放Key-Value形式的键值对。
 
@@ -24,7 +24,7 @@ ArrayList基于数组方式实现，默认构造器通过调用ArrayList(int)来
 - 遍历对象：iterator()
 - 判断对象是否存在：contains(E)
 
- 总结：
+总结：
 
 - ArrayList基于数组方式实现，无容量的限制
 - ArrayList在执行插入元素时可能要扩容，在删除元素时并不会减小数组的容量（如希望相应的缩小数组容量，可以调用ArrayList的trimToSize()，在查找元素时要遍历数组，对于非null的元素采取equals的方式寻找
@@ -220,8 +220,7 @@ class VolatileExample {
 }
 ```
 
-![这里写图片描述](http://static.oschina.net/uploads/space/2014/0528/150218_UhON_865222.jpg)
-
+![thread](img/thread.jpg)
 
 若thread1先于thread2执行，则程序执行流程分析如上图所示，thread2读的结果是dummy=1，x=5所以不会进入死循环。
 
@@ -360,8 +359,10 @@ tryRelease能够保证原子化的将状态设置回去，当然需要使用comp
 
 关于java lock的浅析可见：http://jm-blog.aliapp.com/?p=414 
 
+java.util.concurrent.locks大致结构
 
-![这里写图片描述](http://static.oschina.net/uploads/space/2015/0211/095736_JB9O_865222.png)
+
+![lock](img/lock.jpg)
 
 
 共享模式和以上的独占模式有所区别，分别调用acquireShared(int arg)和releaseShared(int arg)获取共享模式的状态。
@@ -522,7 +523,7 @@ put操作：并没有在此方法上加上synchronized，首先对key.hashcode�
 
 ConcurrentHashMap基于concurrencyLevel划分出了多个Segment来对key-value进行存储，从而避免每次put操作都得锁住整个数组。在默认的情况下，最佳情况下可允许16个线程并发无阻塞的操作集合对象，尽可能地减少并发时的阻塞现象。
 
-get(key)
+- get(key)
 
  首先对key.hashCode进行hash操作，基于其值找到对应的Segment对象，调用其get方法完成当前操作。而Segment的get操作首先通过hash值和对象数组大小减1的值进行按位与操作来获取数组上对应位置的HashEntry。在这个步骤中，可能会因为对象数组大小的改变，以及数组上对应位置的HashEntry产生不一致性，那么ConcurrentHashMap是如何保证的？
 
@@ -567,17 +568,17 @@ ReentrantLock的实现不仅可以替代隐式的synchronized关键字，而且�
 
 CopyOnWriteArrayList是一个线程安全、并且在读操作时无锁的ArrayList，其具体实现方法如下。
 
-CopyOnWriteArrayList()
+- CopyOnWriteArrayList()
 
 和ArrayList不同，此步的做法为创建一个大小为0的数组。
 
-add(E)
+- add(E)
 
 add方法并没有加上synchronized关键字，它通过使用ReentrantLock来保证线程安全。此处和ArrayList的不同是每次都会创建一个新的Object数组，此数组的大小为当前数组大小加1，将之前数组中的内容复制到新的数组中，并将
 
 新增加的对象放入数组末尾，最后做引用切换将新创建的数组对象赋值给全局的数组对象。
 
-remove(E)
+- remove(E)
 
 和add方法一样，此方法也通过ReentrantLock来保证其线程安全，但它和ArrayList删除元素采用的方式并不一样。
 
@@ -587,11 +588,11 @@ remove(E)
 
 此方法和ArrayList除了锁不同外，最大的不同在于其复制过程并没有调用System的arrayCopy来完成，理论上来说会导致性能有一定下降。
 
-get(int)    
+- get(int)    
 
 此方法非常简单，直接获取当前数组对应位置的元素，这种方法是没有加锁保护的，因此可能会出现读到脏数据的现象。但相对而言，性能会非常高，对于写少读多且脏数据影响不大的场景而言是不错的选择。
 
-iterator()
+- iterator()
 
 调用iterator方法后创建一个新的COWIterator对象实例，并保存了一个当前数组的快照，在调用next遍历时则仅对此快照数组进行遍历，因此遍历此list时不会抛出ConcurrentModificatiedException。
 
@@ -620,24 +621,24 @@ Java里面线程池的顶级接口是Executor，但是严格意义上讲Executor
 
 要配置一个线程池是比较复杂的，尤其是对于线程池的原理不是很清楚的情况下，很有可能配置的线程池不是较优的，因此在Executors类里面提供了一些静态工厂，生成一些常用的线程池。
 
-- newSingleThreadExecutor
+- newSingleThreadExecutor()
 
 创建一个单线程的线程池。这个线程池只有一个线程在工作，也就是相当于单线程串行执行所有任务。如果这个唯一的线程因为异常结束，那么会有一个新的线程来替代它。此线程池保证所有任务的执行顺序按照任务的提交顺序执行。
 
-- newFixedThreadPool
+- newFixedThreadPool()
 
 创建固定大小的线程池。每次提交一个任务就创建一个线程，直到线程达到线程池的最大大小。线程池的大小一旦达到最大值就会保持不变，如果某个线程因为执行异常而结束，那么线程池会补充一个新线程。
 
-- newCachedThreadPool
+- newCachedThreadPool()
 
 创建一个可缓存的线程池。如果线程池的大小超过了处理任务所需要的线程，
 那么就会回收部分空闲（60秒不执行任务）的线程，当任务数增加时，此线程池又可以智能的添加新线程来处理任务。此线程池不会对线程池大小做限制，线程池大小完全依赖于操作系统（或者说JVM）能够创建的最大线程大小。
 
-- newScheduledThreadPool
+- newScheduledThreadPool()()
 
 创建一个大小无限的线程池。此线程池支持定时以及周期性执行任务的需求。
 
-PS：但需要注意使用，newSingleThreadExecutor和newFixedThreadPool将超过处理的线程放在队列中，但工作线程较多时，会引起过多内存被占用，而后两者返回的线程池是没有线程上线的，所以在使用时需要当心，创建过多的线程容易引起服务器的宕机。
+PS：但需要注意使用，newSingleThreadExecutor和newFixedThreadPool()将超过处理的线程放在队列中，但工作线程较多时，会引起过多内存被占用，而后两者返回的线程池是没有线程上线的，所以在使用时需要当心，创建过多的线程容易引起服务器的宕机。
 
 使用ThreadPoolExecutor自定义线程池，具体使用时需根据系统及JVM的配置设置适当的参数，下面是一示例：
 
@@ -651,11 +652,11 @@ threadsPool = new ThreadPoolExecutor(corePoolSize, corePoolSize, 10l, TimeUnit.S
 
 Future是一个接口，FutureTask是一个具体实现类。这里先通过两个场景看看其处理方式及优点。
 
-场景1,
+### 场景1
 
 现在通过调用一个方法从远程获取一些计算结果，假设有这样一个方法：
 
-```
+```java
 HashMap data = getDataFromRemote();
 ```
 
@@ -685,7 +686,7 @@ privete Future<HashMap> getDataFromRemote2(){
 
 可以看到，在getDataFromRemote2中还是使用了getDataFromRemote来完成具体操作，并且用到了线程池：把任务加入到线程池中，把Future对象返回出去。我们调用了getDataFromRemote2的线程，然后返回来继续下面的执行，而背后是另外的线程在进行远程调用及等待的工作。get方法也可设置超时时间参数，而不是一直等下去。
 
-场景2，
+### 场景2
 
 key-value的形式存储连接，若key存在则获取，若不存在这个key，则创建新连接并存储。
 
@@ -698,5 +699,3 @@ key-value的形式存储连接，若key存在则获取，若不存在这个key�
 在JDK中，有一些线程不安全的容器，也有一些线程安全的容器。并发容器是线程安全容器的一种，但是并发容器强调的是容器的并发性，也就是说不仅追求线程安全，还要考虑并发性，提升在容器并发环境下的性能。
 
 加锁互斥的方式确实能够方便地完成线程安全，不过代价是降低了并发性，或者说是串行了。而并发容器的思路是尽量不用锁，比较有代表性的是以CopyOnWrite和Concurrent开头的几个容器。CopyOnWrite容器的思路是在更改容器的时候，把容器写一份进行修改，保证正在读的线程不受影响，这种方式用在读多写少的场景中会非常好，因为实质上是在写的时候重建了一次容器。而以Concurrent开头的容器的具体实现方式则不完全相同，总体来说是尽量保证读不加锁，并且修改时不影响读，所以达到比使用读写锁更高的并发性能。比如上面所说的ConcurrentHashMap，其他的并发容器的具体实现，可直接分析JDK中的源码。
-
-未完待续......

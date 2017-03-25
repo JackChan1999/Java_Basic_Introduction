@@ -1,5 +1,6 @@
 ## 译序
 本指南根据 Jakob Jenkov 最新博客翻译，[请随时关注博客更新](http://tutorials.jenkov.com/java-util-concurrent/index.html)
+
 本指南已做成中英文对照阅读版的 pdf 文档，有兴趣的朋友可以去 [Java并发工具包java.util.concurrent用户指南中英文对照阅读版](http://download.csdn.net/detail/defonds/8469189) 进行下载。
 
 ## 1. java.util.concurrent - Java并发工具包
@@ -40,7 +41,7 @@ BlockingQueue 具有 4 组不同的方法用于插入、移除以及对队列中
 | :--- | :--------- | :------- | :------ | :-------------------------- |
 | 插入   | add(o)     | offer(o) | put(o)  | offer(o, timeout, timeunit) |
 | 移除   | remove(o)  | poll(o)  | take(o) | poll(timeout, timeunit)     |
-| 检查   | element(o) | peek(o)  |         |                             |
+| 检查   | element(o) | peek(o)  | 无       | 无                           |
 
 四组不同的行为方式解释：
 
@@ -284,18 +285,18 @@ BlockingDeque 接口继承自 BlockingQueue 接口。这就意味着你可以像
 
 以下是 BlockingDeque 对 BlockingQueue 接口的方法的具体内部实现：
 
-| BlockingQueue | BlockingDeque   |
-| :------------ | :-------------- |
-| add()         | addLast()       |
-| offer() x 2   | offerLast() x 2 |
-| put()         | putLast()       |
-|               |                 |
-| remove()      | removeFirst()   |
-| poll() x 2    | pollFirst()     |
-| take()        | takeFirst()     |
-|               |                 |
-| element()     | getFirst()      |
-| peek()        | peekFirst()     |
+| BlockingQueue        | BlockingDeque            |
+| :------------------- | :----------------------- |
+| add()                | addLast()                |
+| offer()              | offerLast()              |
+| put()                | putLast()                |
+| offer(e, time, unit) | offerLast(e, time, unit) |
+| remove()             | removeFirst()            |
+| poll()               | pollFirst()              |
+| take()               | takeFirst()              |
+| poll(time, unit)     | pollLast(time, unit)     |
+| element()            | getFirst()               |
+| peek()               | peekFirst()              |
 
 ### BlockingDeque 的实现
 
@@ -1718,4 +1719,4 @@ System.out.println("exchanged: " + exchanged);
 本示例创建了一个带有一个初始引用的泛型化的 AtomicReference。之后两次调用 comparesAndSet()来对存储值和期望值进行对比，如果二者一致，为 AtomicReference 设置一个新的引用。第一次比较，存储的引用(initialReference)和期望的引用(initialReference)一致，所以一个新的引用(newReference)被设置给 AtomicReference，compareAndSet() 方法返回 true。第二次比较时，存储的引用(newReference)和期望的引用(initialReference)不一致，因此新的引用没有被设置给 AtomicReference，compareAndSet() 方法返回 false。
 
 > 原文链接：http://tutorials.jenkov.com/java-util-concurrent/index.html
-译文链接：http://blog.csdn.net/defonds/article/details/44021605#t8
+> 译文链接：http://blog.csdn.net/defonds/article/details/44021605#t8
