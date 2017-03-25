@@ -1,3 +1,7 @@
+---
+typora-copy-images-to: img
+---
+
 # 1. 计算机基础知识
 
 ## 1.1 计算机
@@ -88,7 +92,7 @@
 
 Java之父-- 詹姆斯·高斯林（James Gosling）
 
-![](http://img.blog.csdn.net/20150914181110433)
+![詹姆斯·高斯林](img/詹姆斯·高斯林.png)
 
 1977年获得了加拿大卡尔加里大学计算机科学学士学位，1983年获得了美国卡内基梅隆大学计算机科学博士学位，毕业后到IBM工作，设计IBM第一代工作站NeWS系统，但不受重视。后来转至Sun公司，1990年，与Patrick，Naughton和Mike Sheridan等人合作“绿色计划”，后来发展一套语言叫做“Oak”，后改名为Java。
 
@@ -114,14 +118,15 @@ Java之父-- 詹姆斯·高斯林（James Gosling）
 ## 2.4 跨平台性
 
 - 什么是跨平台性？
-  通过Java语言编写的应用程序在不同的系统平台上都可以运行。
-- 原理是什么？
-  只要在需要运行java应用程序的操作系统上，
-  先安装一个Java虚拟机(JVM Java Virtual Machine)即可。
-  由JVM来负责Java程序在该系统中的运行。
 
-![](http://img.blog.csdn.net/20150914165606291)
-​      
+通过Java语言编写的应用程序在不同的系统平台上都可以运行。
+
+- 原理是什么？
+
+只要在需要运行java应用程序的操作系统上，先安装一个Java虚拟机(JVM Java Virtual Machine)即可。由JVM来负责Java程序在该系统中的运行。
+
+![jvm](img/jvm.png)
+
 因为有了JVM，所以同一个Java程序在三个不同的操作系统中都可以执行。这样就实现了Java程序的跨平台性。也称为Java具有良好的可移植性。
 
 PS：Java语言是跨平台的，而JVM不是跨平台的。
@@ -137,15 +142,15 @@ PS：Java语言是跨平台的，而JVM不是跨平台的。
 
 JDK的下载步骤图1
 
-![](http://img.blog.csdn.net/20150914170027487)
+![jdk](img/jdk1.png)
 
 JDK的下载步骤图2
 
-![](http://img.blog.csdn.net/20150914170048220)
+![jdk](img/jdk2.png)
 
 JDK的下载步骤图3
 
-![](http://img.blog.csdn.net/20150914170104227)
+![jdk](img/jdk3.png)
 
 ## 3.1 JDK的安装
 傻瓜式安装，下一步即可。
@@ -229,7 +234,7 @@ public static void main(String [] args){ }
 
 通过配置path环境变量，将javac指令所在目录也就是JDK安装目录下的bin目录配置到path变量下，即可使javac指令在任意目录下运行
 
-win7,win8系统：右键点击桌面计算机→选择属性→选择高级系统设置→选择高级选项卡→点击环境变量→下方系统变量中查找path→双击path
+win7，win8系统：右键`点击桌面计算机` → `选择属性` → `选择高级系统设置` → `选择高级选项卡` → `点击环境变量` → `下方系统变量` 中查找 `path` → `双击path`
 
 XP系统：右键点击桌面计算机→选择属性→选择高级选项卡→点击环境变量→下方系统变量中查找path→双击path
 
