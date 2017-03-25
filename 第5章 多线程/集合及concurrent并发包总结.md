@@ -373,7 +373,7 @@ java.util.concurrent.locks大致结构
 
 以读写场景为例，描述共享和独占的访问模式，如下图所示：
 
-![这里写图片描述](http://static.oschina.net/uploads/space/2014/0528/160147_5viM_865222.jpg)
+![共享模式](img/共享模式.jpg)
 
 上图中，红色代表被阻塞，绿色代表可以通过。
 
@@ -519,19 +519,21 @@ AQS这部分转载于http://ifeve.com/introduce-abstractqueuedsynchronizer/
 
 ConcurrentHashMap是线程安全的HashMap的实现，默认构造同样有initialCapacity和loadFactor属性，不过还多了一个concurrencyLevel属性，三属性默认值分别为16、0.75及16。其内部使用锁分段技术，维持这锁Segment的数组，在Segment数组中又存放着Entity[]数组，内部hash算法将数据较均匀分布在不同锁中。
 
-put操作：并没有在此方法上加上synchronized，首先对key.hashcode进行hash操作，得到key的hash值。hash操作的算法和map也不同，根据此hash值计算并获取其对应的数组中的Segment对象(继承自ReentrantLock)，接着调用此Segment对象的put方法来完成当前操作。
+- put操作
+
+并没有在此方法上加上synchronized，首先对key.hashcode进行hash操作，得到key的hash值。hash操作的算法和map也不同，根据此hash值计算并获取其对应的数组中的Segment对象(继承自ReentrantLock)，接着调用此Segment对象的put方法来完成当前操作。
 
 ConcurrentHashMap基于concurrencyLevel划分出了多个Segment来对key-value进行存储，从而避免每次put操作都得锁住整个数组。在默认的情况下，最佳情况下可允许16个线程并发无阻塞的操作集合对象，尽可能地减少并发时的阻塞现象。
 
 - get(key)
 
- 首先对key.hashCode进行hash操作，基于其值找到对应的Segment对象，调用其get方法完成当前操作。而Segment的get操作首先通过hash值和对象数组大小减1的值进行按位与操作来获取数组上对应位置的HashEntry。在这个步骤中，可能会因为对象数组大小的改变，以及数组上对应位置的HashEntry产生不一致性，那么ConcurrentHashMap是如何保证的？
+首先对key.hashCode进行hash操作，基于其值找到对应的Segment对象，调用其get方法完成当前操作。而Segment的get操作首先通过hash值和对象数组大小减1的值进行按位与操作来获取数组上对应位置的HashEntry。在这个步骤中，可能会因为对象数组大小的改变，以及数组上对应位置的HashEntry产生不一致性，那么ConcurrentHashMap是如何保证的？
 
- 对象数组大小的改变只有在put操作时有可能发生，由于HashEntry对象数组对应的变量是volatile类型的，因此可以保证如HashEntry对象数组大小发生改变，读操作可看到最新的对象数组大小。
+对象数组大小的改变只有在put操作时有可能发生，由于HashEntry对象数组对应的变量是volatile类型的，因此可以保证如HashEntry对象数组大小发生改变，读操作可看到最新的对象数组大小。
 
- 在获取到了HashEntry对象后，怎么能保证它及其next属性构成的链表上的对象不会改变呢？这点ConcurrentHashMap采用了一个简单的方式，即HashEntry对象中的hash、key、next属性都是final的，这也就意味着没办法插入一个HashEntry对象到基于next属性构成的链表中间或末尾。这样就可以保证当获取到HashEntry对象后，其基于next属性构建的链表是不会发生变化的。
+在获取到了HashEntry对象后，怎么能保证它及其next属性构成的链表上的对象不会改变呢？这点ConcurrentHashMap采用了一个简单的方式，即HashEntry对象中的hash、key、next属性都是final的，这也就意味着没办法插入一个HashEntry对象到基于next属性构成的链表中间或末尾。这样就可以保证当获取到HashEntry对象后，其基于next属性构建的链表是不会发生变化的。
 
- ConcurrentHashMap默认情况下采用将数据分为16个段进行存储，并且16个段分别持有各自不同的锁Segment，锁仅用于put和remove等改变集合对象的操作，基于volatile及HashEntry链表的不变性实现了读取的不加锁。这些方式使得ConcurrentHashMap能够保持极好的并发支持，尤其是对于读远比插入和删除频繁的Map而言，而它采用的这些方法也可谓是对于Java内存模型、并发机制深刻掌握的体现。
+ConcurrentHashMap默认情况下采用将数据分为16个段进行存储，并且16个段分别持有各自不同的锁Segment，锁仅用于put和remove等改变集合对象的操作，基于volatile及HashEntry链表的不变性实现了读取的不加锁。这些方式使得ConcurrentHashMap能够保持极好的并发支持，尤其是对于读远比插入和删除频繁的Map而言，而它采用的这些方法也可谓是对于Java内存模型、并发机制深刻掌握的体现。
 
 ## 2.4 ReentrantLock
 
@@ -574,17 +576,13 @@ CopyOnWriteArrayList是一个线程安全、并且在读操作时无锁的ArrayL
 
 - add(E)
 
-add方法并没有加上synchronized关键字，它通过使用ReentrantLock来保证线程安全。此处和ArrayList的不同是每次都会创建一个新的Object数组，此数组的大小为当前数组大小加1，将之前数组中的内容复制到新的数组中，并将
-
-新增加的对象放入数组末尾，最后做引用切换将新创建的数组对象赋值给全局的数组对象。
+add方法并没有加上synchronized关键字，它通过使用ReentrantLock来保证线程安全。此处和ArrayList的不同是每次都会创建一个新的Object数组，此数组的大小为当前数组大小加1，将之前数组中的内容复制到新的数组中，并将新增加的对象放入数组末尾，最后做引用切换将新创建的数组对象赋值给全局的数组对象。
 
 - remove(E)
 
 和add方法一样，此方法也通过ReentrantLock来保证其线程安全，但它和ArrayList删除元素采用的方式并不一样。
 
-首先创建一个比当前数组小1的数组，遍历新数组，如找到equals或均为null的元素，则将之后的元素全部赋值给新的数组对象，并做引用切换，返回true；如未找到，则将当前的元素赋值给新的数组对象，最后特殊处理数组中的最后
-
-一个元素，如最后一个元素等于要删除的元素，即将当前数组对象赋值为新创建的数组对象，完成删除操作，如最后一个元素也不等于要删除的元素，那么返回false。
+首先创建一个比当前数组小1的数组，遍历新数组，如找到equals或均为null的元素，则将之后的元素全部赋值给新的数组对象，并做引用切换，返回true；如未找到，则将当前的元素赋值给新的数组对象，最后特殊处理数组中的最后一个元素，如最后一个元素等于要删除的元素，即将当前数组对象赋值为新创建的数组对象，完成删除操作，如最后一个元素也不等于要删除的元素，那么返回false。
 
 此方法和ArrayList除了锁不同外，最大的不同在于其复制过程并没有调用System的arrayCopy来完成，理论上来说会导致性能有一定下降。
 
