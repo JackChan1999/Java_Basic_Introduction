@@ -62,14 +62,15 @@ s5 == “hello” + ”world”; //true
 # **3. 常见操作方法**
 
 ## **3.1 构造方法**
-| 方法                     | 说明             |
-| :--------------------- | :------------- |
-| String()               | 创建一个内容为空的字符串   |
-| String(byte[])         | 根据指定的字节数组创建对象  |
-| String(byte[]，int，int) | 根据字节数组的一部分创建对象 |
-| String(char[])         | 根据指定的字符数组创建对象  |
-| String(char[]，int，int) | 根据字符数组的一部分创建对象 |
-| String(String)         | 根据指定的字符串内容创建对象 |
+| 方法                                    | 说明             |
+| :------------------------------------ | :------------- |
+| String()                              | 创建一个内容为空的字符串   |
+| String(byte[])                        | 根据指定的字节数组创建对象  |
+| String(byte[]，int，int)                | 根据字节数组的一部分创建对象 |
+| String(char[])                        | 根据指定的字符数组创建对象  |
+| String(char[]，int，int)                | 根据字符数组的一部分创建对象 |
+| String(String)                        | 根据指定的字符串内容创建对象 |
+| String(byte[] bytes, Charset charset) | 使用指定的编码构造字符串对象 |
 
 ```java
 package cn.itcast_01;  
