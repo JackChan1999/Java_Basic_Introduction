@@ -1,11 +1,11 @@
-你应该更新的Java知识之常用程序库（一）
-你应该更新的Java知识之常用程序库（二）
-你应该更新的Java知识之构建工具
-你应该更新的Java知识之Observer
-你应该更新的Java知识之集合初始化
-你应该更新的Java知识之集合操作
-你应该更新的Java知识之惰性求值
-你应该更新的Java知识之Optional
+你应该更新的Java知识之常用程序库（一） 
+你应该更新的Java知识之常用程序库（二） 
+你应该更新的Java知识之构建工具 
+你应该更新的Java知识之Observer 
+你应该更新的Java知识之集合初始化 
+你应该更新的Java知识之集合操作 
+你应该更新的Java知识之惰性求值 
+你应该更新的Java知识之Optional 
 你应该更新的Java知识之Optional高级用法
 
 在传统的Java里，为了表示一个集合，我们常常会写出这样的代码：
@@ -94,4 +94,4 @@ public interface Iterable  {
 
 在函数式编程中，不变是提升程序稳定性一个很重要的概念。既然我们大多数情况下实际用到的是不变集合，那就不妨直接把它表现出来。
 
-原文链接：http://www.blogbus.com/dreamhead-logs/236028457.html
+> 原文链接：http://www.blogbus.com/dreamhead-logs/236028457.html

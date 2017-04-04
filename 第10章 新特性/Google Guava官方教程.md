@@ -134,4 +134,4 @@ Guava 是一个 Google 的基于java1.6的类库集合的扩展项目，包括 c
 
 13、Reflection: Guava 的 Java 反射机制工具类。
 
-原文链接：http://ifeve.com/google-guava/
+> 原文链接：http://ifeve.com/google-guava/
