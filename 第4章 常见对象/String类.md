@@ -1,3 +1,7 @@
+---
+typora-copy-images-to: img
+---
+
 # 相关阅读
 1. [Java基础：String类](http://blog.csdn.net/axi295309066/article/details/52765748)
 2. [Java字符串格式化](http://blog.csdn.net/axi295309066/article/details/52820512)
@@ -33,7 +37,27 @@ public class StringDemo {
 
 字符串在内存中2
 
-![字符串在内存中](http://img.blog.csdn.net/20150827221310522)
+`String s1 = new String(“hello”);`和`String s2 = “hello”;`有什么区别？
+
+前者创建了2个或1个对象，后者创建了1个或0个对象。
+
+```java
+String s1 = new String(“hello”);
+String s2 = “hello”;
+s1 == s2; // false   
+s1.equals(s2); // true
+
+String s3 = “hello”;    String s4 = “world”;   String s5 = “helloworld”;
+
+S5== s3 + s4 ; //fale      
+s5 == “hello” + ”world”; //true
+```
+
+字符串如果是变量相加，先开空间，再拼接。
+
+字符串如果是常量相加，是先加，然后到字符串常量池中找，如果有就直接返回，否则就创建。
+
+![1491268860124](img/1491268860124.png)
 
 # **3. 常见操作方法**
 
@@ -117,7 +141,28 @@ public class StringDemo {
 
 运行结果：
 
-![String字符串](http://img.blog.csdn.net/20150812165529841)
+```
+s1:
+s1.length():0
+--------------------------
+s2:abcde
+s2.length():5
+--------------------------
+s3:bcd
+s3.length():3
+--------------------------
+s4:abcde爱林亲
+s4.length():8
+--------------------------
+s5:cde爱
+s5.length():4
+--------------------------
+s6:abcde
+s6.length():5
+--------------------------
+s7:abcde
+s7.length():5
+```
 
 ## **3.2 判断功能**
 | 方法                   | 说明                 |
@@ -190,7 +235,25 @@ public class StringDemo {
 
 运行结果：
 
-![String字符串](http://img.blog.csdn.net/20150812170702813)
+```
+equals:true
+equals:false
+-----------------------
+equals:true
+equals:true
+-----------------------
+contains:true
+contains:false
+-----------------------
+startsWith:true
+startsWith:true
+startsWith:false
+-----------------------
+isEmpty:false
+isEmpty:true
+Exception in thread "main" java.lang.NullPointerException
+	at Test.main(Test.java:43)
+```
 
 ## **3.3 获取功能**
 | 方法                            | 说明                |
@@ -265,7 +328,26 @@ public class StringDemo {
 
 运行结果：
 
-![String字符串](http://img.blog.csdn.net/20150812171207780)
+```
+s.length:10
+----------------------
+charAt:r
+----------------------
+indexOf:2
+----------------------
+indexOf:4
+----------------------
+indexOf:8
+indexOf:-1
+indexOf:-1
+----------------------
+substring:world
+substring:helloworld
+----------------------
+substring:lowor
+substring:helloworld
+```
+
 ## **3.4 转换功能**
 | 方法                  | 说明             |
 | :------------------ | :------------- |
@@ -341,7 +423,32 @@ public class StringDemo {
 
 运行结果：
 
-![String字符串](http://img.blog.csdn.net/20150812171437935)
+```
+74
+97
+118
+97
+83
+69
+----------------
+J
+a
+v
+a
+S
+E
+----------------
+JavaSE
+----------------
+100
+----------------
+toLowerCase:javase
+s:JavaSE
+toUpperCase:JAVASE
+----------------
+s3:helloworld
+s4:helloworld
+```
 
 ## **3.5 其他功能**
 | 方法                             | 说明               |
@@ -404,9 +511,20 @@ public class StringDemo {
 
 运行结果：
 
-![String字符串](http://img.blog.csdn.net/20150812171606164)
+```
+s1:helloworld
+s2:hekkoworkd
+s3:hellak47rld
+---------------
+s4: hello world  ---
+s5:hello world---
+0
+7
+-16
+```
 
 # **4. String类练习**
+
 ## 4.1 把数组中的数据按照指定个格式拼接成一个字符串
 
 ```java
@@ -699,7 +817,11 @@ public class StringBufferDemo {
 ```
 运行结果：
 
-![String字符串](http://img.blog.csdn.net/20150812173229336)
+```
+sb:hellotrue1234.56
+sb:helloworldtrue1234.56
+```
+
 ## **6.3 删除功能**
 ```java
 package cn.itcast_03;  
@@ -738,7 +860,10 @@ public class StringBufferDemo {
 ```
 运行结果：
 
-![String字符串](http://img.blog.csdn.net/20150812173401174)
+```
+sb:helloworldjava
+sb:
+```
 
 ## **6.4 替换功能**
 ```java
@@ -770,7 +895,11 @@ public class StringBufferDemo {
 
 运行结果：
 
-![String字符串](http://img.blog.csdn.net/20150812173516782)
+```
+sb:helloworldjava
+sb:hello节日快乐java
+```
+
 ## **6.5 反转功能**
 
 ```java
@@ -798,7 +927,11 @@ public class StringBufferDemo {
 
 运行结果：
 
-![String字符串](http://img.blog.csdn.net/20150812213220882)
+```
+sb:霞青林爱我
+sb:我爱林青霞
+```
+
 ## **6.6 截取功能**
 
 ```java
@@ -834,7 +967,13 @@ public class StringBufferDemo {
 
 运行结果：
 
-![String字符串](http://img.blog.csdn.net/20150812173649049)
+```
+sb:helloworldjava
+s:worldjava
+sb:helloworldjava
+ss:world
+sb:helloworldjava
+```
 
 # **7. StringBuffer类练习**
 ## **7.1 String和StringBuffer的相互转换**
@@ -880,7 +1019,14 @@ public class StringBufferTest {
 ```
 运行结果：
 
-![String字符串](http://img.blog.csdn.net/20150812174201510)
+```
+sb:hello
+sb2:hello
+---------------
+str:java
+str2:java
+```
+
 ## **7.2 把数组拼接成一个字符串**
 ```java
 package cn.itcast_07;  
@@ -941,7 +1087,10 @@ public class StringBufferTest2 {
 ```
 运行结果：
 
-![String字符串](http://img.blog.csdn.net/20150812174450815)
+```
+s1:[44, 33, 55, 11, 22]
+s2:[44, 33, 55, 11, 22]
+```
 
 ## **7.3 把字符串反转**
 ```java
@@ -997,7 +1146,12 @@ public class StringBufferTest3 {
 ```
 运行结果：
 
-![String字符串](http://img.blog.csdn.net/20150812174652547)
+```
+请输入数据：
+hello world
+s1:dlrow olleh
+s2:dlrow olleh
+```
 
 ## **7.4 判断一个字符串是否是对称字符串**
 
@@ -1070,7 +1224,12 @@ public class StringBufferTest4 {
 ```
 运行结果：
 
-![String字符串](http://img.blog.csdn.net/20150812174740312)
+```
+请输入一个字符串：
+abcba
+b:true
+b2:true
+```
 
 # 8. String常见问题
 
@@ -1107,3 +1266,23 @@ StringBuffer和StringBuilder类都表示内容可以被修改的字符串，Stri
 **8.8 如果一串字符如"aaaabbc中国1512"要分别统计英文字符的数量，中文字符的数量，和数字字符的数量，假设字符中没有中文字符、英文字符、数字字符之外的其他特殊字符。**
 
 ![1491233285336](img/1491233285336.png)
+
+```java
+// 字符串反转
+Public static String Reverce(String str){
+		return new StringBuffer(str).reverce().toString();
+}
+
+// 判断字符串是否对称
+Public static boolean isSame(String str){
+		return new StringBuffer(str).reverce().toString().equals(str);
+}
+```
+
+**8.9 把数组拼接成指定格式的字符串**
+
+![1491271174524](img/1491271174524.png)
+
+**8.10 把字符串中的字符进行排序**
+
+![1491271246139](img/1491271246139.png)

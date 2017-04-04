@@ -253,7 +253,15 @@ public class FileDemo {
 ```
 运行结果：
 
-![file](http://img.blog.csdn.net/20150812001535129)
+```
+getAbsolutePath:D:\workspace\Test\demo\test.txt
+getPath:demo\test.txt
+getName:test.txt
+length:0
+lastModified:0
+2014-11-20 16:26:11
+```
+
 # **8. 高级获取功能**
 
 ```java
