@@ -1,12 +1,20 @@
-你应该更新的Java知识之常用程序库（一） 
-你应该更新的Java知识之常用程序库（二） 
-你应该更新的Java知识之构建工具 
-你应该更新的Java知识之Observer 
-你应该更新的Java知识之集合初始化 
-你应该更新的Java知识之集合操作 
-你应该更新的Java知识之惰性求值 
-你应该更新的Java知识之Optional 
-你应该更新的Java知识之Optional高级用法
+[你应该更新的Java知识之常用程序库（一）](http://www.blogbus.com/dreamhead-logs/226738702.html)
+
+[你应该更新的Java知识之常用程序库（二）](http://www.blogbus.com/dreamhead-logs/226738756.html) 
+
+[你应该更新的Java知识之构建工具](http://www.blogbus.com/dreamhead-logs/227427912.html)
+
+[你应该更新的Java知识之Observer](http://www.blogbus.com/dreamhead-logs/231594181.html)
+
+[你应该更新的Java知识之集合初始化](http://www.blogbus.com/dreamhead-logs/232899025.html)
+
+[你应该更新的Java知识之集合操作](http://www.blogbus.com/dreamhead-logs/234113759.html)
+
+[你应该更新的Java知识之惰性求值](http://www.blogbus.com/dreamhead-logs/234741366.html)
+
+[你应该更新的Java知识之Optional](http://www.blogbus.com/dreamhead-logs/235329092.html)
+
+[你应该更新的Java知识之Optional高级用法](http://www.blogbus.com/dreamhead-logs/235334714.html)
 
 在传统的Java里，为了表示一个集合，我们常常会写出这样的代码：
 
