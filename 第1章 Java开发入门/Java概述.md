@@ -89,7 +89,7 @@ typora-copy-images-to: img
 | Ctrl               | 控制键，通常和其他键结合使用   |
 | Alt                | 交替换挡键，更改键，替换键    |
 | 空格                 | 空格键，输入空格         |
-| ↑ ↓ ← →            | 上下左右             |
+| ↑ ↓ ← →            | 上下左右方向键          |
 | Enter              | 回车键              |
 | PrtSc(PrintScrenn) | 屏幕截屏             |
 
@@ -215,7 +215,8 @@ JDK的下载步骤图3
 - 在大括号中间添加一个主(main)方法/函数
 
 ```java
-public static void main(String [] args){ }
+public static void main(String [] args){ 
+}
 ```
 
 在主方法的大括号中间添加一行输出语句
@@ -253,7 +254,8 @@ class HelloWorld {
 - main方法格式错误
 
 ```java
-public static void main(String [] args){ }
+public static void main(String [] args){ 
+}
 ```
 - main方法大括号缺失
 - 打印语句拼写错误
