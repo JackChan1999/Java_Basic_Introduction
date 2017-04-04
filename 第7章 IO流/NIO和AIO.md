@@ -18,13 +18,13 @@ NIO是New I/O的简称，与旧式的基于流的I/O方法相对，从名字看�
 - 支持锁（我们在平时使用时经常能看到会出现一些.lock的文件，这说明有线程正在使用这把锁，当线程释放锁时，会把这个文件删除掉，这样其他线程才能继续拿到这把锁）和内存映射文件的文件访问接口 
 - 提供了基于Selector的异步网络I/O 
 
-![nio和aio](http://static.oschina.net/uploads/space/2016/0215/142348_b7nR_2243330.png)
+![nio和aio](img/nio1.png)
 
 所有的从通道中的读写操作，都要经过Buffer，而通道就是io的抽象，通道的另一端就是操纵的文件。
 
 ## 2. Buffer
 
-![nio和aio](http://static.oschina.net/uploads/space/2016/0215/142619_SZSX_2243330.png)
+![nio和aio](img/nio2.png)
 
 Java中Buffer的实现。基本的数据类型都有它对应的Buffer
 
@@ -80,7 +80,7 @@ public static void nioCopyFile(String resource, String destination)
 	}
 ```
 
-![nio](http://static.oschina.net/uploads/space/2016/0215/152644_UfAI_2243330.png)
+![nio](img/nio3.png)
 
 这里要区别下容量和上限，比如一个Buffer有10KB，那么10KB就是容量，我将5KB的文件读到Buffer中，那么上限就是5KB。
 
@@ -113,17 +113,17 @@ public static void main(String[] args) throws Exception {
 	}
 ```
 
-![nio和aio](http://static.oschina.net/uploads/space/2016/0215/153511_fijl_2243330.png)
+![nio和aio](img/nio4.png)
 
 此时position从0到10，capactiy和limit不变。
 
-![nio和aio](http://static.oschina.net/uploads/space/2016/0215/153812_Rpyr_2243330.png)
+![nio和aio](img/nio5.png)
 
 该操作会重置position，通常，将buffer从写模式转换为读 模式时需要执行此方法 flip()操作不仅重置了当前的position为0，还将limit设置到当前position的位置 。
 
 limit的意义在于，来确定哪些数据是有意义的，换句话说，从position到limit之间的数据才是有意义的数据，因为是上次操作的数据。所以flip操作往往是读写转换的意思。
 
-![nio和aio](http://static.oschina.net/uploads/space/2016/0215/154546_0FAB_2243330.png)
+![nio和aio](img/nio6.png)
 
 意义同上。
 
@@ -162,7 +162,7 @@ public static void main(String[] args) throws Exception {
 
 多线程网络服务器的一般结构：
 
-![nio和aio](http://static.oschina.net/uploads/space/2016/0215/155611_ALFp_2243330.png)
+![nio和aio](img/多线程服务器.png)
 
 简单的多线程服务器：
 
@@ -296,7 +296,7 @@ while ((inputLine = is.readLine()) != null)
 
 NIO有一个很大的特点就是：把数据准备好了再通知我 
 
-![nio和aio](http://static.oschina.net/uploads/space/2016/0215/165327_uH4K_2243330.png)
+![nio和aio](img/selector.png)
 
 selector是一个选择器，它可以选择某一个Channel，然后做些事情。
 
