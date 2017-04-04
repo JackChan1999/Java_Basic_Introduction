@@ -8,7 +8,7 @@ LongAdder与AtomicLong都是使用了原子操作来提高性能。但是LongAdd
 
 LongAdder原理图：
 
-![img](http://static.oschina.net/uploads/space/2016/0216/210139_yA05_2243330.png)
+![img](img/LongAdder.png)
 
 AtomicLong的实现方式是内部有个value 变量，当多线程并发自增，自减时，均通过CAS 指令从机器指令级别操作保证并发的原子性。唯一会制约AtomicLong高效的原因是高并发，高并发意味着CAS的失败几率更高， 重试次数更多，越多线程重试，CAS失败几率又越高，变成恶性循环，AtomicLong效率降低。
 
