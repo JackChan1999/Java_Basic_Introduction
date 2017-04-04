@@ -201,7 +201,7 @@ class HelloWorld {
 
 ## 4.4 运行与工作原理
 
-![](http://img.blog.csdn.net/20150914171649396)
+![](img/javac.png)
 
 ## 4.5 常见错误
 
