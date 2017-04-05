@@ -20,6 +20,7 @@
     * [Java语法基础-2](第2章%20Java编程基础/Java语法基础-2.md)
     * [基本数据类型包装类](第2章%20Java编程基础/基本数据类型包装类.md)
     * [阿里巴巴Java开发手册](第2章%20Java编程基础/阿里巴巴Java开发手册.md)
+    * [Google Java编程风格指南](第2章 Java编程基础/Google Java编程风格指南.md)
     * [详细介绍JAVA和C++区别](第2章%20Java编程基础/详细介绍JAVA和C++区别.md)
 
 * [第3章 面向对象](第3章%20面向对象/README.md)
@@ -94,7 +95,7 @@
     * [你应该更新的Java知识之Observer](第10章 新特性/你应该更新的Java知识之Observer.md)
     * [Google Guava官方教程](第10章%20新特性/Google%20Guava官方教程.md)
 
- ## 关注我
+## 关注我
 
 - Email：<815712739@qq.com>
 - CSDN博客：[Allen Iverson](http://blog.csdn.net/axi295309066)
@@ -102,6 +103,8 @@
 - GitHub：[JackChen1999](https://github.com/JackChen1999)
 - GitBook：[alleniverson](https://www.gitbook.com/@alleniverson)
 
-|                   微信打赏                   |                  支付宝打赏                   |
+如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作！
+
+|                  微信赞赏支持                  |                 支付宝赞赏支持                  |
 | :--------------------------------------: | :--------------------------------------: |
 | <img src="assets/weixin.png" width="300" /> | <img src="assets/支付宝.jpg" width="300" /> |
