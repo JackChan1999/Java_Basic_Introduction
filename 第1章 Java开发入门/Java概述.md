@@ -1,7 +1,3 @@
----
-typora-copy-images-to: img
----
-
 # 1. 计算机基础知识
 
 ## 1.1 计算机
@@ -176,7 +172,7 @@ PS：Java语言是跨平台的，而JVM不是跨平台的。
 
 ## 2.5 JDK与JRE
 
-![](http://img.blog.csdn.net/20150914165825465)
+![](img/jdk4.png)
 
 # 3. JDK的下载,安装
 
