@@ -136,12 +136,15 @@ Java之父-- 詹姆斯·高斯林（James Gosling）
 ## 2.2 Java语言平台版本
 
 - J2SE(Java 2 Platform Standard Edition)标准版
+
   是为开发普通桌面和商务应用程序提供的解决方案，该技术体系是其他两者的基础，可以完成一些桌面应用程序的开发
 
 - J2ME(Java 2 Platform Micro Edition)小型版
+
   是为开发电子消费产品和嵌入式设备提供的解决方案
 
 - J2EE(Java 2 Platform Enterprise Edition)企业版
+
   是为开发企业环境下的应用程序提供的一套解决方案，该技术体系中包含的技术如 Servlet、Jsp等，主要针对于Web应用程序开发
 
 ## 2.3 Java语言特点
