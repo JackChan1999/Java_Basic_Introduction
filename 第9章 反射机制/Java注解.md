@@ -55,9 +55,10 @@ Active Android 为 ORM 框架
 
 #### 2.2 作用
 
-a. 标记，用于告诉编译器一些信息
-b. 编译时动态处理，如动态生成代码
-c. 运行时动态处理，如得到注解信息
+- 标记，用于告诉编译器一些信息
+- 编译时动态处理，如动态生成代码
+- 运行时动态处理，如得到注解信息
+
 这里的三个作用实际对应着后面自定义 Annotation 时说的 @Retention 三种值分别表示的 Annotation
 
 ```java
@@ -95,11 +96,15 @@ public class Person {
 
 ### 3. Annotation 分类
 
-#### 3.1 标准 Annotation，Override, Deprecated, SuppressWarnings
+#### 3.1 标准 Annotation
+
+Override, Deprecated, SuppressWarnings
 
 标准 Annotation 是指 Java 自带的几个 Annotation，上面三个分别表示重写函数，不鼓励使用(有更好方式、使用有风险或已不在维护)，忽略某项 Warning
 
-#### 3.2 元 Annotation，@Retention, @Target, @Inherited, @Documented
+#### 3.2 元 Annotation
+
+@Retention, @Target, @Inherited, @Documented
 
 元 Annotation 是指用来定义 Annotation 的 Annotation，在后面 Annotation 自定义部分会详细介绍含义
 
@@ -158,8 +163,11 @@ c. 若只有一个默认属性，可直接用 value() 函数。一个属性都�
 #### 4.3 元 Annotation
 
 @Documented 是否会保存到 Javadoc 文档中
+
 @Retention 保留时间，可选值 SOURCE（源码时），CLASS（编译时），RUNTIME（运行时），默认为 CLASS，SOURCE 大都为 Mark Annotation，这类 Annotation 大都用来校验，比如 Override, SuppressWarnings
+
 @Target 可以用来修饰哪些程序元素，如 TYPE, METHOD, CONSTRUCTOR, FIELD, PARAMETER 等，未标注则表示可修饰所有
+
 @Inherited 是否可以被继承，默认为 false
 
 ### 5. Annotation 解析
@@ -205,10 +213,13 @@ MethodInfo.class);
 
 #### 5.2 编译时 Annotation 解析
 
-(1) 编译时 Annotation 指 @Retention 为 CLASS 的 Annotation，甴编译器自动解析。需要做的
+(1) 编译时 Annotation 指 @Retention 为 CLASS 的 Annotation，甴编译器自动解析。需要做的  
+
 a. 自定义类集成自 AbstractProcessor
-b. 重写其中的 process 函数
-这块很多同学不理解，实际是编译器在编译时自动查找所有继承自 AbstractProcessor 的类，然后调用他们的 process 方法去处理
+b. 重写其中的 process 函数  
+
+这块很多同学不理解，实际是编译器在编译时自动查找所有继承自 AbstractProcessor 的类，然后调用他们的 process 方法去处理  
+
 (2) 假设 MethodInfo 的 @Retention 为 CLASS，解析示例如下：
 
 ```java
