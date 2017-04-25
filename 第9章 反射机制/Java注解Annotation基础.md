@@ -2,29 +2,29 @@
 
 Annotation提供了一种为程序元素（包、类、构造器、方法、成员变量、参数、局域变量）设置元数据的方法。Annotation不能运行，它只有成员变量，没有方法。Annotation跟public、final等修饰符的地位一样，都是程序元素的一部分，Annotation不能作为一个程序元素使用。
 
-**1 定义Annotation**
+## **1. 定义Annotation**
 
 定义新的Annotation类型使用@interface关键字（在原有interface关键字前增加@符号）。定义一个新的Annotation类型与定义一个接口很像，例如：
 
-```
+```java
 public @interface Test{
 }
 ```
 
 定义完该Annotation后，就可以在程序中使用该Annotation。使用Annotation，非常类似于public、final这样的修饰符，通常，会把Annotation另放一行，并且放在所有修饰符之前。例如：
 
-```
+```java
 @Test
 public class MyClass{
 ....
 }
 ```
 
-**1.1 成员变量**
+### **1.1 成员变量**
 
 Annotation只有成员变量，没有方法。Annotation的成员变量在Annotation定义中以“无形参的方法”形式来声明，其方法名定义了该成员变量的名字，其返回值定义了该成员变量的类型。例如：
 
-```
+```java
 public @interface MyTag{
     string name();
     int age();
@@ -35,7 +35,7 @@ public @interface MyTag{
 
 一旦在Annotation里定义了成员变量后，使用该Annotation时就应该为该Annotation的成员变量指定值。例如：
 
-```
+```java
 public class Test{
     @MyTag(name="红薯"，age=30)
     public void info(){
@@ -46,7 +46,7 @@ public class Test{
 
 也可以在定义Annotation的成员变量时，为其指定默认值，指定成员变量默认值使用default关键字。示例：
 
-```
+```java
 public @interface MyTag{
     string name() default "我兰";
     int age() default 18;
@@ -55,7 +55,7 @@ public @interface MyTag{
 
 如果Annotation的成员变量已经指定了默认值，使用该Annotation时可以不为这些成员变量指定值，而是直接使用默认值。例如：
 
-```
+```java
 public class Test{
     @MyTag
     public void info(){
@@ -69,7 +69,7 @@ public class Test{
 - 标记Annotation：没有成员变量的Annotation被称为标记。这种Annotation仅用自身的存在与否来为我们提供信息，例如@override等。
 - 元数据Annotation：包含成员变量的Annotation。因为它们可以接受更多的元数据，因此被称为元数据Annotation。
 
-**1.2 元注解**
+### **1.2 元注解**
 
 在定义Annotation时，也可以使用JDK提供的元注解来修饰Annotation定义。JDK提供了如下4个元注解（注解的注解，不是上述的”元数据Annotation“）：
 
@@ -78,10 +78,9 @@ public class Test{
 - **@Documented**
 - **@Inherited**
 
-**1.2.1 @Retention**
+#### **1.2.1 @Retention**
 
 @Retention用于指定Annotation可以保留多长时间。
-
 @Retention包含一个名为“value”的成员变量，该value成员变量是RetentionPolicy枚举类型。使用@Retention时，必须为其value指定值。value成员变量的值只能是如下3个：
 
 - RetentionPolicy.SOURCE：Annotation只保留在源代码中，编译器编译时，直接丢弃这种Annotation。
@@ -90,7 +89,7 @@ public class Test{
 
 示例：
 
-```
+```java
 package com.demo1;
 
 import java.lang.annotation.Retention;
@@ -108,7 +107,7 @@ public @interface MyTag{
 
 如果Annotation里有一个名为“value“的成员变量，使用该Annotation时，可以直接使用XXX(val)形式为value成员变量赋值，无须使用name=val形式。
 
-**1.2.2 @Target**
+#### **1.2.2 @Target**
 
 @Target指定Annotation用于修饰哪些程序元素。@Target也包含一个名为”value“的成员变量，该value成员变量类型为ElementType[ ]，ElementType为枚举类型，值有如下几个：
 
@@ -123,7 +122,7 @@ public @interface MyTag{
 
 示例1（单个ElementType）：
 
-```
+```java
 package com.demo1;
 
 import java.lang.annotation.ElementType;
@@ -137,7 +136,7 @@ public @interface AnnTest {
 
 示例2（多个ElementType）：
 
-```
+```java
 package com.demo1;
 
 import java.lang.annotation.ElementType;
@@ -149,19 +148,19 @@ public @interface AnnTest {
 }
 ```
 
-**1.2.3 @Documented**
+#### **1.2.3 @Documented**
 
 如果定义注解A时，使用了@Documented修饰定义，则在用javadoc命令生成API文档后，所有使用注解A修饰的程序元素，将会包含注解A的说明。
 
 示例：
 
-```
+```java
 @Documented
 public @interface Testable {
 }
 ```
 
-```
+```java
 public class Test {
 	@Testable
 	public void info() {
@@ -171,13 +170,13 @@ public class Test {
 
 ![img](http://static.oschina.net/uploads/space/2015/0206/163800_YAow_820500.png)
 
-**1.2.4 @Inherited**
+#### **1.2.4 @Inherited**
 
 @Inherited指定Annotation具有继承性。
 
 示例：
 
-```
+```java
 package com.demo2;
 
 import java.lang.annotation.ElementType;
@@ -194,7 +193,7 @@ public @interface MyTag{
 }
 ```
 
-```
+```java
 package com.demo2;
 
 @MyTag
@@ -203,7 +202,7 @@ public class Base {
 }
 ```
 
-```
+```java
 package com.demo2;
 
 //SubClass只是继承了Base类
@@ -219,7 +218,7 @@ public class SubClass extends Base {
 
 如果MyTag注解没有被@Inherited修饰，则运行结果为：false。
 
-**1.3 基本Annotation**
+### **1.3 基本Annotation**
 
 JDK默认提供了如下几个基本Annotation：
 
@@ -239,7 +238,7 @@ JDK默认提供了如下几个基本Annotation：
 
 @SafeVarargs是JDK 7 专门为抑制“堆污染”警告提供的。
 
-**2 提取Annotation信息（反射）**
+## **2. 提取Annotation信息（反射）**
 
 当开发者使用了Annotation修饰了类、方法、Field等成员之后，这些Annotation不会自己生效，必须由开发者提供相应的代码来提取并处理Annotation信息。这些处理提取和处理Annotation的代码统称为APT（Annotation Processing Tool）。
 
@@ -248,11 +247,11 @@ JDK主要提供了两个类，来完成Annotation的提取：
 - java.lang.annotation.Annotation接口：这个接口是所有Annotation类型的父接口（后面会分析Annotation的本质，Annotation本质是接口，而java.lang.annotation.Annotation接口是这些接口的父接口）。
 - java.lang.reflect.AnnotatedElement接口：该接口代表程序中可以被注解的程序元素。
 
-**2.1 java.lang.annotation.Annotation**
+### **2.1 java.lang.annotation.Annotation**
 
 java.lang.annotation.Annotation接口源码:
 
-```
+```java
 package java.lang.annotation;
 
 public interface Annotation {
@@ -269,11 +268,11 @@ public interface Annotation {
 
 java.lang.annotation.Annotation接口的主要方法是annotationType( )，用于返回该注解的java.lang.Class。
 
-**2.2 java.lang.reflect.AnnotatedElement**
+### **2.2 java.lang.reflect.AnnotatedElement**
 
 java.lang.reflect.AnnotatedElement接口源码：
 
-```
+```java
 package java.lang.reflect;
 
 import java.lang.annotation.Annotation;
@@ -306,15 +305,15 @@ java.lang.reflect.AnnotatedElement接口是所有程序元素（例如java.lang.
 
 **\*PS：如果想要在运行时提取注解信息，在定义注解时，该注解必须使用@Retention(RetentionPolicy.RUNTIME)修饰。***
 
-**2.3 示例**
+### **2.3 示例**
 
-**2.3.1 标记Annotation**
+#### **2.3.1 标记Annotation**
 
 给定一个类的全额限定名，加载类，并列出该类中被注解@MyTag修饰的方法和没被修饰的方法。
 
 注解定义：
 
-```
+```java
 package com.demo1;
 
 import java.lang.annotation.ElementType;
@@ -331,7 +330,7 @@ public @interface MyTag {
 
 注解处理：
 
-```
+```java
 package com.demo1;
 
 import java.lang.reflect.Method;
@@ -359,7 +358,7 @@ public class ProcessTool {
 
 测试类：
 
-```
+```java
 package com.demo1;
 
 public class Demo {
@@ -374,7 +373,7 @@ public class Demo {
 }
 ```
 
-```
+```java
 package com.demo1;
 
 public class Test {
@@ -401,13 +400,13 @@ public class Test {
 没被MyTag注解修饰的方法名：notifyAll
 ```
 
-**2.3.2 元数据Annotation**
+#### **2.3.2 元数据Annotation**
 
 给定一个类的全额限定名，加载类，找出被注解MyTag修饰的方法，并输出每个方法的MyTag注解的属性。
 
 注解定义：
 
-```
+```java
 package com.demo1;
 
 import java.lang.annotation.ElementType;
@@ -426,7 +425,7 @@ public @interface MyTag {
 
 注解处理：
 
-```
+```java
 package com.demo1;
 
 import java.lang.reflect.Method;
@@ -453,7 +452,7 @@ public class ProcessTool {
 
 测试类：
 
-```
+```java
 package com.demo1;
 
 public class Demo {
@@ -478,7 +477,7 @@ public class Demo {
 }
 ```
 
-```
+```java
 package com.demo1;
 
 public class Test {
@@ -503,7 +502,7 @@ PS：在编译器编译注解定义时，自动在class文件中，添加与成�
 
 通过上面的示例可以看出，其实Annotation十分简单，它是对源代码增加的一些特殊标记，这些特殊标记可通过反射获取，当程序获取这些特殊标记后，程序可以做出相应的处理（当然也可以完全忽略这些Annotation）。
 
-**3 注解本质**
+## **3. 注解本质**
 
 对于示例”2.3.2 元数据Annotation“中的MyTag注解，在编译后，生成一个MyTag.class文件。反编译该class文件：
 
@@ -537,7 +536,7 @@ javap -verbose -c Demo.class > d.txt
 
 如果要明白JVM对注解的运行机制，需要对class文件的格式规范有一定了解。（[资料](http://www.blogjava.net/DLevin/archive/2011/09/05/358035.html)）
 
-**4 注解的意义**
+## **4. 注解的意义**
 
 为编译器提供辅助信息 — Annotations可以为编译器提供而外信息，以便于检测错误，抑制警告等.
 
