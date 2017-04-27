@@ -697,3 +697,11 @@ key-value的形式存储连接，若key存在则获取，若不存在这个key�
 在JDK中，有一些线程不安全的容器，也有一些线程安全的容器。并发容器是线程安全容器的一种，但是并发容器强调的是容器的并发性，也就是说不仅追求线程安全，还要考虑并发性，提升在容器并发环境下的性能。
 
 加锁互斥的方式确实能够方便地完成线程安全，不过代价是降低了并发性，或者说是串行了。而并发容器的思路是尽量不用锁，比较有代表性的是以CopyOnWrite和Concurrent开头的几个容器。CopyOnWrite容器的思路是在更改容器的时候，把容器写一份进行修改，保证正在读的线程不受影响，这种方式用在读多写少的场景中会非常好，因为实质上是在写的时候重建了一次容器。而以Concurrent开头的容器的具体实现方式则不完全相同，总体来说是尽量保证读不加锁，并且修改时不影响读，所以达到比使用读写锁更高的并发性能。比如上面所说的ConcurrentHashMap，其他的并发容器的具体实现，可直接分析JDK中的源码。
+
+## 并发集合
+
+- ConcurrentHashMap
+- CopyOnWriteArrayList
+- CopyOnWriteArraySet
+- Collections.synchronizedList()
+- ConcurrentLinkedQueue
