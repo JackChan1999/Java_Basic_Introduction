@@ -2,8 +2,8 @@
 
 ![](assets/note.jpg)
 
-> 十年生死两茫茫，不思量，自难忘，华年短暂，陈辞岁月悠悠伤，	
-> 满腔热血已芜荒，展未来，后生强，战战兢兢，如履薄冰心彷徨，	
+> 十年生死两茫茫，不思量，自难忘，华年短暂，陈辞岁月悠悠伤，
+> 满腔热血已芜荒，展未来，后生强，战战兢兢，如履薄冰心彷徨，
 > 青丝化雪、鬓角成霜，已是英雄迟暮，人生怎慷慨激昂？
 
 ## GitHub托管主页
@@ -83,6 +83,7 @@
 
 * [第8章 网络编程](第8章%20网络编程/README.md)
     * [网络编程](第8章%20网络编程/网络编程.md)
+    * [写给那些让我糊里糊涂的HTTP、TCP、UDP、Socket](第8章 网络编程/写给那些让我糊里糊涂的HTTP、TCP、UDP、Socket.md)
 
 * [第9章 反射机制](第9章%20反射机制/README.md)
     * [类加载器](第9章%20反射机制/类加载器.md)
@@ -110,7 +111,7 @@
 - Email：<815712739@qq.com>
 - CSDN博客：[Allen Iverson](http://blog.csdn.net/axi295309066)
 - 新浪微博：[AndroidDeveloper](http://weibo.com/u/1848214604?topnav=1&wvr=6&topsug=1&is_all=1)
-- GitHub：[JackChen1999](https://github.com/JackChen1999)
+- GitHub：[JackChan1999](https://github.com/JackChan1999)
 - GitBook：[alleniverson](https://www.gitbook.com/@alleniverson)
 
 如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作！

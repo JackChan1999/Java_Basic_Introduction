@@ -5,14 +5,14 @@
 
 ## 1.2 数据输入流
 
-1、DataInputStream：数据输出流允许应用程序以适当方式将基本 Java 数据类型写入输出流中。然后，应用程序可以使用数据输入流将数据读入。
+1、DataOutputStream：数据输出流允许应用程序以适当方式将基本 Java 数据类型写入输出流中。然后，应用程序可以使用数据输入流将数据读入。
 
 2、构造方法
 DataOutputStream(OutputStream out) ：创建一个新的数据输出流，将数据写入指定基础输出流。
 
 ## 1.3 数据输出流
 
-1、DataOutputStream：数据输入流允许应用程序以与机器无关方式从底层输入流中读取基本 Java 数据类型。应用程序可以使用数据输出流写入稍后由数据输入流读取的数据。
+1、DataInputStream：数据输入流允许应用程序以与机器无关方式从底层输入流中读取基本 Java 数据类型。应用程序可以使用数据输出流写入稍后由数据输入流读取的数据。
 
 2、构造方法
    DataInputStream(InputStream in) ：使用指定的底层 InputStream 创建一个 DataInputStream。
@@ -95,6 +95,29 @@ public class DataStreamDemo {
 运行结果：
 
 ![](http://img.blog.csdn.net/20150812193046398?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center)
+
+HttpURLConnection设置请求参数
+
+```java
+    protected void setRequestParams(HttpURLConnection connection, Request<?> request)
+            throws ProtocolException, IOException {
+        Request.HttpMethod method = request.getHttpMethod();
+        connection.setRequestMethod(method.toString());
+        // add params
+        byte[] body = request.getBody();
+        if (body != null) {
+            // enable output
+            connection.setDoOutput(true);
+            // set content type
+            connection.addRequestProperty(Request.HEADER_CONTENT_TYPE, request.getBodyContentType());
+            // write params data to connection
+            DataOutputStream dataOutputStream = new DataOutputStream(connection.getOutputStream());
+            dataOutputStream.write(body);
+            dataOutputStream.close();
+        }
+    }
+```
+
 # 2. 内存操作流
 
 ## 2.1 概述
