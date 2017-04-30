@@ -1,14 +1,83 @@
-##**1. Callable** 
-用于获取线程执行完的结果
+##1. Callable 
+泛型接口，用于获取线程执行完的结果
 
 Callable 接口类似于Runnable，两者都是为那些其实例可能被另一个线程执行的类设计的。但是 Runnable 不会返回结果，并且无法抛出经过检查的异常，而Callable返回结果并且可能抛出异常的任务
 
-##**2. Future** 
+```java
+public class MyCallable implements Callable{
+    private int number;
+    public MyCallable(int number) {
+        this.number = number;
+    }
+
+    @Override
+    public Integer call() throws Exception {
+        int sum = 0;
+        for (int x = 1; x <= number; x++) {
+            sum += x;
+        }
+        return sum;
+    }
+}
+
+public class CallableDemo {
+    ExecutorService pool = Executors.newFixedThreadPool(2);
+    Future<Integer> future = pool.submit(new SumCallable(10));
+    Integer sum = future.get();
+    pool.shutdown();
+
+    class SumCallable implements Callable<Integer> {
+        private int number;
+        public SumCallable(int number){
+            this.number = number;
+        }
+
+        @Override
+        public Integer call() throws Exception {
+            int sum = 0;
+            for (int i=0; i<number; i++){
+                sum += i;
+            }
+            return sum;
+        }
+    }
+}
+```
+
+##2. Future 
 Future 接口表示异步计算的结果。它提供了检查计算是否完成的方法，以等待计算的完成，并获取计算的结果。计算完成后只能使用get()方法来获取结果，如有必要，计算完成前可以阻塞此方法
 
 Future取得的结果类型和Callable返回的结果类型必须一致，这是通过泛型来实现的。Callable要采用ExecutorService的submit()方法提交，返回的future对象可以取消任务
 
-##**3. CompletionService**
+```java
+// 创建线程池对象
+ExecutorService pool = Executors.newFixedThreadPool(2);
+// 可以执行Runnable对象或者Callable对象代表的线程
+Future<Integer> future = pool.submit(new MyCallable(100));
+Integer i1 = future.get();
+pool.shutdown();
+```
+
+| 方法声明         | 功能描述   |
+| :----------- | :----- |
+| cancel()     | 取消任务   |
+| isCanceled() | 任务是否取消 |
+| isDone()     | 任务是否完成 |
+| get()        | 获取结果   |
+
+## 3. FutureTask
+
+```java
+public class FutureTask<V> implements RunnableFuture<V>{
+	// 代码省略
+}
+
+public interface RunnableFuture<V> extends Runnable, Future<V>{
+  	void run();
+}
+```
+
+##4. CompletionService
 CompletionService用于提交一组Callable任务，其take()方法返回已完成的一个Callable任务对应的Future对象。
 
 示例：这里数据的获取好比同时种了好几块地的麦子，然后等待收割，秋收时，哪块先熟，先收割哪块
