@@ -113,6 +113,7 @@
 - 新浪微博：[AndroidDeveloper](http://weibo.com/u/1848214604?topnav=1&wvr=6&topsug=1&is_all=1)
 - GitHub：[JackChan1999](https://github.com/JackChan1999)
 - GitBook：[alleniverson](https://www.gitbook.com/@alleniverson)
+- 个人博客：[JackChan](https://jackchan1999.github.io/)
 
 如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作！
 
