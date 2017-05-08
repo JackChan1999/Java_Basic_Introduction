@@ -66,11 +66,7 @@ Socket其实就是一个门面模式，它把复杂的TCP/IP协议族隐藏在So
 
 ### 2. TCP、UDP、HTTP、SOCKET之间的区别
 
-TCP和UDP：传输层协议；
-
-HTTP：应用层协议；
-
-SOCKET：TCP/IP网络的API。
+TCP和UDP：传输层协议；HTTP：应用层协议；SOCKET：TCP/IP网络的API。
 
 TCP/IP代表传输控制协议/网际协议，指的是一系列协议。
 
@@ -88,7 +84,7 @@ HTTP(超文本传输协议)是利用TCP在两台电脑(通常是Web服务器和�
 
 客户端使用Web浏览器发起HTTP请求给Web服务器，Web服务器发送被请求的信息给客户端。
 
-记住，需要IP协议来连接网络;TCP是一种允许我们安全传输数据的机制，使用TCP协议来传输数据的HTTP是Web服务器和客户端使用的特殊协议。
+记住，需要IP协议来连接网络；TCP是一种允许我们安全传输数据的机制，使用TCP协议来传输数据的HTTP是Web服务器和客户端使用的特殊协议。
 
 Socket 接口是TCP/IP网络的API，Socket接口定义了许多函数或例程，用以开发TCP/IP网络上的应用程序。
 
