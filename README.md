@@ -16,7 +16,7 @@
 
 **https://alleniverson.gitbooks.io/java-basic-introduction/content**
 
-## Java基础入门
+## 目录
 
 * [序言](https://alleniverson.gitbooks.io/java-basic-introduction/content/README.html)
 
@@ -30,6 +30,7 @@
     * [阿里巴巴Java开发手册](https://alleniverson.gitbooks.io/java-basic-introduction/content/第2章%20Java编程基础/阿里巴巴Java开发手册.html)
     * [Google Java编程风格指南](https://alleniverson.gitbooks.io/java-basic-introduction/content/第2章%20Java编程基础/Google%20Java编程风格指南.html)
     * [详细介绍JAVA和C++区别](https://alleniverson.gitbooks.io/java-basic-introduction/content/第2章%20Java编程基础/详细介绍JAVA和C++区别.html)
+    * [什么是堆和栈，它们在哪儿？](第2章 Java编程基础/什么是堆和栈，它们在哪儿？.md)
 
 * [第3章 面向对象](https://alleniverson.gitbooks.io/java-basic-introduction/content/第3章%20面向对象/README.html)
     * [数组工具类](https://alleniverson.gitbooks.io/java-basic-introduction/content/第3章%20面向对象/数组工具类.html)
