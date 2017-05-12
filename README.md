@@ -42,6 +42,7 @@
     * [继承](https://alleniverson.gitbooks.io/java-basic-introduction/content/第3章%20面向对象/继承.html)
     * [多态](https://alleniverson.gitbooks.io/java-basic-introduction/content/第3章%20面向对象/多态.html)
     * [抽象类与接口](https://alleniverson.gitbooks.io/java-basic-introduction/content/第3章%20面向对象/抽象类与接口.html)
+    * [接口回调](第3章 面向对象/接口回调.md)
     * [内部类](https://alleniverson.gitbooks.io/java-basic-introduction/content/第3章%20面向对象/内部类.html)
     * [异常](https://alleniverson.gitbooks.io/java-basic-introduction/content/第3章%20面向对象/异常.html)
 
