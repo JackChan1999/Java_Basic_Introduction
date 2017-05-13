@@ -246,6 +246,8 @@ class HelloWorld {
 
 ![](img/javac.png)
 
+![](img/compiler.png)
+
 ## 4.5 常见错误
 
 - 文件扩展名隐藏导致编译失败
