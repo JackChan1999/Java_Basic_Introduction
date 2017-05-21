@@ -262,6 +262,18 @@ lastModified:0
 2014-11-20 16:26:11
 ```
 
+判断缓存文件是否过期
+
+```java
+File file = ...;
+long time = System.currentTimeMillis() - file.lastModified();
+if (time < cachetime){
+    // 缓存时间小于指定的时间，缓存有效，否则缓存过期
+}else {
+    
+}
+```
+
 # **8. 高级获取功能**
 
 ```java
