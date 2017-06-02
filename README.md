@@ -105,7 +105,9 @@
 
 * [第10章 新特性](https://alleniverson.gitbooks.io/java-basic-introduction/content/第10章%20新特性/README.html)
     * [JDK新特性](https://alleniverson.gitbooks.io/java-basic-introduction/content/第10章%20新特性/JDK新特性.html)
-    * [泛型](https://alleniverson.gitbooks.io/java-basic-introduction/content/第10章%20新特性/泛型.html)
+    * [泛型基础1](https://alleniverson.gitbooks.io/java-basic-introduction/content/第10章%20新特性//泛型基础1.html)
+    * [泛型基础2](https://alleniverson.gitbooks.io/java-basic-introduction/content/第10章%20新特性//泛型基础2.html)
+    * [泛型封装](https://alleniverson.gitbooks.io/java-basic-introduction/content/第10章%20新特性//泛型封装.html)
     * [你应该更新的Java知识](https://alleniverson.gitbooks.io/java-basic-introduction/content/第10章%20新特性/你应该更新的Java知识.html)
     * [你应该更新的Java知识之常用程序库1](https://alleniverson.gitbooks.io/java-basic-introduction/content/第10章%20新特性/你应该更新的Java知识之常用程序库1.html)
     * [你应该更新的Java知识之常用程序库2](https://alleniverson.gitbooks.io/java-basic-introduction/content/第10章%20新特性/你应该更新的Java知识之常用程序库2.html)
