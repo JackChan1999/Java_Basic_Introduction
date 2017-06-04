@@ -87,6 +87,7 @@
     * [NIO](https://alleniverson.gitbooks.io/java-basic-introduction/content/第7章%20IO流/NIO.html)
     * [AIO](https://alleniverson.gitbooks.io/java-basic-introduction/content/第7章%20IO流/AIO.html)
     * [NIO和AIO](https://alleniverson.gitbooks.io/java-basic-introduction/content/第7章%20IO流/NIO和AIO.html)
+    * [序列化流](第7章 IO流/序列化流.md)
     * [对象的深复制和浅复制](第7章 IO流/对象的深复制和浅复制.md)
 
 * [第8章 网络编程](https://alleniverson.gitbooks.io/java-basic-introduction/content/第8章%20网络编程/README.html)
