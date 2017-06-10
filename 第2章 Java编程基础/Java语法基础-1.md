@@ -489,6 +489,7 @@ C：在一行上建议只定义一个变量
 ### 6.2.2 默认转换(从小到大的转换)
 
 A：byte，short，char—int—long—float—double
+
 B：byte，short，char相互之间不转换，他们参与运算首先转换为int类型
 
 ### 6.2.2 强制转换：
