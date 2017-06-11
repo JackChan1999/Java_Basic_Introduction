@@ -1,10 +1,10 @@
-## Android安全加密专题文章索引
+## Java安全加密专题文章索引
 
-1. [安全加密：对称加密](http://blog.csdn.net/axi295309066/article/details/52491077)
-2. [安全加密：非对称加密](http://blog.csdn.net/axi295309066/article/details/52494640)
-3. [安全加密：消息摘要Message Digest](http://blog.csdn.net/axi295309066/article/details/52494725)
-4. [安全加密：数字签名和数字证书](http://blog.csdn.net/axi295309066/article/details/52494832)
-5. [安全加密：Https编程](http://blog.csdn.net/axi295309066/article/details/52494902)
+1. [Java安全加密：对称加密](http://blog.csdn.net/axi295309066/article/details/52491077)
+2. [Java安全加密：非对称加密](http://blog.csdn.net/axi295309066/article/details/52494640)
+3. [Java安全加密：消息摘要Message Digest](http://blog.csdn.net/axi295309066/article/details/52494725)
+4. [Java安全加密：数字签名和数字证书](http://blog.csdn.net/axi295309066/article/details/52494832)
+5. [Java安全加密：Https编程](http://blog.csdn.net/axi295309066/article/details/52494902)
 
 ## **概述**
 **SSL**(Secure Sockets Layer **安全套接层**)，为网景公司(Netscape)所研发，用以保障在Internet 上数据传输之安全，利用数据加密(Encryption)技术，可确保数据在网络上之传输过程中不会被截取及窃听。一般通用之规格为40 bit 之安全标准，美国则已推出128 bit 之更高安全标准，但限制出境。只要3.0 版本以上之I.E.或Netscape 浏览器即可支持SSL。
