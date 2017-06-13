@@ -21,7 +21,6 @@
 ## 目录
 
 * [序言](https://alleniverson.gitbooks.io/java-basic-introduction/content/README.html)
-
 * [第1章 Java开发入门](https://alleniverson.gitbooks.io/java-basic-introduction/content/第1章%20Java开发入门/README.html)
     * [Java概述](https://alleniverson.gitbooks.io/java-basic-introduction/content/第1章%20Java开发入门/Java概述.html)
     * [JDK、JRE、JVM的区别与联系](https://alleniverson.gitbooks.io/java-basic-introduction/content/第1章%20Java开发入门/JDK、JRE、JVM的区别与联系.html)
@@ -34,7 +33,6 @@
     * [Google Java编程风格指南](https://alleniverson.gitbooks.io/java-basic-introduction/content/第2章%20Java编程基础/Google%20Java编程风格指南.html)
     * [详细介绍JAVA和C++区别](https://alleniverson.gitbooks.io/java-basic-introduction/content/第2章%20Java编程基础/详细介绍JAVA和C++区别.html)
     * [什么是堆和栈，它们在哪儿？](第2章 Java编程基础/什么是堆和栈，它们在哪儿？.md)
-
 * [第3章 面向对象](https://alleniverson.gitbooks.io/java-basic-introduction/content/第3章%20面向对象/README.html)
     * [数组工具类](https://alleniverson.gitbooks.io/java-basic-introduction/content/第3章%20面向对象/数组工具类.html)
     * [文档注释](https://alleniverson.gitbooks.io/java-basic-introduction/content/第3章%20面向对象/文档注释.html)
@@ -48,12 +46,10 @@
     * [接口回调](第3章 面向对象/接口回调.md)
     * [内部类](https://alleniverson.gitbooks.io/java-basic-introduction/content/第3章%20面向对象/内部类.html)
     * [异常](https://alleniverson.gitbooks.io/java-basic-introduction/content/第3章%20面向对象/异常.html)
-
 * [第4章 常见对象](https://alleniverson.gitbooks.io/java-basic-introduction/content/第4章%20常见对象/README.html)
     * [String类](https://alleniverson.gitbooks.io/java-basic-introduction/content/第4章%20常见对象/String类.html)
     * [正则表达式](https://alleniverson.gitbooks.io/java-basic-introduction/content/第4章%20常见对象/正则表达式.html)
     * [字符串格式化](https://alleniverson.gitbooks.io/java-basic-introduction/content/第4章%20常见对象/字符串格式化.html)
-
 * [第5章 多线程](https://alleniverson.gitbooks.io/java-basic-introduction/content/第5章%20多线程/README.html)
     * [多线程](https://alleniverson.gitbooks.io/java-basic-introduction/content/第5章%20多线程/多线程.html)
     * [线程池](https://alleniverson.gitbooks.io/java-basic-introduction/content/第5章%20多线程/线程池.html)
@@ -74,12 +70,10 @@
     * [阻塞队列](https://alleniverson.gitbooks.io/java-basic-introduction/content/第5章%20多线程/阻塞队列.html)
     * [Java并发工具包concurrent用户指南](https://alleniverson.gitbooks.io/java-basic-introduction/content/第5章%20多线程/Java并发工具包concurrent用户指南.html)
     * [多线程问题总结](第5章 多线程/多线程问题总结.md)
-
 * [第6章 集合框架](https://alleniverson.gitbooks.io/java-basic-introduction/content/第6章%20集合框架/README.html)
     * [集合框架](https://alleniverson.gitbooks.io/java-basic-introduction/content/第6章%20集合框架/集合框架.html)
     * [集合框架工具类](https://alleniverson.gitbooks.io/java-basic-introduction/content/第6章%20集合框架/集合框架工具类.html)
     * [Java集合类型详解](https://alleniverson.gitbooks.io/java-basic-introduction/content/第6章%20集合框架/Java集合类型详解.html)
-
 * [第7章 IO流](https://alleniverson.gitbooks.io/java-basic-introduction/content/第7章%20IO流/README.html)
     * [IO流之File类](https://alleniverson.gitbooks.io/java-basic-introduction/content/第7章%20IO流/IO流之File类.html)
     * [IO流之字节流和字符流](https://alleniverson.gitbooks.io/java-basic-introduction/content/第7章%20IO流/IO流之字节流和字符流.html)
@@ -89,20 +83,18 @@
     * [NIO和AIO](https://alleniverson.gitbooks.io/java-basic-introduction/content/第7章%20IO流/NIO和AIO.html)
     * [序列化流](第7章 IO流/序列化流.md)
     * [对象的深复制和浅复制](第7章 IO流/对象的深复制和浅复制.md)
-
 * [第8章 网络编程](https://alleniverson.gitbooks.io/java-basic-introduction/content/第8章%20网络编程/README.html)
     * [网络编程](https://alleniverson.gitbooks.io/java-basic-introduction/content/第8章%20网络编程/网络编程.html)
     * [写给那些让我糊里糊涂的HTTP、TCP、UDP、Socket](https://alleniverson.gitbooks.io/java-basic-introduction/content/第8章%20网络编程/写给那些让我糊里糊涂的HTTP、TCP、UDP、Socket.html)
     * [你应该知道的计算机网络知识](第8章 网络编程/你应该知道的计算机网络知识.md)
     * [Https扫盲贴](第8章 网络编程/Https扫盲贴.md)
-
 * [第9章 安全加密](第9章 安全加密/README.md)
+    * [和安全有关的那些事](第9章 安全加密/和安全有关的那些事.md)
     * [对称加密](第9章 安全加密/对称加密.md)
     * [非对称加密](第9章 安全加密/非对称加密.md)
     * [消息摘要MessageDigest](第9章 安全加密/消息摘要MessageDigest.md)
     * [数字签名和数字证书](第9章 安全加密/数字签名和数字证书.md)
     * [Https编程](第9章 安全加密/Https编程.md)
-
 * [第10章 反射机制](https://alleniverson.gitbooks.io/java-basic-introduction/content/第10章%20反射机制/README.html)
     * [类加载器](https://alleniverson.gitbooks.io/java-basic-introduction/content/第10章%20反射机制/类加载器.html)
     * [反射1](https://alleniverson.gitbooks.io/java-basic-introduction/content/第10章%20反射机制/反射.html)
@@ -115,7 +107,6 @@
     * [依赖注入](https://alleniverson.gitbooks.io/java-basic-introduction/content/第10章%20反射机制/依赖注入.html)
     * [动态代理1](https://alleniverson.gitbooks.io/java-basic-introduction/content/第10章%20反射机制/动态代理.html)
     * [动态代理2](https://alleniverson.gitbooks.io/java-basic-introduction/content/第10章%20反射机制/Java动态代理.html)
-
 * [第11章 新特性](https://alleniverson.gitbooks.io/java-basic-introduction/content/第11章%20新特性/README.html)
     * [JDK新特性](https://alleniverson.gitbooks.io/java-basic-introduction/content/第11章%20新特性/JDK新特性.html)
     * [泛型基础1](https://alleniverson.gitbooks.io/java-basic-introduction/content/第11章%20新特性//泛型基础1.html)
