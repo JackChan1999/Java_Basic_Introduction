@@ -6,7 +6,6 @@ Base64的原理很简单，首先，准备一个包含64个字符的数组：
 
 ```
 ['A', 'B', 'C', ... 'a', 'b', 'c', ... '0', '1', ... '+', '/']
-
 ```
 
 ![Base64 字符映射表](http://img.blog.csdn.net/20160910122745327)
@@ -21,28 +20,7 @@ Base64的原理很简单，首先，准备一个包含64个字符的数组：
 
 如果要编码的二进制数据不是3的倍数，最后会剩下1个或2个字节怎么办？Base64用`\x00`字节在末尾补足后，再在编码的末尾加上1个或2个`=`号，表示补了多少字节，解码的时候，会自动去掉。
 
-Python内置的`base64`可以直接进行base64的编解码：
-
-```
->>> import base64
->>> base64.b64encode('binary\x00string')
-'YmluYXJ5AHN0cmluZw=='
->>> base64.b64decode('YmluYXJ5AHN0cmluZw==')
-'binary\x00string'
-
-```
-
 由于标准的Base64编码后可能出现字符`+`和`/`，在URL中就不能直接作为参数，所以又有一种"url safe"的base64编码，其实就是把字符`+`和`/`分别变成`-`和`_`：
-
-```
->>> base64.b64encode('i\xb7\x1d\xfb\xef\xff')
-'abcd++//'
->>> base64.urlsafe_b64encode('i\xb7\x1d\xfb\xef\xff')
-'abcd--__'
->>> base64.urlsafe_b64decode('abcd--__')
-'i\xb7\x1d\xfb\xef\xff'
-
-```
 
 还可以自己定义64个字符的排列顺序，这样就可以自定义Base64编码，不过，通常情况下完全没有必要。
 
@@ -53,26 +31,41 @@ Base64适用于小段内容的编码，比如数字证书签名、Cookie的内�
 由于`=`字符也可能出现在Base64编码中，但`=`用在URL、Cookie里面会造成歧义，所以，很多Base64编码后会把`=`去掉：
 
 ```
-# 标准Base64:
+// 标准Base64:
 'abcd' -> 'YWJjZA=='
-# 自动去掉=:
+// 自动去掉=:
 'abcd' -> 'YWJjZA'
 
 ```
 
 去掉`=`后怎么解码呢？因为Base64是把3个字节变为4个字节，所以，Base64编码的长度永远是4的倍数，因此，需要加上`=`把Base64字符串的长度变为4的倍数，就可以正常解码了。
 
-请写一个能处理去掉`=`的base64解码函数：
+### 应用
 
-```
->>> base64.b64decode('YWJjZA==')
-'abcd'
->>> base64.b64decode('YWJjZA')
-Traceback (most recent call last):
-  ...
-TypeError: Incorrect padding
->>> safe_b64decode('YWJjZA')
-'abcd'
+把一些对象转换成string，用处:传输的时候不要明文传输
+
+- 上传图片，上传语音
+- 如何把一个map存到sp-->Base64支持把byte[]-->String，只需把对象先转换成byte[]就可以存到sp中
+
+```java
+ImageView iv = (ImageView) findViewById(R.id.iv);
+//1.得到bitmap
+Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+//2.bitmap-->byte[]
+ByteArrayOutputStream out = new ByteArrayOutputStream();
+bitmap.compress(CompressFormat.PNG, 100, out);
+byte[] bitmapByteArr = out.toByteArray();
+//3.使用base64 byte[]--String--->上传到服务器
+String bitmapBase64String = Base64.encodeToString(bitmapByteArr, Base64.DEFAULT);
+
+//key-value jsonString
+
+//4.String-->byte[]
+byte[] bitmapByteArr2 = Base64.decode(bitmapBase64String, Base64.DEFAULT);
+//5.byte[]-->Bitmap -->完成图片的上传
+Bitmap bitmapPassed = BitmapFactory.decodeByteArray(bitmapByteArr2, 0, bitmapByteArr2.length);
+//6.设置图片到imageView
+iv.setImageBitmap(bitmapPassed);
 ```
 
 ### 小结
