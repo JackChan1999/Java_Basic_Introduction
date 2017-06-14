@@ -7,10 +7,10 @@
 5. [Java安全加密：Https编程](http://blog.csdn.net/axi295309066/article/details/52494902)
 
 
-# **1. 常见算法**
+# 1. 常见算法
 MD5、SHA、CRC 等
 
-# **2. 使用场景**
+# 2. 使用场景
 
 - 对用户密码进行md5 加密后保存到数据库里
 - 软件下载站使用消息摘要计算文件指纹，防止被篡改
@@ -25,7 +25,7 @@ MD5、SHA、CRC 等
 
 ![数字摘要](http://img.blog.csdn.net/20160910135955384)
 
-## **Git计算校验**
+## 2.1 Git计算校验
 
 Git 用以计算校验和的机制叫做 SHA-1 散列（hash，哈希）。这是一个由 40 个十六进制字符（0-9 和 a-f）组成字符串，基于 Git 中文件的内容或目录结构计算出来。SHA-1 哈希看起来是这样：
 
@@ -34,7 +34,7 @@ Git 用以计算校验和的机制叫做 SHA-1 散列（hash，哈希）。这�
 Git 中使用这种哈希值的情况很多，你将经常看到这种哈希值。实际上，Git 数据库中保存的信息都是以文件内容的哈希值来索引，而不是文件名。
 
 
-# **3. 使用步骤**
+# 3. 使用步骤
 
 ```java
 //常用算法：MD5、SHA、CRC
@@ -50,22 +50,26 @@ System.out.println(hex);
 
 经常听到有人问这样的问题，MD5 摘要后结果到底是多少位？有的人说是16 位，有的说是128 位，有的说是32 位。到底是多长，这个时候我们就要明白，16 位指的是字节位数，128 位指的是比特位，32 位指的结果转换成16 进制展示的字符位数。
 
-# **4. 数字摘要原理**
+# 4. 数字摘要原理
+
+MD5的全称为Message-Digest Algorithm 5，即消息摘要算法第五版，是当前计算机领域用于确保信息传输完整一致而广泛使用的散列算法之一。MD5算法的功能是将数据运算变为另一固定长度值，是散列算法的基础原理。MD5的前身有MD2、MD3和MD4。
+
 - 用每个byte去和11111111（0xff）做与运算并且得到的是int类型的值
 
-   byte & 11111111
+   byte & 11111111得到有效的低8位
 
 - 把int 类型转成 16进制并返回String类型
 - 不满八个二进制位就补全
 
-
 ```java
-//获取实例
+//获取MD5算法对象
 MessageDigest digest = MessageDigest.getInstance("MD5");
 digest.update(key.getBytes());
+// 对字符串加密，返回加密后的字节数组
 byte[] bytes = digest.digest(key.getBytes());
 StringBuilder sb = new StringBuilder();
 for (int i = 0; i < bytes.length; i++) {
+  	// 获取有效的低8位
     String hex = Integer.toHexString(bytes[i]&0xff);
     if (hex.length() == 1){
         sb.append("0");
@@ -73,7 +77,6 @@ for (int i = 0; i < bytes.length; i++) {
     sb.append(hex);
 }
 String hexstring = sb.toString();
-
 ```
 
 ```java
@@ -91,10 +94,10 @@ public class MD5Utils {
             // 1111-1111
             // 0000-0101
             for (byte b : digest) {
-                // 0xff 表示低8 位
+                // 0xff 表示低8位
                 int number = b & 0xff;
-                // int 32 位一个int 是四个字节一个字节8 位
-                // 任何一个值& 等于0
+                // int 32位，一个int是四个字节，一个字节8位
+                // 任何一个值& 0等于0
                 // & 1 = 1
                 String hexString = Integer.toHexString(number);
                 if (hexString.length() == 1) {
@@ -113,7 +116,7 @@ public class MD5Utils {
     }
 }
 ```
-# 6. MD5解密网站
+# 5. MD5解密网站
 
 http://www.cmd5.com/
 
