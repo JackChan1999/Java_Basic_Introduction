@@ -303,7 +303,7 @@ java.lang.reflect.AnnotatedElement接口是所有程序元素（例如java.lang.
 
 **为了获取注解信息，必须使用反射知识。**
 
-**\*PS：如果想要在运行时提取注解信息，在定义注解时，该注解必须使用@Retention(RetentionPolicy.RUNTIME)修饰。***
+PS：如果想要在运行时提取注解信息，在定义注解时，该注解必须使用@Retention(RetentionPolicy.RUNTIME)修饰。
 
 ### **2.3 示例**
 

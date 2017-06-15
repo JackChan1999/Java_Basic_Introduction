@@ -1,9 +1,6 @@
 ## 公共技术点之 Java 反射 Reflection
 
-![收藏](http://a.codekk.com/images/icon/ic_favorite_white.png)  项目：Java反射，分析者：[Mr.Simple](https://github.com/bboyfeiyu)，校对者：[Trinea](https://github.com/Trinea)
-
-> 本文为 [Android 开源项目源码解析](http://a.codekk.com/) 公共技术点中的 Java 反射 部分
-> 分析者：[Mr.Simple](https://github.com/bboyfeiyu)，校对者：[Trinea](https://github.com/Trinea)，校对状态：未完成
+>  [原文链接：Android 开源项目源码解析](http://a.codekk.com/) 
 
 ## 1. 了解 Java 中的反射
 
@@ -365,7 +362,7 @@ private static void showInterfaces() {
 
 ## 6. 获取注解信息
 
-在框架开发中，注解加反射的组合使用是最为常见形式的。关于注解方面的知识请参考[公共技术点之 Java 注解 Annotation](http://a.codekk.com/detail/Android/Trinea/%E5%85%AC%E5%85%B1%E6%8A%80%E6%9C%AF%E7%82%B9%E4%B9%8B%20Java%20%E6%B3%A8%E8%A7%A3%20Annotation)，定义注解时我们会通过@Target 指定该注解能够作用的类型，看如下示例:
+在框架开发中，注解加反射的组合使用是最为常见形式的。关于注解方面的知识请参考[公共技术点之 Java 注解 Annotation](注解.md)，定义注解时我们会通过@Target 指定该注解能够作用的类型，看如下示例:
 
 ```java
 @Target({

@@ -1,9 +1,6 @@
 ## 公共技术点之 Java 注解 Annotation
 
-![收藏](http://a.codekk.com/images/icon/ic_favorite_white.png)  项目：Java注解，分析者：[Trinea](https://github.com/Trinea)，校对者：[Trinea](https://github.com/Trinea)
-
-> 本文为 [Android 开源项目源码解析](http://a.codekk.com/) 公共技术点中的 注解 部分
-> 分析者：[Trinea](https://github.com/Trinea)，校对者：[Trinea](https://github.com/Trinea)，校对状态：完成
+> [原文链接：Android 开源项目源码解析](http://a.codekk.com/) 
 
 不少开源库都用到了注解的方式来简化代码提高开发效率。
 本文简单介绍下 **Annotation 示例、概念及作用、分类、自定义、解析，并对几个 Android 开源库 Annotation 原理进行简析**。
@@ -26,7 +23,7 @@ User getUser(@Path("username") String username);
 
 ```
 
-Butter Knife Annotation
+ButterKnife Annotation
 
 ```java
 @InjectView(R.id.user) EditText username;
@@ -40,9 +37,9 @@ ActiveAndroid Annotation
 
 ```
 
-Retrofit 为符合 RESTful 规范的网络请求框架
-Butter Knife 为 View 及事件等依赖注入框架
-Active Android 为 ORM 框架
+Retrofit 为符合 RESTful 规范的网络请求框架		
+Butter Knife 为 View 及事件等依赖注入框架		
+Active Android 为 ORM 框架		
 更多见：[Android 开源项目汇总](https://github.com/Trinea/android-open-project)
 
 ### 2. Annotation 概念及作用
@@ -153,12 +150,18 @@ public @interface MethodInfo {
 ```
 
 这里是 MethodInfo 的实现部分
-(1). 通过 @interface 定义，注解名即为自定义注解名
-(2). 注解配置参数名为注解类的方法名，且：
-a. 所有方法没有方法体，没有参数没有修饰符，实际只允许 public & abstract 修饰符，默认为 public，不允许抛异常
-b. 方法返回值只能是基本类型，String, Class, annotation, enumeration 或者是他们的一维数组
-c. 若只有一个默认属性，可直接用 value() 函数。一个属性都没有表示该 Annotation 为 Mark Annotation
-(3). 可以加 default 表示默认值
+
+- 通过 @interface 定义，注解名即为自定义注解名
+
+- 注解配置参数名为注解类的方法名，且
+
+  - 所有方法没有方法体，没有参数没有修饰符，实际只允许 public & abstract 修饰符，默认为 public，不允许抛异
+
+  - 方法返回值只能是基本类型，String, Class, annotation, enumeration 或者是他们的一维数组
+
+  - 若只有一个默认属性，可直接用 value() 函数。一个属性都没有表示该 Annotation 为 Mark Annotation
+
+- 可以加 default 表示默认值
 
 #### 4.3 元 Annotation
 
@@ -215,7 +218,7 @@ MethodInfo.class);
 
 (1) 编译时 Annotation 指 @Retention 为 CLASS 的 Annotation，甴编译器自动解析。需要做的  
 
-a. 自定义类集成自 AbstractProcessor
+a. 自定义类集成自 AbstractProcessor		
 b. 重写其中的 process 函数  
 
 这块很多同学不理解，实际是编译器在编译时自动查找所有继承自 AbstractProcessor 的类，然后调用他们的 process 方法去处理  
@@ -241,9 +244,10 @@ public class MethodInfoProcessor extends AbstractProcessor {
 
 ```
 
-SupportedAnnotationTypes 表示这个 Processor 要处理的 Annotation 名字。
-process 函数中参数 annotations 表示待处理的 Annotations，参数 env 表示当前或是之前的运行环境
-process 函数返回值表示这组 annotations 是否被这个 Processor 接受，如果接受后续子的 rocessor 不会再对这个 Annotations 进行处理
+SupportedAnnotationTypes 表示这个 Processor 要处理的 Annotation 名字。		
+process 函数中参数 annotations 表示待处理的 Annotations，参数 env 表示当前或是之前的运行环境		
+process 函数返回值表示这组 annotations 是否被这个 Processor 接受，如果接受后续子的		
+rocessor 不会再对这个 Annotations 进行处理
 
 ### 6. 几个 Android 开源库 Annotation 原理简析
 
@@ -270,7 +274,8 @@ public @interface GET {
 
 ```
 
-从定义可看出 Retrofit 的 Get Annotation 是运行时 Annotation，并且只能用于修饰 Method
+从定义可看出 Retrofit 的 Get Annotation 是运行时 Annotation，并且只能用于修饰 Method		
+
 (3) 原理
 
 ```java
@@ -316,7 +321,8 @@ public @interface InjectView {
 
 ```
 
-可看出 Butter Knife 的 InjectView Annotation 是编译时 Annotation，并且只能用于修饰属性
+可看出 Butter Knife 的 InjectView Annotation 是编译时 Annotation，并且只能用于修饰属性		
+
 (3) 原理
 
 ```java
@@ -368,6 +374,7 @@ public @interface Column {
 ```
 
 可看出 ActiveAndroid 的 Column Annotation 是运行时 Annotation，并且只能用于修饰属性。
+
 (3) 原理
 
 ```java
