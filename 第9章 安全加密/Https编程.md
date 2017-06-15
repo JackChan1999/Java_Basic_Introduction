@@ -6,22 +6,22 @@
 4. [Java安全加密：数字签名和数字证书](http://blog.csdn.net/axi295309066/article/details/52494832)
 5. [Java安全加密：Https编程](http://blog.csdn.net/axi295309066/article/details/52494902)
 
-## **概述**
-**SSL**(Secure Sockets Layer **安全套接层**)，为网景公司(Netscape)所研发，用以保障在Internet 上数据传输之安全，利用数据加密(Encryption)技术，可确保数据在网络上之传输过程中不会被截取及窃听。一般通用之规格为40 bit 之安全标准，美国则已推出128 bit 之更高安全标准，但限制出境。只要3.0 版本以上之I.E.或Netscape 浏览器即可支持SSL。
+## 概述
+SSL(Secure Sockets Layer 安全套接层)，为网景公司(Netscape)所研发，用以保障在Internet 上数据传输之安全，利用数据加密(Encryption)技术，可确保数据在网络上之传输过程中不会被截取及窃听。一般通用之规格为40 bit 之安全标准，美国则已推出128 bit 之更高安全标准，但限制出境。只要3.0 版本以上之I.E.或Netscape 浏览器即可支持SSL。
 
-**TLS**（Transport Layer Security **传输层安全**），用于在两个通信应用程序之间提供保密性和数据完整性。TLS 是SSL 的标准化后的产物，有1.0 ，1.1 ，1.2 三个版本，默认使用1.0。TLS1.0 和SSL3.0 几乎没有区别，事实上我们现在用的都是TLS，但因为历史上习惯了SSL 这个称呼。
+TLS（Transport Layer Security 传输层安全），用于在两个通信应用程序之间提供保密性和数据完整性。TLS 是SSL 的标准化后的产物，有1.0 ，1.1 ，1.2 三个版本，默认使用1.0。TLS1.0 和SSL3.0 几乎没有区别，事实上我们现在用的都是TLS，但因为历史上习惯了SSL 这个称呼。
 
-### **SSL 通信简单图示：**
+### SSL 通信简单图示
 
 ![ssl](http://img.blog.csdn.net/20160910142930760)
 
-### **SSL 通信详细图示：**
+### SSL 通信详细图示
 
 ![ssl](http://img.blog.csdn.net/20160910143017261)
 
-当请求使用自签名证书的网站数据时，例如请求12306 的客运服务页面：https://kyfw.12306.cn/otn/，则会报下面的错误，原因是客户端的根认证机构不能识别该证书错误信息：unable to find valid certification path to requested target
+当请求使用自签名证书的网站数据时，例如请求12306 的客运服务页面：https://kyfw.12306.cn/otn/ ，则会报下面的错误，原因是客户端的根认证机构不能识别该证书错误信息：unable to find valid certification path to requested target
 
-## **解决方案1**
+## 解决方案1
 一个证书可不可信，是由TrustManager 决定的，所以我们只需要自定义一个什么都不做的TrustManager即可，服务器出示的所有证书都不做校验，一律放行。
 
 ```java
@@ -42,7 +42,7 @@ HttpsURLConnection.setDefaultSSLSocketFactory(sslContext.getSocketFactory());
  System.out.println(Util.inputstream2String(in));
  }
 
- /**
+ /
  * 自定义一个什么都不做的信任管理器，所有证书都不做校验，一律放行
  */
  private static class EmptyX509TrustManager implements X509TrustManager{
@@ -62,7 +62,7 @@ HttpsURLConnection.setDefaultSSLSocketFactory(sslContext.getSocketFactory());
  }
 }
 ```
-## **解决方案2**
+## 解决方案2
 12306 服务器出示的证书是中铁集团SRCA 给他颁发的，所以SRCA 的证书是能够识别12306 的证书的，所以只需要把SRCA 证书导入系统的KeyStore 里，之后交给TrustManagerFactory 进行初始化，则可把SRCA 添加至根证书认证机构，之后校验的时候，SRCA 对12306 证书校验时就能通过认证。
 
 这种解决方案有两种使用方式：一是直接使用SRCA.cer 文件，二是使用改文件的RFC 格式数据，将其写在代码里。
@@ -116,7 +116,7 @@ InputStream in = conn.getInputStream();
 System.out.println(Util.inputstream2String(in));
 }
 ```
-## **Android 里的 https 请求**
+## Android 里的 https 请求
 把scra.cer 文件考到assets 或raw 目录下，或者直接使用证书的RFC 格式，接下来的做法和java工程代码一样
 
 ```java
@@ -150,7 +150,7 @@ InputStream in = urlConnection.getInputStream();
 copyInputStreamToOutputStream(in, System.out);
 
 ```
-## **双向证书验证**
+## 双向证书验证
 
 ```java
 CertificateFactory certificateFactory = CertificateFactory.getInstance("X.509");
@@ -172,10 +172,10 @@ keyManagerFactory.init(clientKeyStore, "123456".toCharArray());
 sslContext.init(keyManagerFactory.getKeyManagers(), trustManagerFactory.getTrustManagers(), new SecureRandom());
 
 ```
-## **Nogotofail**
+## Nogotofail
 网络流量安全测试工具，Google的开源项目：https://github.com/google/nogotofail
 
-## **Android安全加密专题总结**
+## 安全加密专题总结
 
 以上学习所有内容，对称加密、非对称加密、消息摘要、数字签名等知识都是为了理解数字证书工作原理而作为一个预备知识。数字证书是密码学里的终极武器，是人类几千年历史总结的智慧的结晶，只有在明白了数字证书工作原理后，才能理解Https 协议的安全通讯机制。最终才能在SSL 开发过程中得心应手。
 
@@ -196,3 +196,5 @@ sslContext.init(keyManagerFactory.getKeyManagers(), trustManagerFactory.getTrust
 - 知道对称加密、非对称加密、消息摘要、数字签名、数字证书是为了解决什么问题而出现的
 - 了解SSL 通讯流程
 - 实际开发里怎样请求Https 的接口
+
+![](img/安全加密.png)

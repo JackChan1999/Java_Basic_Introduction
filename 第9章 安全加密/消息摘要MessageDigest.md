@@ -49,7 +49,9 @@ System.out.println(hex);
 ```
 消息摘要后的结果是固定长度，无论你的数据有多大，哪怕是只有一个字节或者是一个G 的文件，摘要后的结果都是固定长度。
 
-经常听到有人问这样的问题，MD5 摘要后结果到底是多少位？有的人说是16 位，有的说是128 位，有的说是32 位。到底是多长，这个时候我们就要明白，16 位指的是字节位数，128 位指的是比特位，32 位指的结果转换成16 进制展示的字符位数。
+经常听到有人问这样的问题，MD5 摘要后结果到底是多少位？
+
+有的人说是16 位，有的说是128 位，有的说是32 位。到底是多长，这个时候我们就要明白，16 位指的是字节位数，128 位指的是比特位，32 位指的结果转换成16 进制展示的字符位数。
 
 # 4. 数字摘要原理
 
@@ -117,6 +119,76 @@ public class MD5Utils {
     }
 }
 ```
+## 4.1 字节数组与16进制字符串转换工具
+
+```java
+/**
+ * 字节数组与16进制字符串转换工具
+ */
+public class Hex {
+
+	private static final char[] HEX_CHAR = { '0', '1', '2', '3', '4', '5', '6',
+			'7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
+
+	/**
+	 * 字节数组转换成16进制字符串
+	 * 
+	 * @param bytes
+	 * @return
+	 */
+	public static String encode(byte[] bytes) {
+		if (bytes == null || bytes.length == 0) {
+			return null;
+		}
+
+		StringBuffer sb = new StringBuffer(bytes.length * 2);
+		// 27对应的十六进制为1b,对应的二进制是00011011
+		// 取高位和低位：00011011-》0001,1011-》1,b
+		for (int i = 0; i < bytes.length; ++i) {
+			// 取高位：跟0xf0做与运算后再右移4位
+			int high = (bytes[i] & 0xf0) >> 4;// 0xf0: 11110000
+			// 取低位：跟0x0f做与运算
+			int low = bytes[i] & 0x0f;// 0x0f: 00001111
+			// 字符映射
+			sb.append(HEX_CHAR[high]).append(HEX_CHAR[low]);
+		}
+		return sb.toString();
+	}
+
+	/**
+	 * 16进制字符串转换为字节数组
+	 * 
+	 * @param hex 16进制字符  
+	 * @return
+	 */
+	public static byte[] decode(String hex) {
+		if (hex == null || hex.length() == 0) {
+			return null;
+		}
+
+		// 16进制转byte，长度减半，"1b"-->27
+		int len = hex.length() / 2;
+		byte[] result = new byte[len];
+		String highStr = null;
+		String lowStr = null;
+		int high = 0;
+		int low = 0;
+		for (int i = 0; i < len; i++) {
+			// 高位值
+			highStr = hex.substring(i * 2, i * 2 + 1);// "1b"的高位为"1"
+			high = Integer.parseInt(highStr, 16);// 高位转为10进制
+			// 低位值
+			lowStr = hex.substring(i * 2 + 1, i * 2 + 2);// "1b"的低位为"b"
+			low = Integer.parseInt(lowStr, 16);// 低位转为10进制
+			// 合计值
+			result[i] = (byte) ((high << 4) + low);// 相当于:(高位*16) + 低位
+		}
+		return result;
+	}
+
+}
+```
+
 # 5. MD5解密网站
 
 http://www.cmd5.com/
