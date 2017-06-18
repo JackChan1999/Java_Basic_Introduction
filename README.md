@@ -32,6 +32,7 @@
     * [阿里 Java 开发手册最新完美版，千锤百炼始出炉](第2章 Java编程基础/阿里 Java 开发手册最新完美版，千锤百炼始出炉.md)
     * [Google Java编程风格指南](https://alleniverson.gitbooks.io/java-basic-introduction/content/第2章%20Java编程基础/Google%20Java编程风格指南.html)
     * [详细介绍JAVA和C++区别](https://alleniverson.gitbooks.io/java-basic-introduction/content/第2章%20Java编程基础/详细介绍JAVA和C++区别.html)
+    * [引用、指针和句柄的区别](第2章 Java编程基础/引用、指针和句柄的区别.md)
     * [什么是堆和栈，它们在哪儿？](第2章 Java编程基础/什么是堆和栈，它们在哪儿？.md)
 * [第3章 面向对象](https://alleniverson.gitbooks.io/java-basic-introduction/content/第3章%20面向对象/README.html)
     * [数组工具类](https://alleniverson.gitbooks.io/java-basic-introduction/content/第3章%20面向对象/数组工具类.html)
