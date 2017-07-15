@@ -30,6 +30,7 @@
     * [基本数据类型包装类](https://alleniverson.gitbooks.io/java-basic-introduction/content/第2章%20Java编程基础/基本数据类型包装类.html)
     * [阿里巴巴Java开发手册](https://alleniverson.gitbooks.io/java-basic-introduction/content/第2章%20Java编程基础/阿里巴巴Java开发手册.html)
     * [阿里 Java 开发手册最新完美版，千锤百炼始出炉](第2章 Java编程基础/阿里 Java 开发手册最新完美版，千锤百炼始出炉.md)
+    * [Java程序员必读的书籍](第2章 Java编程基础/Java程序员必读的书籍.md)
     * [Google Java编程风格指南](https://alleniverson.gitbooks.io/java-basic-introduction/content/第2章%20Java编程基础/Google%20Java编程风格指南.html)
     * [详细介绍JAVA和C++区别](https://alleniverson.gitbooks.io/java-basic-introduction/content/第2章%20Java编程基础/详细介绍JAVA和C++区别.html)
     * [引用、指针和句柄的区别](第2章 Java编程基础/引用、指针和句柄的区别.md)

@@ -8,7 +8,7 @@
 
 
 # 1. 常见算法
-MD5、SHA、CRC 等
+MD5（已经被攻破）、SHA（sha1，sha256，sha512）、CRC、SM系列等
 
 # 2. 使用场景
 
