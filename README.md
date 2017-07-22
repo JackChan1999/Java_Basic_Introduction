@@ -52,6 +52,8 @@
     * [String类](https://alleniverson.gitbooks.io/java-basic-introduction/content/第4章%20常见对象/String类.html)
     * [正则表达式](https://alleniverson.gitbooks.io/java-basic-introduction/content/第4章%20常见对象/正则表达式.html)
     * [字符串格式化](https://alleniverson.gitbooks.io/java-basic-introduction/content/第4章%20常见对象/字符串格式化.html)
+    * [System类和Runtime类](https://alleniverson.gitbooks.io/java-basic-introduction/content/第4章%20常见对象/System类和Runtime类.html)
+    * [Math类和Random类](https://alleniverson.gitbooks.io/java-basic-introduction/content/第4章%20常见对象/Math类和Random类.html)
 * [第5章 多线程](https://alleniverson.gitbooks.io/java-basic-introduction/content/第5章%20多线程/README.html)
     * [多线程](https://alleniverson.gitbooks.io/java-basic-introduction/content/第5章%20多线程/多线程.html)
     * [线程池](https://alleniverson.gitbooks.io/java-basic-introduction/content/第5章%20多线程/线程池.html)

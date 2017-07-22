@@ -44,6 +44,8 @@
   * [String类](第4章 常见对象/String类.md)
   * [正则表达式](第4章 常见对象/正则表达式.md)
   * [字符串格式化](第4章 常见对象/字符串格式化.md)
+  * [System类和Runtime类](第4章 常见对象/System类和Runtime类.md)
+  * [Math类和Random类](第4章 常见对象/Math类和Random类.md)
 
 ----
 
