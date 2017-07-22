@@ -1,3 +1,7 @@
+---
+typora-copy-images-to: img
+---
+
 ![io流](http://img.blog.csdn.net/20161003130057678)
 # **1. 流的概念**
 流(stream)的概念源于UNIX中管道(pipe)的概念。在UNIX中，管道是一条不间断的字节流，用来实现程序或进程间的通信，或读写外围设备、外部文件等。
@@ -56,6 +60,17 @@ PS：流只能操作数据，而不能操作文件。
 ![io](http://img.blog.csdn.net/20150827230537267)
 
 # **5. 字节流**
+
+在计算机中，无论是文本、图片、音频还是视频，所有文件都是以二进制(字节)形式存在的，IO流中针对字节的输入输出提供了一系列的流，统称为字节流。字节流是程序中最常用的流，根据数据的传输方向可将其分为字节输入流和字节输出流。在JDK中，提供了两个抽象类InputStream和OutputStream，它们是字节流的顶级父类，所有的字节输入流都继承自InputStream，所有的字节输出流都继承自OutputStream。为了方便理解，可以把InputStream和OutputStream比作两根“水管”，如图所示。
+
+![1500708330117](img/1500708330117.png)
+
+InputStream和OutputStream这两个类虽然提供了一系列和读写数据有关的方法，但是这两个类是抽象类，不能被实例化，因此，针对不同的功能，InputStream和OutputStream提供了不同的子类，这些子类形成了一个体系结构，如图所示。
+
+![1500708378450](img/1500708378450.png)
+
+![1500708385651](img/1500708385651.png)
+
 ## **5.1 字节流写数据**
 字节输出流：抽象类OutputStream，实现类FileOutputStream
 
@@ -378,6 +393,12 @@ public class CopyFileDemo2 {
 }
 ```
 ## **4、字节缓冲流**
+一个字节一个字节的读写，需要频繁的操作文件，效率非常低。这就好比从北京运送烤鸭到上海，如果有一万只烤鸭，每次运送一只，就必须运输一万次，这样的效率显然非常低。为了减少运输次数，可以先把一批烤鸭装在车厢中，这样就可以成批的运送烤鸭，这时的车厢就相当于一个临时缓冲区。当通过流的方式拷贝文件时，为了提高效率也可以定义一个字节数组作为缓冲区。在拷贝文件时，可以一次性读取多个字节的数据，并保存在字节数组中，然后将字节数组中的数据一次性写入文件。
+
+在IO包中提供两个带缓冲的字节流，分别是BufferedInputStream和BufferedOutputStream，它们的构造方法中分别接收InputStream和OutputStream类型的参数作为对象，在读写数据时提供缓冲功能。应用程序、缓冲流和底层字节流之间的关系如图所示。
+
+![1500708462472](img/1500708462472.png)
+
 字节流一次读写一个数组的速度明显比一次读写一个字节的速度快很多，这是加入了数组这样的缓冲区效果，java本身在设计的时候，也考虑到了这样的设计思想(装饰设计模式后面讲解)，所以提供了字节缓冲区流。
 
  字节缓冲输出流：BufferedOutputStream，字节缓冲输入流：BufferedInputStream。
@@ -514,6 +535,12 @@ public class CopyMp4Demo {
 ```
 # **6. 字符流**
 
+InputStream类和OutputStream类在读写文件时操作的都是字节，如果希望在程序中操作字符，使用这两个类就不太方便，为此JDK提供了字符流。同字节流一样，字符流也有两个抽象的顶级父类，分别是Reader和Writer。其中Reader是字符输入流，用于从某个源设备读取字符，Writer是字符输出流，用于向某个目标设备写入字符。Reader和Writer作为字符流的顶级父类，也有许多子类，接下来通过继承关系图来列出Reader和Writer的一些常用子类，如图所示。
+
+![1500708507437](img/1500708507437.png)
+
+![1500708514090](img/1500708514090.png)
+
 ## **6.1 转换流出现的原因及思想**
 由于字节流操作中文不是特别方便，所以，java就提供了转换流。字符流=字节流+编码表。
 
@@ -578,6 +605,13 @@ public class StringDemo {
 }
 ```
 ## **6.2 转换流概述**
+
+IO流可分为字节流和字符流，有时字节流和字符流之间也需要进行转换。在JDK中提供了两个类可以将字节流转换为字符流，它们分别是InputStreamReader和OutputStreamWriter。
+
+OutputStreamWriter是Writer的子类，它可以将一个字节输出流转换成字符输出流，方便直接写入字符，而InputStreamReader是Reader的子类，它可以将一个字节输入流转换成字符输入流，方便直接读取字符。通过转换流进行数据读写的过程如图所示。
+
+![1500708562018](img/1500708562018.png)
+
 OutputStreamWriter 字符输出流
 
 ![io流](http://img.blog.csdn.net/20150915111452739)
@@ -882,7 +916,7 @@ public class BufferedWriterDemo {
 	}
 }
 ```
-###**7.2 BufferedReader基本用法**
+##**7.2 BufferedReader基本用法**
 从字符输入流中读取文本，缓冲各个字符，从而实现字符、数组和行的高效读取。  可以指定缓冲区的大小，或者可使用默认的大小。大多数情况下，默认值就足够大了。 
 
 ![io流](http://img.blog.csdn.net/20150915112441236)
@@ -1027,7 +1061,150 @@ public class CopyFileDemo2 {
 }
 ```
 
-# 8. 总结
+# 8. 模拟记事本
+
+```java
+package cn.itcast.chapter07.task02;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+/**
+ * 模拟记事本程序
+ */
+public class Notepad {
+	private static String filePath;
+	private static String message = "";
+	public static void main(String[] args) throws Exception {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("--1:新建文件 2:打开文件  3:修改文件  4:保存 5:退出--");
+		while (true) {
+			System.out.print("请输入操作指令：");
+			int command = sc.nextInt();
+			switch (command) {
+			case 1:
+				createFile();// 1:新建文件
+				break;
+			case 2:
+				openFile();// 2:打开文件
+				break;
+			case 3:
+				editFile();// 3:修改文件
+				break;
+			case 4:
+				saveFile();// 4:保存
+				break;
+			case 5:
+				exit();// 5:退出
+				break;
+			default:
+				System.out.println("您输入的指令错误！");
+				break;
+			}
+		}
+	}
+	/**
+	 * 新建文件 从控制台获取内容
+	 */
+	private static void createFile() {
+		message = "";// 新建文件时，暂存文件内容清空
+		Scanner sc = new Scanner(System.in);
+		System.out.println("请输入内容，停止编写请输入\"stop\":");// 提示
+		StringBuffer stb = new StringBuffer();// 用于后期输入内容的拼接
+		String inputMessage = "";
+		while (!inputMessage.equals("stop")) {// 当输入“stop”时，停止输入
+			if (stb.length() > 0) {
+				stb.append("\r\n");// 追加换行符
+			}
+			stb.append(inputMessage);// 拼接输入信息
+			inputMessage = sc.nextLine();// 获取输入信息
+		}
+		message = stb.toString();// 将输入内容暂存
+	}
+	/**
+	 * 打开文件
+	 */
+	private static void openFile() throws Exception {
+		message = "";// 打开文件时，将暂存内容清空
+		Scanner sc = new Scanner(System.in);
+		System.out.print("请输入打开文件的位置：");
+		filePath = sc.next();// 获取打开文件的路径
+		// 控制只能输入txt格式的文件路径
+		if (filePath != null && !filePath.endsWith(".txt")) {
+			System.out.print("请选择文本文件！");
+			return;
+		}
+		FileReader in = new FileReader(filePath);// 实例化一个FileReader对象
+		char[] charArray = new char[1024];// 缓冲数组
+		int len = 0;
+		StringBuffer sb = new StringBuffer();
+		// 循环读取，一次读取一个字符数组
+		while ((len = in.read(charArray)) != -1) {
+			sb.append(charArray);
+		}
+		message = sb.toString();// 将打开文件内容暂存
+		System.out.println("打开文件内容：" + "\r\n" + message);
+		in.close();// 释放资源
+	}
+	/**
+	 * 修改文件内容 通过字符串替换的形式
+	 */
+	private static void editFile() {
+		if (message == "" && filePath == null) {
+			System.out.println("请先新建文件或者打开文件");
+			return;
+		}
+		Scanner sc = new Scanner(System.in);
+		System.out.println("请输入要修改的内容（以 \"修改的目标文字:修改之后的文字\" 格式）,"
+				+ "停止修改请输入\"stop\":");
+		String inputMessage = "";
+		while (!inputMessage.equals("stop")) {// 当输入stop时,停止修改
+			inputMessage = sc.nextLine();
+			if (inputMessage != null && inputMessage.length() > 0) {
+				// 将输入的文字根据“：”拆分成数组
+				String[] editMessage = inputMessage.split(":");
+				if (editMessage != null && editMessage.length > 1) {
+					// 根据输入的信息将文件中内容替换
+					message = message.replace(editMessage[0], editMessage[1]);
+				}
+			}
+		}
+		System.out.println("修改后的内容:" + "\r\n" + message);
+	}
+	/**
+	 * 保存 新建文件存在用户输入的路径 打开的文件将原文件覆盖
+	 */
+	private static void saveFile() throws IOException {
+		Scanner sc = new Scanner(System.in);
+		FileWriter out = null;
+		if (filePath != null) {// 文件是由“打开”载入的
+			out = new FileWriter(filePath);// 将原文件覆盖
+		} else {// 新建的文件
+			System.out.print("请输入文件保存的绝对路径：");
+			String path = sc.next();// 获取文件保存的路径
+			filePath = path;
+			// 将输入路径中大写字母替换成小写字母后判断是不是文本格式
+			if (!filePath.toLowerCase().endsWith(".txt")) {
+				filePath += ".txt";
+			}
+			out = new FileWriter(filePath);// 构造输出流
+		}
+		out.write(message);// 写入暂存的内容
+		out.close();// 关闭输出流
+		message = "";// 修改文件前现将写入内容置空
+		filePath = null;// 将文件路径至null
+	}
+	/**
+	 * 退出
+	 */
+	private static void exit() {
+		System.out.println("您已退出系统，谢谢使用！");
+		System.exit(0);
+	}
+}
+```
+
+# 9. 总结
 
 ![io流](http://img.blog.csdn.net/20150827230556993)
 

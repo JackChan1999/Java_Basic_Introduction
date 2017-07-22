@@ -1,5 +1,17 @@
+---
+typora-copy-images-to: img
+---
+
 # **1. File类概述**
+
+File类用于封装一个路径，这个路径可以是从系统盘符开始的绝对路径，如：“D:\file\a.txt”，也可以是相对于当前目录而言的相对路径，如：“src\Hello.java”。File类内部封装的路径可以指向一个文件，也可以指向一个目录，在File类中提供了针对这些文件或目录的一些常规操作。
+
 文件和目录路径名的抽象表示形式，表示一个文件或文件夹，并提供了一系列操作文件或文件夹的方法
+
+File类中提供了一系列方法，用于操作其内部封装的路径指向的文件或者目录，例如判断文件/目录是否存在、创建、删除文件/目录等。
+
+![1500708828607](img/1500708828607.png)
+
 # **2. 构造方法**
 | 方法                               | 功能描述                 |
 | :------------------------------- | :------------------- |
@@ -464,3 +476,227 @@ public class FileDeleteDemo {
 运行结果：
 
 ![file](http://img.blog.csdn.net/20150812003454970)
+
+## 10.4 模拟文件管理器
+
+DocumentManager
+
+```java
+package cn.itcast.chapter07.task03;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class DocumentManager {
+	public static void main(String[] args) throws Exception {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("--1:指定关键字检索文件  2:指定后缀名检索文件  " + "3:复制文件/目录  4:退出--");
+		while (true) {
+			System.out.print("请输入指令：");
+			int command = sc.nextInt();
+			switch (command) {
+			case 1:
+				searchByKeyWorld();// 指定关键字检索文件
+				break;
+			case 2:
+				searchBySuffix();// 指定后缀名检索文件
+				break;
+			case 3:
+				copyDirectory();// 复制文件/目录
+				break;
+			case 4:
+				exit();// 退出
+				break;
+			default:
+				System.out.println("您输入的指令错误！");
+				break;
+			}
+		}
+	}
+
+	// *********1.指定关键字检索文件*********
+	private static void searchByKeyWorld() {
+		Scanner sc = new Scanner(System.in);
+		System.out.print("请输入要检索的目录位置：");
+		String path = sc.next();// 从控制台获取路径
+		File file = new File(path);
+		if (!file.exists() || !file.isDirectory()) {// 判断目录是否存在，是否是目录
+			System.out.println(path + " (不是有效目录)");
+			return;
+		}
+		System.out.print("请输入搜索关键字：");
+		String key = sc.next();// 获取关键字
+		// 在输入目录下获取所有包含关键字的文件路径
+		ArrayList<String> list = FileUtils.listFiles(file, key);
+		for (Object obj : list) {
+			System.out.println(obj);// 将路径打印到控制台
+		}
+	}
+
+	// *********2.指定后缀名检索文件********//
+	private static void searchBySuffix() {
+		Scanner sc = new Scanner(System.in);
+		System.out.print("请输入要检索的目录位置：");
+		String path = sc.next();// 从控制台获取路径
+		File file = new File(path);
+		if (!file.exists() || !file.isDirectory()) {// 判断目录是否存在，是否是目录
+			System.out.println(path + " (不是有效目录)");
+			return;
+		}
+		System.out.print("请输入搜索后缀：");
+		String suffix = sc.next();
+		String[] suffixArray = suffix.split(",");// 获取后缀字符串
+		// 在输入目录下获取所有指定后缀名的文件路径
+		ArrayList<String> list = FileUtils.listFiles(file, suffixArray);
+		for (Object obj : list) {
+			System.out.println(obj);// 将路径打印到控制台
+		}
+	}
+
+	// *********3.复制文件/目录**********//
+	private static void copyDirectory() throws Exception {
+		Scanner sc = new Scanner(System.in);
+		System.out.print("请输入源目录：");
+		String srcDirectory = sc.next();// 从控制台获取源路径
+		File srcFile = new File(srcDirectory);
+		if (!srcFile.exists() || !srcFile.isDirectory()) {// 判断目录是否存在，是否是目录
+			System.out.println("无效目录！");
+			return;
+		}
+		System.out.print("请输入目标位置：");
+		String destDirectory = sc.next();// 从控制台获取目标路径
+		File destFile = new File(destDirectory);
+		if (!destFile.exists() || !destFile.isDirectory()) {// 判断目录是否存在，是否是目录
+			System.out.println("无效位置！");
+			return;
+		}
+		// 将源路径中的内容复制到目标路径下
+		FileUtils.copySrcPathToDestPath(srcFile, destFile);
+	}
+
+	// *********4.退出**********//
+	private static void exit() {
+		System.out.println("您已退出系统，谢谢使用！");
+		System.exit(0);
+	}
+}
+```
+
+FileUtils
+
+```java
+package cn.itcast.chapter07.task03;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FilenameFilter;
+import java.util.ArrayList;
+
+public class FileUtils {
+	/**
+	 * 指定关键字检索文件
+	 * @param file   File对象
+	 * @param key    关键字
+	 * @return 包含关键字的文件路径
+	 */
+	public static ArrayList<String> listFiles(File file, final String key) {
+		FilenameFilter filter = new FilenameFilter() { // 创建过滤器对象
+			public boolean accept(File dir, String name) {// 实现accept()方法
+				File currFile = new File(dir, name);
+				// 如果文件名包含关键字返回true，否则返回false
+				if (currFile.isFile() && name.contains(key)) {
+					return true;
+				}
+				return false;
+			}
+		};
+		// 递归方式获取规定的路径
+		ArrayList<String> arraylist = fileDir(file, filter);
+		return arraylist;
+	}
+
+	/**
+	 * 指定后缀名检索文件
+	 * @param file   File对象
+	 * @param suffixArray   后缀名数组
+	 * @return 指定后缀名的文件路径
+	 */
+	public static ArrayList<String> listFiles(File file,
+			final String[] suffixArray) {
+		FilenameFilter filter = new FilenameFilter() { // 创建过滤器对象
+			public boolean accept(File dir, String name) {// 实现accept()方法
+				File currFile = new File(dir, name);
+				if (currFile.isFile()) {// 如果文件名以指定后缀名结尾返回true，否则返回false
+					for (String suffix : suffixArray) {
+						if (name.endsWith("." + suffix)) {
+							return true;
+						}
+					}
+				}
+				return false;
+			}
+		};
+		// 递归方式获取规定的路径
+		ArrayList<String> arraylist = fileDir(file, filter);
+		return arraylist;
+	}
+
+	/**
+	 * 递归方式获取规定的路径
+	 * @param dir   File对象
+	 * @param filter   过滤器
+	 * @return 过滤器过滤后的文件路径
+	 */
+	public static ArrayList<String> fileDir(File dir, FilenameFilter filter) {
+		ArrayList<String> arraylist = new ArrayList<String>();
+		File[] lists = dir.listFiles(filter); // 获得过滤后的所有文件数组
+		for (File list : lists) {
+			// 将文件的绝对路径放到集合中
+			arraylist.add(list.getAbsolutePath());
+		}
+		File[] files = dir.listFiles(); // 获得当前目录下所有文件的数组
+		for (File file : files) { // 遍历所有的子目录和文件
+			if (file.isDirectory()) {
+				// 如果是目录，递归调用fileDir()
+				ArrayList<String> every = fileDir(file, filter);
+				arraylist.addAll(every);// 将文件夹下的文件路径添加到集合中
+			}
+		}// 此时的集合中有当前目录下的文件路径，和当前目录的子目录下的文件路径
+		return arraylist;
+	}
+
+	/**
+	 * 复制文件/目录
+	 * @param srcFile   源目录
+	 * @param destFile  目标目录
+	 */
+	public static void copySrcPathToDestPath(File srcDir, File destDir)
+			throws Exception {
+		File[] files = srcDir.listFiles();// 子文件目录
+		for (int i = 0; i < files.length; i++) {
+			File copiedFile = new File(destDir, files[i].getName());// 创建指定目录的文件
+			if (files[i].isDirectory()) {// 如果是目录
+				if (!copiedFile.mkdirs()) {// 创建文件夹
+					System.out.println("无法创建：" + copiedFile);
+					return;
+				}
+				// 调用递归，获取子文件夹下的文件路径
+				copySrcPathToDestPath(files[i], copiedFile);
+			} else {// 复制文件
+				FileInputStream input = new FileInputStream(files[i]);// 获取输入流
+				FileOutputStream output = new FileOutputStream(copiedFile);// 获取输出流
+				byte[] buffer = new byte[1024];// 创建缓冲区
+				int n = 0;
+				// 循环读取字节
+				while ((n = input.read(buffer)) != -1) {
+					output.write(buffer, 0, n);
+				}
+				input.close();// 关闭输入流
+				output.close();// 关闭输出流
+			}
+		}
+	}
+}
+```
