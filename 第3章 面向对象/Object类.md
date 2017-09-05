@@ -112,3 +112,5 @@ class ObjectDemo{
 运行结果：
 
 ![](img/object3.png)
+
+## Java 7 新增的 Objects 类
