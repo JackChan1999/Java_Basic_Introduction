@@ -1,4 +1,12 @@
 ## 第6章 集合框架
 
-* [6.1 集合框架](集合框架.md)
-* [6.2 集合框架工具类](集合框架工具类.md)
+* [Collection接口](Collection接口.md)
+* [List接口](List接口.md)
+* [Set接口](Set接口.md)
+* [Queue接口](Queue接口.md)  
+* [集合的遍历](集合的遍历.md)
+* [集合工具类](集合工具类.md)
+* [Map接口](Map接口.md)
+* [Predicate和Stream操作集合](Predicate和Stream操作集合.md)
+* [集合框架的综合应用](集合框架的综合应用.md)
+* [Java集合类型详解](Java集合类型详解.md)
