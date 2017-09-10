@@ -7,6 +7,8 @@
 ### 队列
 
 - Queue接口
+  - PriorityQueue 优先队列
+  - ConcurrentLinkedQueue
 - 插入
   - add()
   - offer()
@@ -24,8 +26,6 @@ BlockingQueue
 - ArrayBlockingQueue 顺序阻塞队列
 - LinkedBlockingQueue 链式阻塞队列
 - PriorityBlockingQueue 优先阻塞队列
-- PriorityQueue 优先队列
-- ConcurrentLinkedQueue
 
 ### Deque 双端队列
 
