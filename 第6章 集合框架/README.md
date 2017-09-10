@@ -10,3 +10,5 @@
 * [Predicate和Stream操作集合](Predicate和Stream操作集合.md)
 * [集合框架的综合应用](集合框架的综合应用.md)
 * [Java集合类型详解](Java集合类型详解.md)
+
+![](images/集合框架.png)

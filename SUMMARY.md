@@ -91,7 +91,7 @@
 
 * [第7章 IO流](第7章 IO流/README.md)
   * [IO流之File类](第7章 IO流/IO流之File类.md)
-  * [IO流之字节流和字符流](第7章 IO流/IO流之字节流.md)
+  * [IO流之字节流](第7章 IO流/IO流之字节流.md)
   * [IO流之字符流](第7章 IO流/IO流之字符流.md)
   * [常用IO流](第7章 IO流/常用IO流.md)
   * [NIO](第7章 IO流/NIO.md)
