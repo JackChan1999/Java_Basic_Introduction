@@ -86,6 +86,11 @@
   * [Predicate和Stream操作集合](第6章 集合框架/Predicate和Stream操作集合.md)
   * [集合框架的综合应用](第6章 集合框架/集合框架的综合应用.md)
   * [Java集合类型详解](第6章 集合框架/Java集合类型详解.md)
+  * [LinkedList源码剖析](第6章 集合框架/LinkedList源码剖析.md)
+  * [LinkedHashMap源码剖析](第6章 集合框架/LinkedHashMap源码剖析.md)
+  * [HashMap、哈希表、哈希函数](第6章 集合框架/HashMap、哈希表、哈希函数.md)
+  * [HashMap的实现原理](第6章 集合框架/HashMap的实现原理.md)
+  * [HashMap源码剖析](第6章 集合框架/HashMap源码剖析.md)
 
 ----
 
