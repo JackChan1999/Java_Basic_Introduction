@@ -1,12 +1,12 @@
 ## Predicate 操作集合
 
-Predicate 谓词对象，函数式接口
+Predicate 谓词对象，函数式接口，可以使用Lambda表达式作为参数。
 
 - test()
 
 Collection的removeIf(Predicate filter)方法，批量删除符合filter条件的元素
 
-## Stream操作集合
+## Stream 操作集合
 
 流式	API，获取Stream：Collection的stream()方法
 
@@ -29,9 +29,9 @@ Collection的removeIf(Predicate filter)方法，批量删除符合filter条件�
 | 方法声明           | 功能描述  |
 | -------------- | ----- |
 | filter()       | 过滤    |
-| map()          |       |
+| map()          | 转换    |
 | mapToXxx()     | 一对一转换 |
-| flatMap()      |       |
+| flatMap()      | 集合扁平化 |
 | flatMapToXxx() |       |
 | peek()         |       |
 | skip()         |       |
