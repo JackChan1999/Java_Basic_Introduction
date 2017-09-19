@@ -155,3 +155,8 @@
   * [你应该更新的Java知识之Observer](第11章 新特性/你应该更新的Java知识之Observer.md)
   * [Google Guava官方教程](第11章 新特性/Google Guava官方教程.md)
   * [Java 代码性能优化](第11章 新特性/Java 代码性能优化.md)
+
+----
+
+* [第12章 内存管理](第12章 内存管理/README.md)
+  * [JVM 内存模型 Stack Heap](第12章 内存管理/JVM 内存模型 Stack Heap.md)
