@@ -1,13 +1,5 @@
 ## Java基础入门笔记
 
-对于一个开发者而言，能够胜任系统中任意一个模块的开发是其核心价值的体现。
-
-对于一个架构师而言，掌握各种语言的优势并可以运用到系统中，由此简化系统的开发，是其架构生涯的第一步。
-
-对于一个开发团队而言，能在短期内开发出用户满意的软件系统是起核心竞争力的体现。
-
-每一个程序员都不能固步自封，要多接触新的行业，新的技术领域，突破自我。
-
 ![](assets/note.jpg)
 
 > 十年生死两茫茫，不思量，自难忘，华年短暂，陈辞岁月悠悠伤，
@@ -16,13 +8,23 @@
 >
 > 青丝化雪、鬓角成霜，已是英雄迟暮，人生怎慷慨激昂？
 
+对于一个开发者而言，能够胜任系统中任意一个模块的开发是其核心价值的体现。
+
+对于一个架构师而言，掌握各种语言的优势并可以运用到系统中，由此简化系统的开发，是其架构生涯的第一步。
+
+对于一个开发团队而言，能在短期内开发出用户满意的软件系统是起核心竞争力的体现。
+
+每一个程序员都不能固步自封，要多接触新的行业，新的技术领域，突破自我。
+
 ## GitHub托管主页
 
 **https://github.com/JackChen1999/Java-basic-introduction**
 
 请读者点击Star进行关注并支持！
 
-## 在线阅读
+## GitBook在线阅读
+
+在线阅读，PDF、ePub、Mobi电子书下载
 
 **https://alleniverson.gitbooks.io/java-basic-introduction/content**
 
@@ -40,6 +42,7 @@
     * [基本数据类型包装类](https://alleniverson.gitbooks.io/java-basic-introduction/content/第2章%20Java编程基础/基本数据类型包装类.html)
     * [阿里巴巴Java开发手册](https://alleniverson.gitbooks.io/java-basic-introduction/content/第2章%20Java编程基础/阿里巴巴Java开发手册.html)
     * [阿里 Java 开发手册最新完美版，千锤百炼始出炉](https://alleniverson.gitbooks.io/java-basic-introduction/content/第2章%20Java编程基础/阿里%20Java%20开发手册最新完美版，千锤百炼始出炉.html)
+    * [阿里《Java开发手册》终极版！](https://alleniverson.gitbooks.io/java-basic-introduction/content/第2章%20Java编程基础/阿里《Java开发手册》终极版！.html)
     * [Java程序员必读的书籍](https://alleniverson.gitbooks.io/java-basic-introduction/content/第2章%20Java编程基础/Java程序员必读的书籍.html)
     * [Google Java编程风格指南](https://alleniverson.gitbooks.io/java-basic-introduction/content/第2章%20Java编程基础/Google%20Java编程风格指南.html)
     * [详细介绍JAVA和C++区别](https://alleniverson.gitbooks.io/java-basic-introduction/content/第2章%20Java编程基础/详细介绍JAVA和C++区别.html)
@@ -171,7 +174,7 @@
 
 ## 关注我
 
-- Email：<815712739@qq.com>
+- Email：<619888095@qq.com>
 - CSDN博客：[Allen Iverson](http://blog.csdn.net/axi295309066)
 - 新浪微博：[AndroidDeveloper](http://weibo.com/u/1848214604?topnav=1&wvr=6&topsug=1&is_all=1)
 - GitHub：[JackChan1999](https://github.com/JackChan1999)
