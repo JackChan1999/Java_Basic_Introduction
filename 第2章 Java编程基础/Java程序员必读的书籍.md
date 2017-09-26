@@ -58,7 +58,7 @@ Thinking in Java book应该是Java中文界最有名的书籍了，中文又名 
 
 **《Java编程思想》**
 
-![img](https://pic1.zhimg.com/v2-66c5d0179d51c2b466f53d944e732704_b.jpg)
+![img](images/java_book_01.png)
 
 这本书适合开发过一两个项目，对java已经有一定的了解的人。
 
@@ -66,7 +66,7 @@ Thinking in Java book应该是Java中文界最有名的书籍了，中文又名 
 
 **《深入剖析Tomcat》**
 
-![img](https://pic1.zhimg.com/v2-ea0d30d0bd3ee2b297806233cf299798_b.jpg)
+![img](images/java_book_02.png)
 
 试读人群：做过两三个项目，对面向对象设计有一定了解，设计模式似懂非懂，想好好看看什么是面向接口编程，对serlet的加载，映射，及整个http请求处理流程感兴趣，不能容忍自己的知识体系存在黑箱的人。认为Java后台开发仅仅是CRUD的人。
 
@@ -78,7 +78,7 @@ Tomcat大家都很熟悉了，不论我们做的课程设计的小项目，还�
 
 **《深入理解Java虚拟机》**
 
-![img](https://pic2.zhimg.com/v2-28ce87de788b6a4e13152d32abcf6289_b.jpg)
+![img](images/java_book_03.png)
 
 适度人群：想学习并发编程，反射，想了解JVM优化。闲着无聊，没项目的人
 
@@ -86,7 +86,7 @@ Tomcat大家都很熟悉了，不论我们做的课程设计的小项目，还�
 
 **《设计模式-可复用软件的设计》 GoF（《设计模式的艺术之道》刘伟）**
 
-![img](https://pic1.zhimg.com/v2-d61a6afdba2c52a2f84d60ce2469c1f8_b.jpg)
+![img](images/java_book_04.png)
 
 适读人群：有过三四大小个项目经验，想了解什么是软件，什么是程序，什么是面向对象，只有读了这本书，你才知道除了算法，性能，之外，我们还要为之奋斗是扩 展性，究其原因是：软件行业的梗，需求变更，可能项目初期的需求和项目开发后期的需求有天壤之便，但如何在设计阶段就为需求的变动做好准备，那就是对变化 的部分抽离抽象，分层，分工，虽然提高了复杂度，但是后期我们可以轻松一点，如果前期不设计好，真的 一个项目可以在需求变化面前，彻底玩完。根本无法继续开发。如果你还没接触到 需求变更，只能说你的客户不太重视他的项目，或者客户本身就是程序员自己。一个main函数一个人从头写到尾绝对不是软件。
 
@@ -96,7 +96,7 @@ Tomcat大家都很熟悉了，不论我们做的课程设计的小项目，还�
 
 **《JavaScript编程全解》（JavaScript高级程序设计）**
 
-![img](https://pic2.zhimg.com/v2-7b8b06a684670785cae6cd73ef95b789_b.jpg)
+![img](images/java_book_05.png)
 
 适读人群： 学会基本的 javascript dom编程，jquery，做过两三个项目，但是没有系统的学习javascript，总是在为一些语法，或者莫名其妙的 错误烦恼的人，这本书绝对适合你，应为他就是写给java程序员的Javasript书籍 。
 
@@ -106,7 +106,7 @@ Java程序员进阶，为什么要谈JavaScript，我个人不喜欢JavaScript�
 
 **《深入分析javaweb技术内幕》**
 
-![img](https://pic2.zhimg.com/v2-443fa33109173e05eb000c715d381f4d_b.jpg)
+![img](images/java_book_06.png)
 
 适读人群：做过三四个项目，看过上面的 深入剖析Tomcat,深入理解Java虚拟机，设计模式，使用过Spring,mybatis的读者。
 
@@ -118,7 +118,7 @@ Java程序员进阶，为什么要谈JavaScript，我个人不喜欢JavaScript�
 
 **《重构改善既有代码的设计》**
 
-![img](https://pic1.zhimg.com/v2-3e6c406e6f4d592fbc0ada27928e62c0_b.jpg)
+![img](images/java_book_07.png)
 
 适读人群：挣扎于需求剧烈变更，维护升级的孩子们。
 
@@ -126,7 +126,7 @@ Java程序员进阶，为什么要谈JavaScript，我个人不喜欢JavaScript�
 
 **《操作系统设计 xinu方法》**
 
-![img](https://pic3.zhimg.com/v2-af9b8ca5b20da38902fb93d0a68c499a_b.jpg)
+![img](images/java_book_08.png)
 
 适读人群：学习完操作系统课程，想深入了解下操作系统内部的细节，如何实现线程调度，内核态用户态转化到底是什么，消息循环，进程 管理，等等，你都可以看。
 
@@ -136,15 +136,15 @@ Java程序员进阶，为什么要谈JavaScript，我个人不喜欢JavaScript�
 
 **《超越传统的软件开发-极限编程的幻想和真实》（《解析极限编程-拥抱变化》《人月神话》）**
 
-![img](https://pic1.zhimg.com/v2-1d635b5e46b9d555f246fbc56ac5e9a8_b.jpg)
+![img](images/java_book_09.png)
 
-![img](https://pic2.zhimg.com/v2-c82b80bc6c9597639f018feb89dd3791_b.jpg)
+![img](images/java_book_10.png)
 
 这三本书都是软件工程方向的书籍，关注于如何构造高效开发流程。在这方面我懂得很少 ，我会找别人再来给大家完善这方面的知识，但是这三本书肯定都不难，有过项目领导经验 的人来看，收获一定会更多，其他人随便看看，你会收获很多，例如，测试先行，结对编程，螺旋开发，循环迭代，不断优化的理念。等等
 
 **《Java程序性能优化》**
 
-![img](https://pic1.zhimg.com/v2-e10ddfa42e481993bf29d91e6f08ef58_b.jpg)
+![img](images/java_book_11.png)
 
 适读人群：做项目 三四个以上，了解java内存模型，以及初步掌握多线程编程，再有就是速度狂们。
 
@@ -152,7 +152,7 @@ Java程序员进阶，为什么要谈JavaScript，我个人不喜欢JavaScript�
 
 **《Java并发编程》（《java多线程编程的艺术》）**
 
-![img](https://pic2.zhimg.com/v2-1f3d6d99799ba16435ed437ce274cb99_b.jpg)
+![img](images/java_book_12.png)
 
 适读人群：想深入学习并发编程，对 jvm内存模型有了解（深入理解jvm虚拟机内本书很重要） 速度狂 ，对java已经有了不错的感觉，感觉 可以代码水平需要更上一层楼的人
 
@@ -162,7 +162,7 @@ Java并发编程，你应该时常翻翻看 。
 
 **《深入分析Spring 技术内幕》**
 
-![img](https://pic3.zhimg.com/v2-2f38412bef39d96497b5a9d5c89b9d82_b.jpg)
+![img](images/java_book_13.png)
 
 适读人群：熟悉精通设计模式，对面向接口，对象编程特别有感觉的人。时间充裕
 
@@ -172,7 +172,7 @@ Java并发编程，你应该时常翻翻看 。
 
 **《EJB3.0 入门经典》**
 
-![img](https://pic4.zhimg.com/v2-56cdeca30985844f6c348e624449b37b_b.jpg)
+![img](images/java_book_14.png)
 
 适读人群: 闲着没事的人.
 
@@ -182,7 +182,7 @@ Hibernate和mybatis, 等等，只有学会对比，才会看得更加广阔.但�
 
 **《架构探险，从零开始Javaweb框架》**
 
-![img](https://pic3.zhimg.com/v2-44d4eb28c1655b0d3c2e310dc998a45e_b.jpg)
+![img](images/java_book_15.png)
 
 适读人群：想写框架，对反射，对集合比较熟悉的人；
 
@@ -190,7 +190,7 @@ Hibernate和mybatis, 等等，只有学会对比，才会看得更加广阔.但�
 
 《j2ee核心模式》
 
-![img](https://pic3.zhimg.com/v2-11f47b5f02e9fdb767b24e6a64f57c06_b.jpg)
+![img](images/java_book_16.png)
 
 适读人群:闲着没事,想开发框架的大神
 
@@ -214,7 +214,7 @@ SpringMVC框架就是利用了前端控制器DispathcerServlet将请求映射到
 
 《高性能MySQL》(Mysql技术内幕-Innodb引擎)
 
-![img](https://pic1.zhimg.com/v2-620657728662148741c3bb47ee957354_b.jpg)
+![img](images/java_book_17.png)
 
 适度人群：熟练使用Sql,有一般数据库设计经验，对索引，mysql原理，及常用优化方法感兴趣，以及有志于成为DBA的同学。
 
@@ -226,58 +226,58 @@ SpringMVC框架就是利用了前端控制器DispathcerServlet将请求映射到
 
 与其说是必读书籍，还不说是参考文献。
 
-![books1](http://static.codeceo.com/images/2015/05/books1.jpg)
+![books1](images/java_book_18.png)
 
 ## 2.《The elements of Java style》（Java[编程风格](http://www.codeceo.com/article/programming-style.html)）
 
 目标读者就是Java程序员。通过提出一系列的Java从业规则，以及一些标准、惯例和准则，来说明如何有助于编写可靠又易于理解和维护的Java代码。
 
-![books2](http://static.codeceo.com/images/2015/05/books2.jpg)
+![books2](images/java_book_19.png)
 
 ## 3.《Effective Java》（通用程序设计）
 
 这本书真的只适合那些深入了解Java的开发人员。它汇集了78种不可或缺的程序员经验法则：为你每天在工作中都会遇到的编程挑战，提出了实践的最佳解决方案。
 
-![books3](http://static.codeceo.com/images/2015/05/books3.jpg)
+![books3](images/java_book_20.png)
 
 ## 4.《The Java language specification》（Java编程规范）
 
 作者为Java的发明者，这本书不仅提供了完整和准确的语言覆盖范围，还包含了实际编译行为时的正式语言规则。虽然阅读这本书不能让你学到什么技能，但是如果你想在Java VM更进一步的话，那就非读不可。
 
-![books4](http://static.codeceo.com/images/2015/05/books4.jpg)
+![books4](images/java_book_21.png)
 
 ## 5.《Design patterns: elements of reusable object-oriented software》（[设计模式](http://www.codeceo.com/article/category/develop/design-patterns)：可复用面向对象软件的元素）
 
 其实，这本书中的例子是用C ++和Smalltalk写的，是不是很奇怪为什么我还要推荐它呢？如果你想成长为一个开发人员，那么你就必须知道设计模式，这样才能充分利用他人最佳的实践经验，以及还可以向那些面临过相同问题的开发人员学习。当然其他类似的书籍还有很多，但它们都只能当做一些辅助性的学习。
 
-![books5](http://static.codeceo.com/images/2015/05/books5.jpg)
+![books5](images/java_book_22.png)
 
 ## 6.《The Pragmatic Programmer: From Journeyman to Master》（程序员的修炼：从中级到大师）
 
 此书并不只适合于Java开发人员。 “这本书之所以值得推荐，其原因是它大大保持了编程过程的新鲜度，还有助于我们从前人那里汲取力量、不断地自我成长。”
 
-![books6](http://static.codeceo.com/images/2015/05/books6.jpg)
+![books6](images/java_book_23.png)
 
 ## 7.《Patterns of Enterprise Application Architecture》（企业应用架构模式）
 
 学会了设计模式之后该如何应用到企业框架中呢？这本书介绍了很多常见的企业设计模式。
 
-![enterprise7](http://static.codeceo.com/images/2015/05/enterprise7.jpg)
+![enterprise7](images/java_book_24.png)
 
 ## 8.《Refactoring: Improving the Design of Existing Code》（重构：改善现有代码设计）
 
 如果你已经在编程行业淫浸过几年了，那么你一定得读一读这本书。重构可以使得代码可读性更强，也更容易维护。
 
-![refactoring8](http://static.codeceo.com/images/2015/05/refactoring8.jpg)
+![refactoring8](images/java_book_25.png)
 
 ## 9.《OSGi in Action: Creating Modular Applications in Java》（OSGi实战：用Java创建模块化应用）
 
 无论如何，了解一下面向服务的编程是怎么回事，总归不是坏事。这本书的前几章就给出了非常不错的入门介绍和具体的例子。
 
-![osgi9](http://static.codeceo.com/images/2015/05/osgi9.jpg)
+![osgi9](images/java_book_25.png)
 
 ## 10.《Clean Code: A Handbook of Agile Software Craftsmanship》（代码整洁之道）
 
 最后但并非最不重要的，时不时地检查编码风格总是对的。 开发人员90％的精力是花在维护上的，所以干净的代码真的非常重要。
 
-![cleancode10](http://static.codeceo.com/images/2015/05/cleancode10.jpg)
+![cleancode10](images/java_book_27.png)
