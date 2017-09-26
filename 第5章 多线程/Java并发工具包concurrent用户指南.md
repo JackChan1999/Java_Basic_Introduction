@@ -25,7 +25,7 @@ java.util.concurrent 包里的 BlockingQueue 接口表示一个线程安放入�
 
 BlockingQueue 通常用于一个线程生产对象，而另外一个线程消费这些对象的场景。下图是对这个原理的阐述：
 
-![blocking-queue](http://img.blog.csdn.net/20150302184203260?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZGVmb25kcw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center)
+![blocking-queue](img/thread_01.png)
 
 一个线程往里边放，另外一个线程从里边取的一个 BlockingQueue。
 
@@ -250,7 +250,7 @@ deque(双端队列) 是 "Double Ended Queue" 的缩写。因此，双端队列�
 
 在线程既是一个队列的生产者又是这个队列的消费者的时候可以使用到 BlockingDeque。如果生产者线程需要在队列的两端都可以插入数据，消费者线程需要在队列的两端都可以移除数据，这个时候也可以使用 BlockingDeque。BlockingDeque 图解：
 
-![blocking-deque](http://img.blog.csdn.net/20150303084557477?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZGVmb25kcw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center)
+![blocking-deque](img/thread_02.png)
 
 一个 BlockingDeque - 线程在双端队列的两端都可以插入和提取元素。
 
@@ -380,7 +380,7 @@ headMap(T toKey) 方法返回一个包含了小于给定 toKey 的 key 的子 ma
 
 以下示例演示了对 headMap() 方法的使用：
 
-```java  
+```java
 ConcurrentNavigableMap map = new ConcurrentSkipListMap();  
 
 map.put("1", "one");  
@@ -502,7 +502,7 @@ public class Decrementer implements Runnable {
 
 java.util.concurrent.CyclicBarrier 类是一种同步机制，它能够对处理一些算法的线程实现同步。换句话讲，它就是一个所有线程必须等待的一个栅栏，直到所有线程都到达这里，然后所有线程才可以继续做其他事情。图示如下：
 
-![cyclic-barrier](http://img.blog.csdn.net/20150303091044331?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZGVmb25kcw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center)
+![cyclic-barrier](img/thread_03.png)
 
 两个线程在栅栏旁等待对方。
 通过调用 CyclicBarrier 对象的 await() 方法，两个线程可以实现互相等待。一旦 N 个线程在等待 CyclicBarrier 达成，所有线程将被释放掉去继续运行。
@@ -626,7 +626,7 @@ Thread-1 done!
 ## 14. 交换机 Exchanger
 java.util.concurrent.Exchanger 类表示一种两个线程可以进行互相交换对象的会和点。这种机制图示如下：
 
-![exchanger](http://img.blog.csdn.net/20150303091236636?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZGVmb25kcw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center)
+![exchanger](img/thread_04.png)
 
 两个线程通过一个 Exchanger 交换对象。
 
@@ -770,7 +770,7 @@ executorService.shutdown();
 
 下图说明了一个线程是如何将一个任务委托给一个 ExecutorService 去异步执行的：
 
-![executor-service](http://img.blog.csdn.net/20150303091835179?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZGVmb25kcw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center)
+![executor-service](img/thread_05.png)
 
 一个线程将一个任务委派给一个 ExecutorService 去异步执行。
 一旦该线程将任务委派给 ExecutorService，该线程将继续它自己的执行，独立于该任务的执行。
@@ -957,7 +957,7 @@ ThreadPoolExecutor 包含的线程池能够包含不同数量的线程。池中�
 如果内部任务队列已满，而且有至少 corePoolSize 正在运行，但是运行线程的数量低于 maximumPoolSize，一个新的线程将被创建去执行该任务。
 ThreadPoolExecutor 图解：
 
-![thread-pool-executor](http://img.blog.csdn.net/20150303092125396?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZGVmb25kcw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center)
+![thread-pool-executor](img/thread_06.png)
 
 一个 ThreadPoolExecutor
 
@@ -1103,7 +1103,7 @@ ForkJoinPool 在 Java 7 中被引入。它和 ExecutorService 很相似，除了
 ### 分叉
 一个使用了分叉和合并原理的任务可以将自己分叉(分割)为更小的子任务，这些子任务可以被并发执行。如下图所示：
 
-![java-fork-and-join-1](http://img.blog.csdn.net/20150303092525410?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZGVmb25kcw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center)
+![java-fork-and-join-1](img/thread_07.png)
 
 通过把自己分割成多个子任务，每个子任务可以由不同的 CPU 并行执行，或者被同一个 CPU 上的不同线程执行。
 
@@ -1116,7 +1116,7 @@ ForkJoinPool 在 Java 7 中被引入。它和 ExecutorService 很相似，除了
 
 一旦子任务执行结束，该任务可以把所有结果合并到同一个结果。图示如下：
 
-![java-fork-and-join-2](http://img.blog.csdn.net/20150303092548236?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZGVmb25kcw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center)
+![java-fork-and-join-2](img/thread_08.png)
 
 当然，并非所有类型的任务都会返回一个结果。如果这个任务并不返回一个结果，它只需等待所有子任务执行完毕。也就不需要结果的合并啦。
 
@@ -1719,4 +1719,5 @@ System.out.println("exchanged: " + exchanged);
 本示例创建了一个带有一个初始引用的泛型化的 AtomicReference。之后两次调用 comparesAndSet()来对存储值和期望值进行对比，如果二者一致，为 AtomicReference 设置一个新的引用。第一次比较，存储的引用(initialReference)和期望的引用(initialReference)一致，所以一个新的引用(newReference)被设置给 AtomicReference，compareAndSet() 方法返回 true。第二次比较时，存储的引用(newReference)和期望的引用(initialReference)不一致，因此新的引用没有被设置给 AtomicReference，compareAndSet() 方法返回 false。
 
 > 原文链接：http://tutorials.jenkov.com/java-util-concurrent/index.html
+>
 > 译文链接：http://blog.csdn.net/defonds/article/details/44021605#t8
