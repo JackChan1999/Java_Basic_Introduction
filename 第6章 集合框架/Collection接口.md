@@ -1,8 +1,8 @@
 ## 1. Java类中集合的关系图
 
-![](http://img.blog.csdn.net/20161003151458688)
+![](images/Collection_01.png)
 
-![](http://img.blog.csdn.net/20161003144341239)
+![](images/Collection_02.png)
 
 ## 2. 集合类概述
 
@@ -14,7 +14,7 @@
 
 ### 2.2 数组和集合类同是容器，有何不同？
 
-![](http://img.blog.csdn.net/20161014230130495)
+![](images/Collection_03.png)
 
 ### 2.3 集合类的特点
 
@@ -26,7 +26,7 @@ Collection：单列集合类的根接口，用于存储一系列符合某种规�
 
 Collection 层次结构中的根接口。Collection 表示一组对象，这些对象也称为 collection 的元素。一些 collection 允许有重复的元素，而另一些则不允许。一些 collection 是有序的，而另一些则是无序的。
 
-![](http://img.blog.csdn.net/20150827220241133)
+![](images/Collection_04.png)
 
 ## 4. Collection接口成员方法
 
@@ -69,4 +69,4 @@ Collection 层次结构中的根接口。Collection 表示一组对象，这些�
 | toArray()  | 把集合转成数组，可以实现集合的遍历 |
 | iterator() | 迭代器，集合的专用遍历方式     |
 
-![](http://img.blog.csdn.net/20150812153133037)
+![](images/Collection_05.png)

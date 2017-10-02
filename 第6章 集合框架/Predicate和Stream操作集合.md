@@ -8,6 +8,23 @@ Collection的removeIf(Predicate filter)方法，批量删除符合filter条件�
 
 ## Stream 操作集合
 
+> A sequence of elements supporting sequential and parallel aggregate operations.
+
+- Stream是元素的集合，这点让Stream看起来用些类似Iterator；
+- 可以支持顺序和并行的对原Stream进行汇聚的操作；
+
+### Stream是什么？高级迭代器
+
+- 大家可以把Stream当成一个高级版本的Iterator
+- Iterator,用户只能一个一个的遍历元素并对其执行某些操作
+- Stream,用户只要给出需要对其包含的元素执行什么操作
+
+### 什么是Stream api
+
+jdk8使用流水线的方法处理数据。一堆操作符的集合。
+
+dk8 Stream:是一个集合，但是可能接受多个环节的处理。每个环节专门的操作符(处理方法:由于非常简短看起来就像一个符号)
+
 流式	API，获取Stream：Collection的stream()方法
 
 - Stream
