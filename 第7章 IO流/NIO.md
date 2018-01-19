@@ -12,9 +12,9 @@ Java NIO提供了与标准IO不同的IO工作方式：
 
 Java NIO 由以下几个核心部分组成： 
 
-- Channels
-- Buffers
-- Selectors
+- Channels 通道
+- Buffers 缓冲区
+- Selectors 选择器
 
 虽然Java NIO 中除此之外还有很多类和组件，但在我看来，Channel，Buffer 和 Selector 构成了核心的API。其它组件，如Pipe和FileLock，只不过是与三个核心组件共同使用的工具类。因此，在概述中我将集中在这三个组件上。其它组件会在单独的章节中讲到。 
 
@@ -22,15 +22,17 @@ Java NIO 由以下几个核心部分组成：
 
 基本上，所有的 IO 在NIO 中都从一个Channel 开始。Channel 有点象流。 数据可以从Channel读到Buffer中，也可以从Buffer 写到Channel中。这里有个图示： 
 
-![channel和buffer](http://dl2.iteye.com/upload/attachment/0096/3970/e20c73df-9ade-3121-be5f-307e6baf328f.png)
+![channel和buffer](img/nio7.png)
 
 
 Channel和Buffer有好几种类型。下面是JAVA NIO中的一些主要Channel的实现： 
 
-- FileChannel
-- DatagramChannel
-- SocketChannel
-- ServerSocketChannel
+- FileChannel 文件通道
+- DatagramChannel 用于UDP通信
+- SocketChannel 用于TCP通信（客户端）
+- ServerSocketChannel 用于TCP通信（服务端）
+- Pipe.SinkChannel 用于线程间通信的管道
+- Pipe.SourceChannel 用于线程间通信的管道
 
 正如你所看到的，这些通道涵盖了UDP 和 TCP 网络IO，以及文件IO。 
 
@@ -48,7 +50,7 @@ Channel和Buffer有好几种类型。下面是JAVA NIO中的一些主要Channel�
 
 这些Buffer覆盖了你能通过IO发送的基本数据类型：byte，short，int，long，float，double 和 char 
 
-Java NIO 还有个 Mappedyteuffer，用于表示内存映射文件， 我也不打算在概述中说明。 
+Java NIO 还有个 MappedByteBuffer，用于表示内存映射文件， 我也不打算在概述中说明。 
 
 ## 1.2 Selector 
 
@@ -56,7 +58,7 @@ Selector允许单线程处理多个 Channel。如果你的应用打开了多个�
 
 这是在一个单线程中使用一个Selector处理3个Channel的图示： 
 
-![](http://dl2.iteye.com/upload/attachment/0096/3972/79224e12-3615-3917-9e85-42e7edbd8b40.png)
+![](img/nio8.png)
 
 
 要使用Selector，得向Selector注册Channel，然后调用它的select()方法。这个方法会一直阻塞到某个注册的通道有事件就绪。一旦这个方法返回，线程就可以处理这些事件，事件的例子有如新连接进来，数据接收等。 
@@ -74,11 +76,11 @@ Selector允许单线程处理多个 Channel。如果你的应用打开了多个�
 
 下表总结了Java NIO和IO之间的主要差别，我会更详细地描述表中每部分的差异。 
 
-| IO              | NIO             |
-| :-------------- | :-------------- |
-| Stream oriented | Buffer oriented |
-| Blocking IO     | Non blocking IO |
-|                 | Selectors       |
+| IO                  | NIO                   |
+| :------------------ | :-------------------- |
+| Stream oriented 面向流 | Buffer oriented 面向缓冲区 |
+| Blocking IO 阻塞      | Non blocking IO 非阻塞   |
+| 无                   | Selectors 选择器         |
 
 
 ## 2.2 面向流与面向缓冲 
@@ -109,7 +111,7 @@ Java NIO的选择器允许一个单独的线程来监视多个输入通道，你
 
 使用纯粹的NIO设计相较IO设计，数据处理也受到影响。 
 
-在IO设计中，我们从InputStream或 Reader逐字节读取数据。假设你正在处理一基于行的文本数据流，例如： 
+在IO设计中，我们从 InputStream 或 Reader 逐字节读取数据。假设你正在处理一基于行的文本数据流，例如： 
 
 
 该文本行的流可以这样处理： 
@@ -126,7 +128,7 @@ String phoneLine  = reader.readLine();
 
 请注意处理状态由程序执行多久决定。换句话说，一旦reader.readLine()方法返回，你就知道肯定文本行就已读完， readline()阻塞直到整行读完，这就是原因。你也知道此行包含名称；同样，第二个readline()调用返回的时候，你知道这行包含年龄等。 正如你可以看到，该处理程序仅在有新数据读入时运行，并知道每步的数据是什么。一旦正在运行的线程已处理过读入的某些数据，该线程不会再回退数据（大多如此）。下图也说明了这条原则： 
 
-![从一个阻塞的流中读数据](http://dl2.iteye.com/upload/attachment/0096/5635/d816b6e7-0b89-3cbf-bc24-dc7e1bb971de.png)
+![从一个阻塞的流中读数据](img/nio9.png)
 
 
 而一个NIO的实现会有所不同，下面是一个简单的例子： 
@@ -147,7 +149,7 @@ int bytesRead = inChannel.read(buffer);
 ByteBuffer buffer = ByteBuffer.allocate(48);  
 int bytesRead = inChannel.read(buffer);  
 while(! bufferFull(bytesRead) ) {  
-bytesRead = inChannel.read(buffer);  
+	bytesRead = inChannel.read(buffer);  
 }  
 ```
 
@@ -158,7 +160,7 @@ bufferFull()方法扫描缓冲区，但必须保持在bufferFull()方法被调�
 如果缓冲区已满，它可以被处理。如果它不满，并且在你的实际案例中有意义，你或许能处理其中的部分数据。但是许多情况下并非如此。下图展示了“缓冲区数据循环就绪”： 
 
 
-![从一个通道里读数据，直到所有的数据都读到缓冲区里](http://dl2.iteye.com/upload/attachment/0096/5637/e97ec9e9-62d4-3375-80a6-d4238d6a0664.png)
+![从一个通道里读数据，直到所有的数据都读到缓冲区里](img/nio10.png)
 
 
 ## 2.6 总结 
@@ -168,13 +170,13 @@ NIO可让您只使用一个（或几个）单线程管理多个通道（网络�
 如果需要管理同时打开的成千上万个连接，这些连接每次只是发送少量的数据，例如聊天服务器，实现NIO的服务器可能是一个优势。同样，如果你需要维持许多打开的连接到其他计算机上，如P2P网络中，使用一个单独的线程来管理你所有出站连接，可能是一个优势。一个线程多个连接的设计方案如下图所示： 
 
 
-![单线程管理多个连接](http://dl2.iteye.com/upload/attachment/0096/5639/8c8b13c9-0d38-3599-99d3-e0d1aa90589d.png)
+![单线程管理多个连接](img/nio11.png)
 
 
 如果你有少量的连接使用非常高的带宽，一次发送大量的数据，也许典型的IO服务器实现可能非常契合。下图说明了一个典型的IO服务器设计： 
 
 
-![一个典型的IO服务器设计：一个连接通过一个线程处理](http://dl2.iteye.com/upload/attachment/0096/5641/72c44e71-8219-3989-a787-b67ced3c7ab1.png)
+![一个典型的IO服务器设计：一个连接通过一个线程处理](img/nio12.png)
 
 
 # 3. 通道（Channel）
@@ -188,7 +190,7 @@ Java NIO的通道类似流，但又有些不同：
 
 正如上面所说，从通道读取数据到缓冲区，从缓冲区写入数据到通道。如下图所示： 
 
-![](http://dl2.iteye.com/upload/attachment/0096/4760/147a85aa-2924-3652-aaf0-212b1002b561.png)
+![](img/nio13.png)
 
 
 ## 3.1 Channel的实现 
@@ -199,6 +201,8 @@ Java NIO的通道类似流，但又有些不同：
 - DatagramChannel：能通过UDP读写网络中的数据
 - SocketChannel：能通过TCP读写网络中的数据
 - ServerSocketChannel：可以监听新进来的TCP连接，像Web服务器那样。对每一个新进来的连接都会创建一个SocketChannel
+
+获取Channel：InputStream/OutputStream.getChannel()
 
 ## 3.2 基本的 Channel 示例 
 
@@ -213,17 +217,17 @@ ByteBuffer buf = ByteBuffer.allocate(48);
 int bytesRead = inChannel.read(buf);  
 while (bytesRead != -1) {  
   
-System.out.println("Read " + bytesRead);  
-buf.flip();  
+	System.out.println("Read " + bytesRead);  
+	buf.flip();  
   
-while(buf.hasRemaining()){  
-System.out.print((char) buf.get());  
-}  
+	while(buf.hasRemaining()){  
+		System.out.print((char) buf.get());  
+	}  
   
-buf.clear();  
-bytesRead = inChannel.read(buf);  
+	buf.clear();  
+	bytesRead = inChannel.read(buf);  
 }  
-aFile.close();  
+aFile.close();
 ```
 
 注意 buf.flip() 的调用，首先读取数据到Buffer，然后反转Buffer,接着再从Buffer中读取数据。下一节会深入讲解Buffer的更多细节。 
@@ -247,6 +251,24 @@ Java NIO中的Buffer用于和NIO通道进行交互。如你所知，数据是从
 当向buffer写入数据时，buffer会记录下写了多少数据。一旦要读取数据，需要通过flip()方法将Buffer从写模式切换到读模式。在读模式下，可以读取之前写入到buffer的所有数据。 
 
 一旦读完了所有的数据，就需要清空缓冲区，让它可以再次被写入。有两种方式能清空缓冲区：调用clear()或compact()方法。clear()方法会清空整个缓冲区。compact()方法只会清除已经读过的数据。任何未读的数据都被移到缓冲区的起始处，新写入的数据将放到缓冲区未读数据的后面。 
+
+| 方法声明                 | 功能描述                                 |
+| -------------------- | ------------------------------------ |
+| allocate()           | 分配空间，创建Buffer对象                      |
+| allocateDirect()     | 直接创建Buffer对象，创建成本高，但读取效率高            |
+| flip()               | 为读数据做准备, limit=position; position=0; |
+| clear()              | 为写数据做准备, limit=capacity; position=0; |
+| hasRemaining()       | pos和limit间是否还有元素可处理                  |
+| remaining()          | 获取当前位置和limit间的元素个数                   |
+| get()                | 从Buffer中读取数据                         |
+| put()                | 写入数据到Buffer                          |
+| capacity()           | 获取容量                                 |
+| limit()              | 获取界限的位置                              |
+| position()           | 获取pos位置                              |
+| position(int newPos) | 设置pos位置                              |
+| mark()               | 设置mark位置                             |
+| reset()              | 将pos转到mark的位置                        |
+| rewind()             | 将pos设置为0，取消mark                      |
 
 下面是一个使用Buffer的例子： 
 
@@ -278,15 +300,17 @@ aFile.close();
 
 为了理解Buffer的工作原理，需要熟悉它的三个属性： 
 
-- capacity
-- position
-- limit
+- capacity 容量
+- position 位置
+- limit 界限
 
 position和limit的含义取决于Buffer处在读模式还是写模式。不管Buffer处在什么模式，capacity的含义总是一样的。 
 
 这里有一个关于capacity，position和limit在读写模式中的说明，详细的解释在插图后面。 
 
-![](http://dl2.iteye.com/upload/attachment/0096/4782/b8a7bad8-ec65-36dc-bb11-4f352e00cd67.png)
+![](img/nio18.png)
+
+![](img/nio14.png)
 
 ### 4.2.1 capacity 
 
@@ -303,6 +327,22 @@ position和limit的含义取决于Buffer处在读模式还是写模式。不管B
 在写模式下，Buffer的limit表示你最多能往Buffer里写多少数据。 写模式下，limit等于Buffer的capacity。 
 
 当切换Buffer到读模式时， limit表示你最多能读到多少数据。因此，当切换Buffer到读模式时，limit会被设置成写模式下的position值。换句话说，你能读到之前写入的所有数据（limit被设置成已写数据的数量，这个值在写模式下就是position） 
+
+新分配的 CharBuffer 对象
+
+![](img/nio19.png)
+
+向 Buffer 中放入3个对象后的示意图
+
+![](img/nio20.png)
+
+执行 Buffer 的 flip() 方法后的示意图
+
+![](img/nio21.png)
+
+执行 clear() 后的 Buffer示意图
+
+![](img/nio22.png)
 
 ## 4.3 Buffer的类型 
 
@@ -344,13 +384,13 @@ CharBuffer buf = CharBuffer.allocate(1024);
 
 从Channel写到Buffer的例子 
 
-```Java 
+```java
 int bytesRead = inChannel.read(buf); //read into buffer.  
 ```
 
 通过put方法写Buffer的例子： 
 
-```Java 
+```java
 buf.put(127);  
 ```
 
@@ -362,7 +402,7 @@ flip方法将Buffer从写模式切换到读模式。调用flip()方法会将posi
 
 换句话说，position现在用于标记读的位置，limit表示之前写进了多少个byte、char等 —— 现在能读取多少个byte、char等。 
 
-## 4.5 从Buffer中读取数据 
+## 4.6 从Buffer中读取数据 
 
 从Buffer中读取数据有两种方式： 
 
@@ -371,14 +411,14 @@ flip方法将Buffer从写模式切换到读模式。调用flip()方法会将posi
 
 从Buffer读取数据到Channel的例子： 
 
-```Java 
+```java
 //read from buffer into channel.  
 int bytesWritten = inChannel.write(buf);  
 ```
 
 使用get()方法从Buffer中读取数据的例子 
 
-```Java 
+```java
 byte aByte = buf.get();  
 ```
 
@@ -404,7 +444,7 @@ compact()方法将所有未读的数据拷贝到Buffer起始处。然后将posit
 
 通过调用Buffer.mark()方法，可以标记Buffer中的一个特定position。之后可以通过调用Buffer.reset()方法恢复到这个position。例如： 
 
-```Java 
+```java
 buffer.mark();  
   
 //call buffer.get() a couple of times, e.g. during parsing.  
@@ -449,12 +489,12 @@ scatter / gather经常用于需要将传输的数据分开处理的场合，例�
 
 Scattering Reads是指数据从一个channel读取到多个buffer中。如下图描述： 
 
-![](http://dl2.iteye.com/upload/attachment/0096/4789/56355a57-22cc-35d0-bb6c-f951fed0e084.png)
+![](img/nio15.png)
 
 
 代码示例如下： 
 
-```Java 
+```java
 ByteBuffer header = ByteBuffer.allocate(128);  
 ByteBuffer body   = ByteBuffer.allocate(1024);  
   
@@ -471,12 +511,12 @@ Scattering Reads在移动下一个buffer前，必须填满当前的buffer，这�
 
 Gathering Writes是指数据从多个buffer写入到同一个channel。如下图描述： 
 
-![](http://dl2.iteye.com/upload/attachment/0096/4791/3eb74d8a-3180-3ca2-9541-4966fb46d44d.png)
+![](img/nio16.png)
 
 
 代码示例如下： 
 
-```Java 
+```java
 ByteBuffer header = ByteBuffer.allocate(128);  
 ByteBuffer body   = ByteBuffer.allocate(1024);  
   
@@ -497,7 +537,7 @@ buffers数组是write()方法的入参，write()方法会按照buffer在数组�
 
 FileChannel的transferFrom()方法可以将数据从源通道传输到FileChannel中（译者注：这个方法在JDK文档中的解释为将字节从给定的可读取字节通道传输到此通道的文件中）。下面是一个简单的例子： 
 
-```Java 
+```java
 RandomAccessFile fromFile = new RandomAccessFile("fromFile.txt", "rw");  
 FileChannel      fromChannel = fromFile.getChannel();  
   
@@ -518,7 +558,7 @@ toChannel.transferFrom(position, count, fromChannel);
 
 transferTo()方法将数据从FileChannel传输到其他的channel中。下面是一个简单的例子： 
 
-```Java 
+```java
 RandomAccessFile fromFile = new RandomAccessFile("fromFile.txt", "rw");  
 FileChannel      fromChannel = fromFile.getChannel();  
   
@@ -552,7 +592,7 @@ Selector（选择器）是Java NIO中能够检测一到多个NIO通道，并能�
 
 通过调用Selector.open()方法创建一个Selector，如下： 
 
-```Java 
+```java
 Selector selector = Selector.open();  
 ```
 
@@ -560,7 +600,7 @@ Selector selector = Selector.open();
 
 为了将Channel和Selector配合使用，必须将channel注册到selector上。通过SelectableChannel.register()方法来实现，如下： 
 
-```Java 
+```java
 channel.configureBlocking(false);  
 SelectionKey key = channel.register(selector,  Selectionkey.OP_READ);  
 ```
@@ -585,7 +625,7 @@ SelectionKey key = channel.register(selector,  Selectionkey.OP_READ);
 
 如果你对不止一种事件感兴趣，那么可以用“位或”操作符将常量连接起来，如下： 
 
-```Java 
+```java
 int interestSet = SelectionKey.OP_READ | SelectionKey.OP_WRITE;  
 ```
 
@@ -607,7 +647,7 @@ int interestSet = SelectionKey.OP_READ | SelectionKey.OP_WRITE;
 
 就像向Selector注册通道一节中所描述的，interest集合是你所选择的感兴趣的事件集合。可以通过SelectionKey读写interest集合，像这样： 
 
-```Java 
+```java
 int interestSet = selectionKey.interes();  
   
 boolean isInterestedInAccept  = (interestSet & SelectionKey.OP_ACCEPT) == SelectionKey.OP_ACCEPT；  
@@ -628,7 +668,7 @@ int readySet = selectionKey.readyOps();
 
 可以用像检测interest集合那样的方法，来检测channel中什么事件或操作已经就绪。但是，也可以使用以下四个方法，它们都会返回一个布尔类型： 
 
-```Java 
+```java
 selectionKey.isAcceptable();  
 selectionKey.isConnectable();  
 selectionKey.isReadable();  
@@ -639,7 +679,7 @@ selectionKey.isWritable();
 
 从SelectionKey访问Channel和Selector很简单。如下： 
 
-```Java 
+```java
 Channel  channel  = selectionKey.channel();  
 Selector selector = selectionKey.selector();  
 ```
@@ -648,14 +688,14 @@ Selector selector = selectionKey.selector();
 
 可以将一个对象或者更多信息附着到SelectionKey上，这样就能方便的识别某个给定的通道。例如，可以附加 与通道一起使用的Buffer，或是包含聚集数据的某个对象。使用方法如下： 
 
-```Java 
+```java
 selectionKey.attach(theObject);  
 Object attachedObj = selectionKey.attachment();  
 ```
 
 还可以在用register()方法向Selector注册Channel的时候附加对象。如： 
 
-```Java 
+```java
 SelectionKey key = channel.register(selector, SelectionKey.OP_READ, theObject);  
 ```
 
@@ -683,7 +723,7 @@ select()方法返回的int值表示有多少通道已经就绪。亦即，自上
 
 一旦调用了select()方法，并且返回值表明有一个或更多个通道就绪了，然后可以通过调用selector的selectedKeys()方法，访问“已选择键集（selected key set）”中的就绪通道。如下所示： 
 
-```Java 
+```java
 Set selectedKeys = selector.selectedKeys();  
 ```
 
@@ -691,7 +731,7 @@ Set selectedKeys = selector.selectedKeys();
 
 可以遍历这个已选择的键集合来访问就绪的通道。如下： 
 
-```Java 
+```java
 Set selectedKeys = selector.selectedKeys();  
 Iterator keyIterator = selectedKeys.iterator();  
 while(keyIterator.hasNext()) {  
@@ -729,7 +769,7 @@ SelectionKey.channel()方法返回的通道需要转型成你要处理的类型�
 
 这里有一个完整的示例，打开一个Selector，注册一个通道注册到这个Selector上(通道的初始化过程略去),然后持续监控这个Selector的四种事件（接受，连接，读，写）是否就绪。 
 
-```Java 
+```java
 Selector selector = Selector.open();  
 channel.configureBlocking(false);  
 SelectionKey key = channel.register(selector, SelectionKey.OP_READ);  
@@ -760,11 +800,24 @@ Java NIO中的FileChannel是一个连接到文件的通道。可以通过文件�
 
 FileChannel无法设置为非阻塞模式，它总是运行在阻塞模式下。 
 
+| 方法说明       | 功能描述                         |
+| ---------- | ---------------------------- |
+| read()     | 将数据从Channel读到Buffer，返回读取的字节数 |
+| write()    | 将Buffer数据写入Channel           |
+| map()      | 将数据映射成ByteBuffer，面向块的处理      |
+| position() | 获取通道当前位置                     |
+| size()     | 获取通道文件的大小                    |
+| truncate() | 截取文件                         |
+| force()    | 将通道里尚未写入磁盘的数据强制写到磁盘上         |
+| lock()     | 获取文件锁，如果无法获取，程序将一直阻塞         |
+| tryLock()  | 尝试获取文件锁                      |
+| close()    | 关闭通道                         |
+
 ## 8.1 打开FileChannel 
 
 在使用FileChannel之前，必须先打开它。但是，我们无法直接打开一个FileChannel，需要通过使用一个InputStream、OutputStream或RandomAccessFile来获取一个FileChannel实例。下面是通过RandomAccessFile打开FileChannel的示例： 
 
-```Java 
+```java
 RandomAccessFile aFile = new RandomAccessFile("data/nio-data.txt", "rw");  
 FileChannel inChannel = aFile.getChannel();  
 ```
@@ -773,7 +826,7 @@ FileChannel inChannel = aFile.getChannel();
 
 调用多个read()方法之一从FileChannel中读取数据。如： 
 
-```Java 
+```java
 ByteBuffer buf = ByteBuffer.allocate(48);  
 int bytesRead = inChannel.read(buf);  
 ```
@@ -786,7 +839,7 @@ int bytesRead = inChannel.read(buf);
 
 使用FileChannel.write()方法向FileChannel写数据，该方法的参数是一个Buffer。如： 
 
-```Java 
+```java
 String newData = "New String to write to file..." + System.currentTimeMillis();  
   
 ByteBuffer buf = ByteBuffer.allocate(48);  
@@ -806,7 +859,7 @@ while(buf.hasRemaining()) {
 
 用完FileChannel后必须将其关闭。如： 
 
-```Java 
+```java
 channel.close();  
 ```
 
@@ -818,7 +871,7 @@ FileChannel的position方法
 
 这里有两个例子： 
 
-```Java 
+```java
 long pos = channel.position();  
 channel.position(pos +123);  
 ```
@@ -831,7 +884,7 @@ channel.position(pos +123);
 
 FileChannel实例的size()方法将返回该实例所关联文件的大小。如： 
 
-```Java 
+```java
 long fileSize = channel.size();  
 ```
 
@@ -839,7 +892,7 @@ long fileSize = channel.size();
 
 可以使用FileChannel.truncate()方法截取一个文件。截取文件时，文件将中指定长度后面的部分将被删除。如：
 
-```Java 
+```java
 channel.truncate(1024);  
 ```
 
@@ -853,7 +906,7 @@ force()方法有一个boolean类型的参数，指明是否同时将文件元数
 
 下面的例子同时将文件数据和元数据强制写到磁盘上： 
 
-```Java 
+```java
 channel.force(true);  
 ```
 
@@ -869,7 +922,7 @@ Java NIO中的SocketChannel是一个连接到TCP网络套接字的通道。可�
 
 下面是SocketChannel的打开方式： 
 
-```Java 
+```java
 SocketChannel socketChannel = SocketChannel.open();  
 socketChannel.connect(new InetSocketAddress("http://jenkov.com", 80));  
 ```
@@ -878,7 +931,7 @@ socketChannel.connect(new InetSocketAddress("http://jenkov.com", 80));
 
 当用完SocketChannel之后调用SocketChannel.close()关闭SocketChannel： 
 
-```Java 
+```java
 socketChannel.close();  
 ```
 
@@ -886,7 +939,7 @@ socketChannel.close();
 
 要从SocketChannel中读取数据，调用一个read()的方法之一。以下是例子： 
 
-```Java 
+```java
 ByteBuffer buf = ByteBuffer.allocate(48);  
 int bytesRead = socketChannel.read(buf);  
 ```
@@ -899,7 +952,7 @@ int bytesRead = socketChannel.read(buf);
 
 写数据到SocketChannel用的是SocketChannel.write()方法，该方法以一个Buffer作为参数。示例如下： 
 
-```Java 
+```java
 String newData = "New String to write to file..." + System.currentTimeMillis();  
   
 ByteBuffer buf = ByteBuffer.allocate(48);  
@@ -923,7 +976,7 @@ while(buf.hasRemaining()) {
 
 如果SocketChannel在非阻塞模式下，此时调用connect()，该方法可能在连接建立之前就返回了。为了确定连接是否建立，可以调用finishConnect()的方法。像这样： 
 
-```Java 
+```java
 socketChannel.configureBlocking(false);  
 socketChannel.connect(new InetSocketAddress("http://jenkov.com", 80));  
   
@@ -950,7 +1003,7 @@ Java NIO中的 ServerSocketChannel 是一个可以监听新进来的TCP连接的
 
 这里有个例子： 
 
-```Java 
+```java
 ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();  
   
 serverSocketChannel.socket().bind(new InetSocketAddress(9999));  
@@ -967,7 +1020,7 @@ while(true){
 
 通过调用 ServerSocketChannel.open() 方法来打开ServerSocketChannel.如： 
 
-```Java 
+```java
 ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();  
 ```
 
@@ -975,7 +1028,7 @@ ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
 
 通过调用ServerSocketChannel.close() 方法来关闭ServerSocketChannel. 如： 
 
-```Java 
+```java
 serverSocketChannel.close();  
 ```
 
@@ -985,11 +1038,9 @@ serverSocketChannel.close();
 
 通常不会仅仅只监听一个连接，在while循环中调用 accept()方法. 如下面的例子： 
 
-```Java 
+```java
 while(true){  
-    SocketChannel socketChannel =  
-            serverSocketChannel.accept();  
-  
+    SocketChannel socketChannel =  serverSocketChannel.accept();
     //do something with socketChannel...  
 }  
 ```
@@ -1064,13 +1115,13 @@ int bytesSent = channel.send(buf, new InetSocketAddress("jenkov.com", 80));
 
 这里有个例子: 
 
-```Java 
+```java
 channel.connect(new InetSocketAddress("jenkov.com", 80));  
 ```
 
 当连接后，也可以使用read()和write()方法，就像在用传统的通道一样。只是在数据传送方面没有任何保证。这里有几个例子： 
 
-```Java 
+```java
 int bytesRead = channel.read(buf);  
 int bytesWritten = channel.write(but);  
 ```
@@ -1082,13 +1133,13 @@ Java NIO 管道是2个线程之间的单向数据连接。Pipe有一个source通
 
 这里是Pipe原理的图示： 
 
-![](http://dl2.iteye.com/upload/attachment/0096/5625/6094cf4e-cc1f-3f90-a185-5854daf930ec.bmp)
+![](img/nio17.png)
 
 ## 12.1 创建管道 
 
 通过Pipe.open()方法打开管道。例如： 
 
-```Java 
+```java
 Pipe pipe = Pipe.open();  
 ```
 
@@ -1096,13 +1147,13 @@ Pipe pipe = Pipe.open();
 
 要向管道写数据，需要访问sink通道。像这样： 
 
-```Java 
+```java
 Pipe.SinkChannel sinkChannel = pipe.sink();  
 ```
 
 通过调用SinkChannel的write()方法，将数据写入SinkChannel,像这样： 
 
-```Java 
+```java
 String newData = "New String to write to file..." + System.currentTimeMillis();  
 ByteBuffer buf = ByteBuffer.allocate(48);  
 buf.clear();  
@@ -1119,13 +1170,13 @@ while(buf.hasRemaining()) {
 
 从读取管道的数据，需要访问source通道，像这样： 
 
-```Java 
+```java
 Pipe.SourceChannel sourceChannel = pipe.source();  
 ```
 
 调用source通道的read()方法来读取数据，像这样： 
 
-```Java 
+```java
 ByteBuffer buf = ByteBuffer.allocate(48);  
   
 int bytesRead = inChannel.read(buf);  

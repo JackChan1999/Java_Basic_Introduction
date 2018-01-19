@@ -12,7 +12,7 @@
 
 总的来说：写在前面的先执行，写在后面的后执行
 
-![](http://img.blog.csdn.net/20150915121601338)
+![](images/java_basic_01.png)
 
 ## 1.3 选择结构
 
@@ -35,7 +35,7 @@ if(关系表达式) {
 - 如果是true就执行语句体
 - 如果是false就不执行语句体
 
-![](http://img.blog.csdn.net/20150915144352359)
+![](images/java_basic_02.png)
 
 注意事项：
 
@@ -59,7 +59,7 @@ if(关系表达式) {
 
 - 如果是false就执行语句体2
 
-![](http://img.blog.csdn.net/20150915121852927)
+![](images/java_basic_03.png)
 
 ```java
 /*
@@ -108,7 +108,7 @@ class IfTest {
 
 运行结果：
 
-![](http://img.blog.csdn.net/20150915200807826)
+![](images/java_basic_04.png)
 
 if语句第三种格式：
 ```java
@@ -132,7 +132,7 @@ else {
   …
 - 如果没有任何关系表达式为true，就执行语句体n+1。
 
-![](http://img.blog.csdn.net/20150915121904097)
+![](images/java_basic_05.png)
 
 ```java
 /*
@@ -180,7 +180,7 @@ class IfTest2 {
 ```
 运行结果：
 
-![](http://img.blog.csdn.net/20150915201115284)
+![](images/java_basic_06.png)
 
 switch语句格式：
 ```java
@@ -214,7 +214,7 @@ switch(表达式) {
 - 其次，和case依次比较，一旦有对应的值，就会执行相应的语句，在执行的过程中，遇到break就会结束。
 - 最后，如果所有的case都和表达式的值不匹配，就会执行default语句体部分，然后程序结束掉。
 
-![](http://img.blog.csdn.net/20150915144712516)
+![](images/java_basic_07.png)
 
 ```java
 /*
@@ -266,7 +266,7 @@ class SwitchTest4 {
 
 运行结果：
 
-![](http://img.blog.csdn.net/20150915201828997)
+![](images/java_basic_08.png)
 
 （3）if语句和switch语句的区别?
 if语句：
@@ -312,7 +312,7 @@ for(初始化语句;判断条件语句;控制条件语句) {
 - 执行控制条件语句
 - 回到B继续
 
-![](http://img.blog.csdn.net/20150915121918277)
+![](images/java_basic_09.png)
 
 注意事项
 
@@ -373,7 +373,7 @@ class ForDemo6 {
 
 运行结果：
 
-![](http://img.blog.csdn.net/20150915202334167)
+![](images/java_basic_10.png)
 
 ### 代码示例：回文数
 
@@ -412,7 +412,7 @@ class ForDemo7 {
 
 运行结果：
 
-![](http://img.blog.csdn.net/20150915202558738)
+![](images/java_basic_11.png)
 
 ## 2.4 while循环语句格式
 
@@ -432,7 +432,7 @@ while(判断条件语句) {
       控制条件语句;
 }
 ```
-![](http://img.blog.csdn.net/20150915121925274)
+![](images/java_basic_12.png)
 
 ### 循环结构(for循环和while循环的区别)：
 
@@ -489,7 +489,7 @@ class WhileDemo2 {
 
 运行结果：
 
-![](http://img.blog.csdn.net/20150915203010891)
+![](images/java_basic_13.png)
 
 ```java
 /*
@@ -536,7 +536,7 @@ class WhileDemo3 {
 
 运行结果：
 
-![](http://img.blog.csdn.net/20150915203133764)
+![](images/java_basic_14.png)
 
 ## 2.4 while循环和for循环的区别?
 
@@ -586,7 +586,7 @@ do {
      控制条件语句;
 } while((判断条件语句);
 ```
-![](http://img.blog.csdn.net/20150915121948678)
+![](images/java_basic_15.png)
 
 注意死循环：
 
@@ -652,7 +652,7 @@ class ForForDemo3 {
 
 运行结果：
 
-![](http://img.blog.csdn.net/20150915204245546)
+![](images/java_basic_16.png)
 
 ## 2.7 跳转控制语句
 
@@ -854,7 +854,7 @@ class ReturnDemo {
 
 ## 3.6 方法调用图解
 
-![](http://img.blog.csdn.net/20150915205110421)
+![](images/java_basic_17.png)
 
 ## 3.7 方法重载
 - 方法重载概述
@@ -915,7 +915,7 @@ class FunctionTest6 {
 
 运行结果：
 
-![](http://img.blog.csdn.net/20150915205300810)
+![](images/java_basic_18.png)
 
 # 4. 数组
 
@@ -963,21 +963,21 @@ Java 程序在运行时，需要在内存中的分配空间。为了提高运算
 - 本地方法区 (和系统相关)
 - 寄存器 (给CPU使用)
 
-![](http://img.blog.csdn.net/20150915205628275)
+![](images/java_basic_19.png)
 
 ## 4.6 Java中数组的内存图解
 
 图解1：定义一个数组，输出数组名及元素。然后给数组中的元素赋值，再次输出数组名及元素。
 
-![](http://img.blog.csdn.net/20150915195628224)
+![](images/java_basic_20.png)
 
 图解2：定义两个数组，分别输出数组名及元素。然后分别给数组中的元素赋值，分别再次输出数组名及元素。
 
-![](http://img.blog.csdn.net/20150915195748587)
+![](images/java_basic_21.png)
 
 图解3：定义两个数组，先定义一个数组，赋值，输出。然后定义第二个数组的时候把第一个数组的地址赋值给第二个数组。然后给第二个数组赋值，再次输出两个数组的名及元素。
 
-![](http://img.blog.csdn.net/20150915195916902)
+![](images/java_basic_22.png)
 
 ## 4.7 数组的初始化
 静态初始化：初始化时指定每个数组元素的初始值，由系统决定数组长度。
@@ -1190,7 +1190,7 @@ class ArrayTest2 {
 ```
 运行结果：
 
-![](http://img.blog.csdn.net/20150915210501782)
+![](images/java_basic_23.png)
 
 ### 4.10.3 数组元素逆序
 
@@ -1276,7 +1276,7 @@ class ArrayTest3 {
 ```
 运行结果：
 
-![](http://img.blog.csdn.net/20150915210712273)
+![](images/java_basic_24.png)
 
 ### 4.10.4 数组基本查找
 
@@ -1351,7 +1351,7 @@ class ArrayTest5 {
 ```
 运行结果：
 
-![](http://img.blog.csdn.net/20150915210925705)
+![](images/java_basic_25.png)
 
 ## 4.11 随机点名器
 

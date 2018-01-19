@@ -16,6 +16,7 @@
   * [基本数据类型包装类](第2章 Java编程基础/基本数据类型包装类.md)
   * [阿里巴巴Java开发手册](第2章 Java编程基础/阿里巴巴Java开发手册.md)
   * [阿里 Java 开发手册最新完美版，千锤百炼始出炉](第2章 Java编程基础/阿里 Java 开发手册最新完美版，千锤百炼始出炉.md)
+  * [阿里《Java开发手册》终极版！](第2章 Java编程基础/阿里《Java开发手册》终极版！.md)
   * [Google Java编程风格指南](第2章 Java编程基础/Google Java编程风格指南.md)
   * [Java程序员必读的书籍](第2章 Java编程基础/Java程序员必读的书籍.md)
   * [详细介绍JAVA和C++区别](第2章 Java编程基础/详细介绍JAVA和C++区别.md)
@@ -36,6 +37,7 @@
   * [多态](第3章 面向对象/多态.md)
   * [抽象类与接口](第3章 面向对象/抽象类与接口.md)
   * [接口回调](第3章 面向对象/接口回调.md)
+  * [闭包](第3章 面向对象/闭包.md)
   * [内部类](第3章 面向对象/内部类.md)
   * [异常](第3章 面向对象/异常.md)
 
@@ -71,22 +73,37 @@
   * [JDK8对并发的新支持](第5章 多线程/JDK8对并发的新支持.md)
   * [阻塞队列](第5章 多线程/阻塞队列.md)
   * [Java并发工具包concurrent用户指南](第5章 多线程/Java并发工具包concurrent用户指南.md)
+  * [Fork/Join框架介绍](第5章 多线程/Fork_Join框架介绍.md)
   * [多线程问题总结](第5章 多线程/多线程问题总结.md)
 
 ----
 
 * [第6章 集合框架](第6章 集合框架/README.md)
-  * [集合框架](第6章 集合框架/集合框架.md)
-  * [集合框架工具类](第6章 集合框架/集合框架工具类.md)
+  * [Collection接口](第6章 集合框架/Collection接口.md)
+  * [List接口](第6章 集合框架/List接口.md)
+  * [Set接口](第6章 集合框架/Set接口.md)
+  * [Queue接口](第6章 集合框架/Queue接口.md)  
+  * [集合的遍历](第6章 集合框架/集合的遍历.md)
+  * [集合工具类](第6章 集合框架/集合工具类.md)
+  * [Map接口](第6章 集合框架/Map接口.md)
+  * [Predicate和Stream操作集合](第6章 集合框架/Predicate和Stream操作集合.md)
+  * [集合框架的综合应用](第6章 集合框架/集合框架的综合应用.md)
   * [Java集合类型详解](第6章 集合框架/Java集合类型详解.md)
+  * [LinkedList源码剖析](第6章 集合框架/LinkedList源码剖析.md)
+  * [LinkedHashMap源码剖析](第6章 集合框架/LinkedHashMap源码剖析.md)
+  * [HashMap、哈希表、哈希函数](第6章 集合框架/HashMap、哈希表、哈希函数.md)
+  * [HashMap的实现原理](第6章 集合框架/HashMap的实现原理.md)
+  * [HashMap源码剖析](第6章 集合框架/HashMap源码剖析.md)
 
 ----
 
 * [第7章 IO流](第7章 IO流/README.md)
   * [IO流之File类](第7章 IO流/IO流之File类.md)
-  * [IO流之字节流和字符流](第7章 IO流/IO流之字节流和字符流.md)
+  * [IO流之字节流](第7章 IO流/IO流之字节流.md)
+  * [IO流之字符流](第7章 IO流/IO流之字符流.md)
   * [常用IO流](第7章 IO流/常用IO流.md)
   * [NIO](第7章 IO流/NIO.md)
+  * [NIO工具类](第7章 IO流/NIO工具类.md)
   * [AIO](第7章 IO流/AIO.md)
   * [NIO和AIO](第7章 IO流/NIO和AIO.md)
   * [序列化流](第7章 IO流/序列化流.md)
@@ -140,3 +157,8 @@
   * [你应该更新的Java知识之Observer](第11章 新特性/你应该更新的Java知识之Observer.md)
   * [Google Guava官方教程](第11章 新特性/Google Guava官方教程.md)
   * [Java 代码性能优化](第11章 新特性/Java 代码性能优化.md)
+
+----
+
+* [第12章 内存管理](第12章 内存管理/README.md)
+  * [JVM 内存模型 Stack Heap](第12章 内存管理/JVM 内存模型 Stack Heap.md)
